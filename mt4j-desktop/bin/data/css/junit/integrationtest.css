@@ -1,0 +1,12 @@
+MTTextArea {background-color: purple;}
+MTRectangle {background-color: green;}
+MTPolygon {background-color: red; }
+.MTEllipse {background-color: white; }
+* {border-color: blue; background-color: black; }
+MTRectangle > MTTextArea {background-color: lime;}
+MTRectangle MTTextArea {background-color: blue;}
+MTRectangle MTRectangle {background-color: gray;}
+#fonttest {font-family: sans; font-style: normal; font-weight: light;}
+#widthtest {width: 90px;}
+#heighttest {height: 110px;}
+#sizetest {width: 120px; height: 450px;}

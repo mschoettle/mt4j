@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="src" path="examples"/>
+	<classpathentry kind="src" path="tests"/>
+	<classpathentry kind="src" path="extensions"/>
+	<classpathentry kind="lib" path="lib/GlulogicMT.jar"/>
+	<classpathentry kind="lib" path="lib/junit-4.8.2.jar"/>
+	<classpathentry kind="lib" path="lib/mri.jar"/>
+	<classpathentry kind="lib" path="lib/batik/batik-anim.jar"/>
+	<classpathentry kind="lib" path="lib/batik/batik-awt-util.jar"/>
+	<classpathentry kind="lib" path="lib/batik/batik-bridge.jar"/>
+	<classpathentry kind="lib" path="lib/batik/batik-dom.jar"/>
+	<classpathentry kind="lib" path="lib/batik/batik-ext.jar"/>
+	<classpathentry kind="lib" path="lib/batik/batik-extension.jar"/>
+	<classpathentry kind="lib" path="lib/batik/batik-gvt.jar"/>
+	<classpathentry kind="lib" path="lib/batik/batik-parser.jar"/>
+	<classpathentry kind="lib" path="lib/batik/batik-script.jar"/>
+	<classpathentry kind="lib" path="lib/batik/batik-svg-dom.jar"/>
+	<classpathentry kind="lib" path="lib/batik/batik-svggen.jar"/>
+	<classpathentry kind="lib" path="lib/batik/batik-transcoder.jar"/>
+	<classpathentry kind="lib" path="lib/batik/batik-util.jar"/>
+	<classpathentry kind="lib" path="lib/batik/batik-xml.jar"/>
+	<classpathentry kind="lib" path="lib/batik/js.jar"/>
+	<classpathentry kind="lib" path="lib/batik/pdf-transcoder.jar"/>
+	<classpathentry kind="lib" path="lib/batik/xml-apis.jar"/>
+	<classpathentry kind="lib" path="lib/whirlylib/log4j-1.2.8.jar"/>
+	<classpathentry kind="lib" path="lib/whirlylib/whirlycache-1.0.1.jar"/>
+	<classpathentry kind="lib" path="extensions/lib/jbullet/jbullet.jar"/>
+	<classpathentry kind="lib" path="extensions/lib/jbullet/stack-alloc.jar"/>
+	<classpathentry kind="lib" path="extensions/lib/jbullet/vecmath.jar"/>
+	<classpathentry kind="lib" path="examples/advanced/flickrMT/lib/flickrj.jar"/>
+	<classpathentry kind="lib" path="examples/advanced/fluidSimulator/lib/MSAFluid.jar"/>
+	<classpathentry kind="lib" path="examples/advanced/modestMapsMT/lib/modestMaps.jar"/>
+	<classpathentry kind="lib" path="examples/advanced/physics/lib/jbox2d.jar"/>
+	<classpathentry kind="lib" path="examples/advanced/water/lib/waterScene.jar"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/mt4j-core"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="/mt4j-core/lib/batik-css.jar"/>
+	<classpathentry kind="lib" path="/mt4j-core/lib/xml-apis-ext.jar"/>
+	<classpathentry kind="lib" path="lib/jogl/gluegen-rt.jar"/>
+	<classpathentry kind="lib" path="lib/muito_blobtracking.jar"/>
+	<classpathentry kind="lib" path="lib/tuio/tuio4j.jar"/>
+	<classpathentry kind="lib" path="lib/tuio/tuio4jinput.jar"/>
+	<classpathentry kind="lib" path="lib/core.jar"/>
+	<classpathentry kind="lib" path="lib/jogl/opengl.jar"/>
+	<classpathentry kind="lib" path="lib/jogl/jogl.jar">
+		<attributes>
+			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="mt4j-desktop"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

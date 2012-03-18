@@ -1,0 +1,265 @@
+Change log for MT4j - Multi-Touch for Java
+
+=== Version 0.98 (30/3/2011): ===
+=== Input/Gestures: ===
+* added UniStroke stroke gesture processor (1$ Gesture)
+* added Rotate3D processor 3-finger gesture 
+* input event propagation - > MTInputEvent's now have a currentTarget and an eventPhase (CAPTURING_PHASE/AT_TARGET/BUBBLING_PHASE) and bubble up the component hierarchy - stop input event bubbling using mtInputEvent.stopPropagation() - -> we should use event.getCurrentTarget() for most tasks instead of
+getTarget() now -> only the processors of the parent that we set inputProcessor.setEnableForBubbledEvents(true) will use the bubbled events (false by default)
+* AbstractCursorProcessor now works with AbstractCursorInputEvt instead of MTFingerInputEvt -> Note: Fiducial Events will also trigger the default gestures!
+* input processors now have 2 more states: GESTURE_CANCELED and GESTURE_RESUMED -> GESTURE_CANCELED occurs when the gesture is aborted because a higher priority gesture took over one or more cursors. GESTURE_RESUMED is called if the gesture gets a lock on the needed cursors again - Note that after GESTURE_CANCELED, no GESTURE_ENDED has to follow because the gesture may never be resumed!
+* added MTMouseInputEvt which carries the mouse button and modifiers which was used in MouseInputSource
+* changed the TapProcessor to cancle the tap if the cursor is moved too far
+* added possibility to limit lasso size by limiting the vertex count and distance to last vertex
+
+=== Components: ===
+* for conformity reasons changed the constructors of many shapes and widgets to have the PApplet instance as their first paremeter
+* Cluster: dont attach the camera of one of the clustered components but instead return the camera at getViewingCam() 
+* removed textarea's snapToKeyboard method -> added snapToKeyboard(MTTextarea) method of MTKeyboard instead!
+* let AbstractShape implement ILassoable -> so all shapes can now be lassoed (in conjuction with a LassoProcessor ofc)
+* added removeAllListElements() to MTList
+* removed all AWT/Swing stuff from core -> so MTImageButton and MTSVGButton dont accept an ActionListener anymore! -> instead just add a TapProcessor gesture listener!
+* AbstractVisibleComponent: create a copy of the fill/stroke color upon setting it
+* MTColor: ability to create write protected/unchangeable colors
+* do automatic VBO deletion of AbstractShapes in GeometryInfo's finalize() method now
+* MTTriangleMesh: if custom outline contours are provided and drawing is set to use displaylists, the default outline displaylist is not created, which saves
+time and resources
+* AbstractShape: added drawPureGl abstract method
+* renamed get/setBoundingShape -> to get/setBounds() etc.
+* mtcliprectangle now also resets the clip size if the local size changes
+* changed keyboard input processors so that we can scale/rot keyboard if the cursors on the keys move too much
+
+=== Other: ===
+* added easy to use "Ani" animation library - added "AniAnimation" class which can replace the old "Animation" class
+* added basic css support (see MTCSSStylableShape and CSSStyleManager)- for custom behaviour you can override applyStylesCustom()
+* added extensions directory to mt4j-desktop distro
+* added OpenGL interfaces which are used instead of the real OpenGL context - GL10, GL11, GL20, GL11Plus (Desktop usually uses GL11Plus which implements all interfaces, Android GL10 or GL11)
+* added IGraphicsUtil interface and implementations to abstract graphics (Desktop jogl, Android OpenGL ES)
+* moved GeometryInfo class into shapes packages were it belongs
+* GeometryInfo: change OpenGL display list creation to not use the Tools3D method but to rather call the shapes drawPureGl() method so we dont need the
+draw logic twice
+* moved font facilities, factories into org.mt4j.util.font
+* font loading now only supports to specify fill color 
+* font characters overwritten draw methods now which dont set a color so that the font color can be set once before drawing all characters (i.e.
+in MTTextArea) and can be changed dynamically -> now new font has to be created if we just want a different font color!
+* InertiaDragAction: fix wrong behaviour if parents are transformed
+* removed the GPL tuioLib and added LGPL Tujo4J library
+* renamed iDragClusterable -> ILassoable
+* override PImage resize() in gltexture to refresh the gl texture object also
+* dont destroy gltexture in shape's destroy() method, but rely on the finalize() method (since we create and re-use GLTextures now in mtApplication.loadImage())
+* allow NPOT textures by using next power of two texture size (android mostly doesent support NPOT texture sizes OpenGL extensions)
+* added adaptTextureCoordsNPOT() method to Tools3D
+* added MTApplication.registerPreDrawAction(IPreDrawAction action) - similar to
+the methods in AbstractScene -> replaced PApplet.registerPre() calls with that (Android version doesent have
+these methods)
+* removed the (GPL) GStreamer and GSVideo library and put it into the extensions svn -> also moved MTMovieClip and MTVideoTexture to the extension
+* in fullscreen exclusive mode, its now possible to switch to a different screen
+resolution (* we now only set the window width/height to the screen dimensions if in non-exclusive fullscreen mode, else we try to switch to the given resolution)
+
+
+=== Examples: ===
+* added simple Processing particle engine example
+* you can now pan while you zoom in the Maps Example
+* maps scene: now we animate to the optimal zoom level after zoom gesture ended
+-> to get a clearer image
+* you can drag tiles while rotating in the Puzzle Example
+* added stroke gestures, double tap and flick to MTGesturesExamplesScene
+* added flick gestures to Scenes Example
+* added rotate3d processor to model in ModelsExample
+
+
+
+=== Version 0.95 (08/13/2010): ===
+=== Input: ===
+* added Mac OSX multitouch support (MacTrackPadSource)
+* added 64 bit windows 7 touch support (win7Touch64.dll) -> mt4j loads the right dll for each architecture automatically
+* added support for getting the touch contact size from windows 7 touch events
+* added MTWin7TouchInputEvt input event which now also holds the touch contact size
+* removed JNative dependencies -> doing it all in Win7Touch dlls now
+* added possibility to set a scale min/max limit for the DefaultScaleAction gesture listener
+* changed tap processor behaviour so it wont resume the gesture if a cursor was locked by a higher priority gesture before -> this will prevent a tap after a scale gesture for example on the same component
+* TapProcessor is now able to recognize double tapping -> disabled by default -> to enable it use tapProcessor.setEnableDoubleTap(true); or the right constructor -> the time interval to detect double taps can be set with
+tapProcessor.setDoubleTapTime(300); in (ms) -> to check if a TapEvent is a double tap, use tapEvent.isDoubleTap()
+* added getPostion() and getStartPosition() at InputCursor class, returns the current or start position of the specified cursor objects
+* fixed bug in InputManager that wouldnt unregister the input source from being updated by processing each frame with (calling pre()) after calling unregisterInputSource() so that it would have almost no effect.
+* added onRegistered() and onUnregistered() method in all input sources that are called when they are un/registered from the input manager; the registering with processing's pre() method is done there instead of the constructor
+* cleaned up/rewrote drag, scale, rotate processors using new convenience methods from AbstractCursorProcessor
+* TiuoInputSource now connects only if really registered and disconnects if unregistered from the application
+
+=== Examples: ===
+* added puzzle example
+* added puzzle to MTShell
+* added opengl renderer check in models3d scene so it wont crash in software mode
+* added "png" file suffix in in Model3dsFileFactory to be able to load png textures with a 3d model
+* added a java swing/awt example which integrates a MT4j window into a java swing gui application
+* added double tap to MTGestures example
+* added check in pyhsics shapes to only destroy the body if it still exists in the physics world
+* lowered mouse/drag joint strength to prevent erratic behaviour
+* made fluidsimulation example a little more dynamic
+* added car model and use it in model3dscene
+* improved Maps Scene to fade in new map tiles (thx to Spalatin)
+* waterScene: get window dimensions from settings instead of window, -> may have caused wrong dimensions sometimes
+* model3dscene removed rustbin.obj and kentosaurus.3ds
+* replaced models3d mtshell picture with teapot
+
+=== Components: ===
+* added MTComplexPolygon which allows to have concave, self-intersecting or polygons with holes in it
+* fixed a bug with listCellContainer positioning in MTList when _not_ creating it at (0,0)
+* added ability to add a bounding shape to any MTComponent base class. Per default check the boundingshape in ray intersection test
+* made MTLine pickable/selectable by using a bounding polygon -> works on the z=0 plane
+* fixed drawing bug in MTTriangleMesh that wouldnt disable the client state for color arrays if no outline is drawn
+* added MTVideoTexture class to provide a plain textured rectangle as video -> so you can add your own custom controls if needed
+* added new MTMovieClip class which is closeable, has a volume and seeking slider
+* fixed things in polygon drawing in the software renderer -> MTShell scene looks almost identical in both renderers now
+* added vertex color check at MTPolygon if setUseDirectGL is set to false
+* added new constructor to mtscenewindow to specify FBO width and height (=>resolution)
+* removed default input processors from mtbackgroundimage
+* added localToParent(Vector3D) and parentToLocal(Vector3D) in MTComponent to convert points relative to the parent coordinate space
+* At MTTextfield At local resize of text field, we now also resize the rectangular clip shape to make it fit the field
+* fixed bug that used centerpoint global instead of relative to parent in mtpolygon.getWidth/HeightRelativeToParent
+* now, every 1000 rotations, the inverse matrix is calculated using invert() to get greater precision than from the incremental approach and now, every 1500 rotations we re-orthogonalize the matrix so it doesent introduce shearing/scale because of round off errors
+* removed viewport methods from IMTComponent3D interface and MTComponent
+* renamed set/get/isBoundingShape with set/get/hasBounds()
+* new constructor in MTRectangle with just width,height assuming upper left at 0,0,0
+* added scrollY(amount) method to MTList to allow scrolling by command
+* fixed bug in PickResult -> pickResult.getInterSectionPointNearestPickedObj() always returning null
+* added proper line breaking in MTTextarea when using fixed dimensions,removed getInnerPadding method, added set/getInnerPaddingTop/Left
+* MTTextArea, getText() will return the text that was set - without artificially added newLine characters
+* added new GLTexture class and GLTextureSettings class to replace the old GLTexture, replaced the class in all using classes, removed GLConstants class
+* default GLTexture wrapping mode is now GL_CLAMP_TO_EDGE and not GL_REPEAT
+* re-worked abstractshape's setTexture() method -> should now scale the texture coordinates automatically from/to un/normalized texture coordinates
+* added setFont() to MTTextArea to change the font
+* added ExpandDirection enum and setting to MTTextArea to define the behaviour if a new line is added. The default mode was changed to expand the textarea downwards instead of upwards because thats mostly whats needed. To get the old behaviour use "textArea.setExpandDirection(ExpandDirection.UP);"
+* remove text input listener that is created by MTKeyboard.createNewTextArea() when the textarea is destroyed
+* made getInterSectionLocal and componentContainsPointLocal etc no more abstract in AbstractVisibleComponent so its not required to implement them. MTComponent already implements these methods if a bounding shape is set
+* by default MTKeyboard now also takes input from the hardware keyboard - to change, use setHardwareInputEnabled(boolean)
+* added constructors in MTTextArea that dont need a font, default font is used then
+* moved getWidthXY/getHeightXY implementation into AbstractShape so it doesent have to be implemented in subclasses
+* MTLine no longer returns the length if using getWidthXY, use getLengthGlobal/RelativeToParent/Local() instead
+* MTTextArea: changed so that the local upper left coord is always at (0,0,0) -> in automatic EXPAND_MODE it would change it to be not at 0,0,0! now its consistent -> this may change some textarea's position in old code!
+* added getIntersectionGlobal(InputCursor cursor) in MTComponent
+
+=== Other: ===
+* moved to Processing version 1.1
+* changed source file encoding to UTF-8 to be compatible with chinese characters etc
+* add support for loading resources bundled inside of .jar files/classpath instead of local file system only
+* added "MTApplication.separator" String which should be used from now on instead of "File.Sepatator" for providing resource file locations
+* moved the "/data" directory into the "src/data" directory to include it in jar files if exported as jar. also, processing's loadImage etc methods will automatically search in the "data/" directory
+* added some JUnit tests under /tests/
+* added a way for bitmap and TTF Fonts to try to reload font characters that are not loaded by default => better support for foreign languages
+* made MTApplication abstract to force implementation of the startUp() (now also abstract) method in subclasses
+* updated the gsvideo(0.6pre), JNA and java gstreamer libraries (1.2) => should work well with Gstreamer Version 0.10.3
+* changed gsvideo to implement isPlaying() more inaccurate -> but gPlayer.isPlaying could lead to hangups! -> gstreamer bug?
+* renamed FboStack class -> GLFboStack for name conformity
+* replaced the deprecated glBindBufferARB() by glBindBuffer() calls in all drawing functions and tools functions and constants
+* renamed ToolsIntersection class to "ToolsGeometry" and moved many static geometry helper methods from "Tools3D" class into ToolsGeometry
+* renamed FastMath -> ToolsMath, moved some methods from Tools3D into ToolsMath
+* changed TTFontFactory to create vector font characters without an outline if the outline color == the fill color and opengl multisampling is enabled (-> vector font will look nicer at small scale then)
+* get/set the default characters to load for the font from a public string "defaultCharacters" in the factory
+* added isRenderThreadCurrent() instance method to MTApplication class which allows to check whether the current thread is the rendering thread (opengl context is only valid in the rendering thread)
+* added gl vendor and gl renderer info strings to the startup logging
+* removed PGraphicsOpenGL class and added extended CustomPGraphicsOpenGL class to avoid license problems and also inherit the newest features from the original PGraphicsOpenGL from the processing distribution
+* added architecture check - MT4jSettings.getArchitecture()
+* moved BitMapFontFactory to package org.processing.core for protected visibility use, renamed BitmapFontFactory to BitmapFontFactoryProxy and created a BitmapFontFactory class which delegates to the proxy class
+* changed ttf and bitmapfont to both use 'i' character as length reference for whitespace
+* bitmap font characters now use POT texture
+* added IFont.destroy() method to destroy a font and its characters and release its (opengl) resources
+* added removeFromCache(font) in FontManager to allow garbage collection of a font (automatically called by font.destroy()
+* Added SettingsMenu class which allows to configure the settings for the MT4j application before starting it, instead of loading the settings from Settings.txt file -> allows to set settings if loaded from web-start
+* per default snap the bitmap font text of MTTextArea to Integer translation values to prevent bitmap font rendering artifacts -> aligns the text with the screen pixels with the default camera -> may be disabled 
+* per default use bilinear filtering for bitmap font characters -> makes them smoother if scaled
+* added possibility to force anti-aliasing off for Fonts by setting "antiAliased" false at FontManager.getInnstance().createFont(..) -> especially useful for small bitmap fonts! -> better readability
+* added color constants like MTColor.WHITE in MTColor
+* changed behaviour of OpenGL renderer to not recreate opengl context if embedded into a swing app and a size change is requested -> probably fixes "cant destroy gl context if it is current" error but in turn distorts the opengl view if window resized..
+* removed Eureka90.vlw font -> added Ziggurat.vlw instead (smaller file size)
+* allow loading of .bold .bolditalic .italic .plain system fonts in FontManager (e.g. "SansSerif.bold")
+* added getDefaultFont() in FontManager class, can be changed using public static fields
+* by default removed opengl error reporting
+* deprecated MT4jSettings.getInstance.getScreenWidth/height() to be replaced by getWindowWidth/height() which is named more correctly
+* use finalize() in GLFBO, GLTexture and GluTriangulator to clean up the OpenGL resources
+* added ShapeBuilder utility class to create polygons using simple commands
+* many little fixes
+
+=== Version 0.9 (02/23/2010): ===
+=== Input: ===
+* new WM_TOUCH windows 7 input source -> supporting native windows 7 touch input, registered by default if possible
+* fixed bug that didnt register an inputsource correctly in some cases
+* active input events are flushed from input sources before a scene change
+* added global input processor "CursorTracer" that shows all active touches/cursors on the screen
+* renamed ClusteringEvent->LassoEvent
+* added InertiadragAction -> allows to add inertia to dragging
+* dont automatically add the MTCanvas as a listener to all newly registered global input processors
+* completely reworked Tap&Hold Processor and event (now sends updated events with the elapsed time, we have to check if the hold was successful at gesture_ended)
+* added TapAndHoldVisualizer -> a tapandHold gesture listener which will gradually draw a circle during the tap&hold gesture
+* renamed inputcursor.getLastEvent to getCurrentEvent()
+* changed component input processors to accept only "MTFingerInput" events so that fiducial events dont trigger them
+* added "MultipleDragProcessor" component input processor that tracks all dragging fingers on a component instead of only one as in the regular dragprocessor
+* changed return value of gesturelisteners to false (indicating that the event isnt consumed, but has no real implications yet)
+* Tapprocessor doesnt check if a component is intersected at touch anymore (allows MTCanvas to be tapped)
+* most component input processors only accept input events that have a target (prevents MTCanvas' processors to get events without target)
+* when registering a global input processor it is disabled if the scene it belongs to is not the currently active scene
+* deleted packages for global input processors, put all in the same package
+* changed raw input processors to forward MTInputevent's instead of creating own Raw* events -> delete the Raw input events
+* many minor changes
+
+=== Scenes: ===
+* added possibility to use scene transition effects (available transitions: slide, flip, fade, blend)
+* handling of input during a scene change is now more robust
+* fixed a bug at changing scenes, where the old scene wouldnt recieve an INPUT_ENDED evt
+* added scene.destroy() that cleans it up, removes it from the application and destroys its canvas so the memory can be freed (scene has to be added to the app to be able to destroy it)
+* if changeScene() is invoked with a scene that's not in the scene list its added automatically
+
+=== Examples: ===
+* added MTShell example -> you can launch other scenes with it and switch between them
+* added MTGestures examples scene showing all available multi-touch gestures
+* added interactive water example
+* added Touch-Tail example
+* added Box2D physics integration and 2 physics examples -> "Airhockey" and "PhysicsScene"
+* added Scenes example that shows how to use and switch between different scenes with transition effects
+* divided examples into �basic� and "advanced" packages
+* Fiducial scene now recieves MTFiducialInputEvt events
+* changed model3d scene to be a model loading scene and made the former model3dscene into the space3D scene
+* added controls for choosing different map providers in MapsScene
+* overhauled drawing scene -> you can now use a texture brush and choose the color and width of the brush and save the picture to file
+* many minor changes
+
+=== Components: ===
+* added widget MTList that you can add MTListCell components to. With automatic layout, scrolling and clipping
+* added widget MTColorPicker widget to select a color
+* added widget MTOverlayContainer which is a container that tries to stay on top and isnt influenced by the scene camera -> useful for overlay controls, HUD etc
+* added widget MTSceneMenu which can be used to close and restore scene windows
+* added widget MTBackgroundImage which can display a pixel or svg image, the pixel image can also be tiled
+* added widget MTTextField which has a fixed sized, clips the text and allows no newline
+* fixed bug in MTComponent that wouldnt call destroy() on all children because the childlist would change during child destruction
+* fixed bug in BoundingSphere calculation
+* fixed and reworked PickResult class
+* fixed memory leak in MTTriangleMesh, uses less memory in general, faster loading, you can choose if you want to create default normals in constructor -> switched off for SVGs and Font -> faster!
+* changed picking in MTComponent to work with PickResult
+* added pick(int, int, boolean) in MTComponent to allow to pick components that are marked as not pickable, too
+* added method "setAnchor(..)" in MTRectangle that allows to choose the reference point for get/setposition
+* removed update() method from mtcomponent
+* reworked clipping code, you can now clip everything drawn by a component by using setClip(Clip) and use arbitrary clipping shapes clipping of children of a component is done with setChildClip(Clip), 
+* removed "ChildClipMask" -> renamed and changed to "FillPaint", ChildClipMask is now "Clip"
+* removed set/isCollidable in MTComponent (not implemented atm anyway)
+* added "Itextinputlistener" to MTKeyboard and removed "ITextInputAcceptor" -> you can now add more than 1 text listener to a keyboard
+* changed MTTextarea to use 2 modes -> self expanding or fixed size with clipping -> Constructor decides
+* renamed setBoundsPickingBehaviour() -> setBoundsBehaviour() since it affects more than picking
+* changed boundsZPlaneRectangle bounding shape and arbitrary bounds to calc width/Height relative to parent/world, not from transformed local vector but from transformed bounds and then again calc bounding rect again -> width is aligned to the x, height to the y axis this way	
+* changed Geometryinfo class to only create new color buffers if not existent yet -> else update them -> no new buffers -> memory saved
+* changed appearance of MTSlider and made slider not only draggable but also clickable
+* renamed "slider" in MTSlider to "knob" -> now its slider.getKnob()
+* added check in mtcomponent if a input processor of same type is registered twice -> throws warning
+* fixed bug in MTLine that wouldnt reset the line stipple after use (thanks to Bewilderbeast)
+* renamed former MTSceneWindow to MTSceneTexture, added another MTSceneWindow class that uses a MTSceneTexture inside
+* deleted deprectated MTCircleMenu and MTCircleMenuItem
+* changed bitmapfont to use "NEAR" filtering because text was filtered too much sometimes with "LINEAR" -> of course now gets more pixelated when scaled
+* many minor changes
+
+=== Other: ===
+* added new setting in Settings.txt "FullscreenExclusive" (true/false) which can be set to false if fullscreen mode has problems
+* changed use of modelloading factory to be more consistent with the other factories
+* removed some images which did belong to another app
+* fixed a bug in Animation class that always sent ANIMATION_STARTED events
+* changed timing in main loop to use System.nanoTime()
+* added ManyMouse.so to allow the use of multiple mice under linux
+* many minor changes

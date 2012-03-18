@@ -1,0 +1,32 @@
+H1 {background-color: red;}
+#ID {background-color: blue;}
+.c0 {background-color: green;}
+
+H2, H3, H4 {background-color: black;}
+#ID2, #ID3, #ID4 {background-color: purple;}
+.c2, .c3, .c4 {background-color: silver;}
+
+* {background-color: olive;}
+*H5 {background-color: white;}
+*#ID5 {background-color: gray;}
+*.c5 {background-color: maroon;}
+
+H6 H6 {background-color: red;}
+H6.c6 {background-color: blue;}
+H6#ID6 {background-color: green;}
+
+.c6 H6 {background-color: red;}
+.c6.c6 {background-color: blue;}
+.c6#ID6 {background-color: green;}
+
+#ID6 H6 {background-color: red;}
+#ID6.c6 {background-color: blue;}
+#ID6#ID6 {background-color: green;}
+
+H6           #ID7 {background-color: purple;}
+LI * STRONG {background-color: purple;}
+
+H7 > H8 {background-color: red;}
+H7>#ID7.c7 {background-color: blue;}
+H7 H8 > #ID7  STRONG {background-color: green;}
+

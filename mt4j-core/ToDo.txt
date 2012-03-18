@@ -1,0 +1,166 @@
+ToDo list:
+
+-> General:
+- processing.com post and bug report (font)
+- add setAnchor(Vector3D anchorPoint) for all AbstractShapes? -> use in set/getPosition() -> per default use centerpoint -> rotate(45) -> use anchor by default?
+- how to differentiate between manipulations and gestures? 
+- add more stateChange events (e.g. transformed, globally position changed etc)
+- in boundingShapes -> calculate width/height screen or object aligned? -> rather object aligned..
+- put get/setWidth/Height into MTComponent?
+- more JUnit tests
+- compile Win7Touch.dll with VS 2008? -> Check if redistributable package is needed for running
+
+- remove logging from model loading -> consumes memory even if the logging level doesent match?
+- nice image for touch cursor
+- allow wrapping of JComponents in a MTComponent (-> swingToTexture, repaintManager update, generate mouse events)
+- use PGraphics.pushStyle()/popStyle when rendering with processing!?
+
+- how to differentiate between manipulations and gestures? (-> if we flick with priotiry 1.5f and then abort we have to start dragging but from the startposition, not the current one!)
+- enable a way so that even if input starts on a components the input can be redirected/replayed to another (parent or below) 
+  so that if the comp doesent handle the gesture, the parent can use it (example: start zoom, even if not the background was hit)
+  => or do with global processors?
+  => example, component with 2 children; children are tappable but when dragging on either children the component should
+     move, not the child whos dragged -> send evt to parent
+     
+- make inputevent recorder -> IMTInputListener
+- let all implementations of processInputEvent return false by default (->not consumed), or true-> for handled?
+
+- dont save vertices if we are in opengl -> we have to save vertices+we create new floatbuffers = 2*memory!
+	-> save only buffers and at getVerticesLocal -> create vertices from buffer -> not needed often
+	-> at setUseDirectGL(false) -> delete buffers and use vertices
+
+- compile 64 bit manymouse
+- shapes example, line, polyine(polygon not closed), custom shapes with bezier, concave shapes with triangulation
+- gui, widgets example
+- how to create own component example
+- how to create own gesture example
+- brainstorm example - textareas + draw links!
+
+- mt4j as p5 library - difficult because mtapplication is derived from papplet
+- manymouse problem loadlibrary!? -> Compile on Mac!
+- add sound library (OpenAL?)
+- by default disable depth buffer and only for special 3d stuff enable it?
+- check if for line_smooth disabling/enabling multisampling is too expensive - if so disable/dont use line_smooth when multisampling at all 
+- framework for component persistation (X-Stream?)
+- put perspective and viewport into MTCamera (?)
+- (update to latest gsvideo)
+- (Use nanotimer or currentmillis or gage timer to update and animations? -> nano has more precision but has problems on some systems(?))
+- Central TextureManager/Ogl resource manager that tracks the opengl texture ids and deletes them if not needed anymore
+- (a new MT4JTexture class/interface which internally creates a processing or opengl texture - the mixture make problems)
+- (save trans/rot/scale separately, not in a single matrix and compose matrix b4 each draw -> not orthogonalization req.)
+- (dropshadows - with custom created pimage?)
+- (bug when drawing outline after clipping on frustum culled object, dont draw outline then!)
+- (b4 picking, check if object in frustum ? - update cam - check if obj in frustum)
+- (use render bins and sort object automagically (2d, 3d, Hud, transparent))? 
+- (make class SceneDrawIterator? that implements the drawAndUpdateCanvas of MTCanvas so it can be called for single nodes to draw nodes with all children)
+
+
+-> Components:
+- use layoutBounds (parent relative, axis aligned bounds)
+- geometry setColorBinding(BIND_PER_VERTEX)/BIND_SINGLE_COLOR to allow simple coloring using glColor()?
+- LayoutContainer/Manager
+- updateBounds/Layout() if childrens transform changes?
+- add ShapeGroup component that offers methods like getCenterPoint and getWidth etc taking child shapes into account
+- at clipping check if clipshape would be screen aligned rect -> use glScissor instead of stencil buffer -> performance!
+- create generic gradientPaint FillPaints to use with setFillPaint() - will only work with AbstractShapes..
+- make setEnableTransformStateEvents -> fire stateChangeEvts if transformed in any way (but children are also moved, fire also..?)
+- find a way to determine if a geometryinfo is shared or not -> if not -> delete displayLists!!
+- delete opengl objects in object.finalize() ?
+- at setters make boolean parameter recurseChildren to also apply it to children? e.g. setPickable(true, true)
+- sprite component with acceleration/velocity/collision/ animatable with textures?
+- store Vertices only in floatBuffers instead of buffers+array to reduce memory consumption? (test if it matters)
+- use glpush/popattrib at drawing? -> speed up drawing -> externalize rendering? (ie. renderer.renderBuffers(..));
+- make propertychange listener/events in MTComponent? (useful in many components)
+- add more gui elements -> sperate model | view(setUIDelegate) (MTCheckbox)
+- Keyboard internationalize -> xml?
+- switch in abstractshape to draw boundingshape
+- test if frustum culling working when canvas scaled? camera zoomed etc?
+- record displaylists with drawComponent() method instead of Tools3D.generateDisplist..
+- (implement color picking for performance?)
+- (use bitmapfont in mtprogressbar)
+- (make mtmovieclip display the start frame at loading, nicen up ui, add pause button etc)
+- (combine appearance -> material, texture, smoothing, colors, lights etc)
+
+-> Online:
+- mention component state changes/listeners in component tutorial
+- features -media supports, jpg,png,avi etc
+- at multitouch gestures page add link to java doc processor?
+- Component structure
+- Gestures: 
+	- tapAndHold
+	- Arcball
+	- doubletap
+	- rotate3D
+- Examples:
+	- new pictures for gestures, water, shell example	
+- Faq: 
+	- faq: how to get the best visual quality: use v_sync, use multisample,
+	- how to use MTVideo -> how to install GStreamer (Windows, Linux, OSx)
+- Troubleshooting section
+	- not working with netbeans/other IDE -> probably Jogl natives wrong -> add "-Djava.library.path=C:\pathToMT4j" to VM Arguments
+- Tutorials: 
+	- how to create a 2d overlay
+	- how to best deploy your mt application (Jars, Files + Directory structure, FatJar)
+	- scene graph, example, component hierarchy image, default camera, z direction out of screen
+	- how to create my own components (extend which class, intersection etc)
+	- how to create my own gesture/evt -> sometimes we dont need new processor, can use existing (Drag->flick->gesturelistner)
+	- how to work with components/shapes (boundings, clipping, rot/trans/scale, addchild, color, displaylist, outline) -setUseDirectGL/list/VBO!
+	- animations
+	- scenes/transitions
+	- working with widgets
+- Download packages
+
+
+-> MTSceneWindow/MTWindow:
+- in MTShell always start scenes fullscreen
+- how to deal with init() shutdown()? 
+- (make fbo /texture power of two but use texcoords to fit)
+
+
+-> Typography:
+- scalable bitmapfont/re-create it after zoom end
+- add and implement setCursorPos() in MTTextArea
+- add setText()/setLabel() to buttons
+- (make bitmapfontfactory create the same size fonts as the ttf/svg factories, there is a difference now - fixed, but fontascent's different?)
+- (store scale information in every fontcharacter, but only change current matrix if new scale different from last)
+
+
+-> Gestures/Input
+- hold&drag gesture
+- 2/3 finger tap gesture
+- differentiate between manipulation s and gestures? (1 difference is: eg. flick is a gesture, drag a manipulation, we have to wait if it is a flick -> if not switch to drag but start drag from the 1st event, not resume at current)
+- support Linux HID touch
+- add ability in component processors to get informed of other cursors, not from the component?
+- Change Tap&Hold gesture behaviour to match Windows -> send gesture_ended only if finger lifted, not if time is up
+- Win7Input source -> use getActiveWindow() -> reject windows Tap and HOld gestures -> set TWF_WANTPALM at registerTouchwindow or not? -> TEST! ->http://social.msdn.microsoft.com/Forums/en/tabletandtouch/thread/2a173296-49b6-4f25-860f-953ae6038857
+- add GenericTwoFingerGesture that delivers the touch points on the drag-plane -> methods for getLastRotation etc
+- resume some gestures only if the cursor is still on the object -> else abort -> make abortGesture() method in all processors!
+- implement logically meaningful returns of boolean processInputEvent() - when return true, when false, how to react?
+- add keyboard input source sending keyboard events to the focused/selected component -> FocusManager?
+- (if object that is dragged, scaled etc is destroyed while during gesture -> nullpointer error -> check if viewing cam is null!)
+
+
+-> SVG:
+- make loading threaded by doing it in an abstractprogessthread
+- linestipple in svgs not working (nested.svg)?
+- (we could make the creation elements generic by calling a registered class (callback) (i.e. svgLoader.getPathImpl().getGFXElement()))
+- (check arcTo endpoint parametrization method. is there a bug? - check arcs example at w3.org)
+- (group opacity?)
+
+
+-> Scenes:
+- more transition effects (grid exploding)
+- rename init() and shutdown() to "onEnter()" and "onLeaving()"?
+- add a generic scene loading scene?
+- create Abstract2DScene withouth depthbuffer writing and orthographic camera? (maybe also different intersection tests)
+
+
+-> Animations:
+- AnimationUtil static -> fadeOut(component) fadeIn() etc
+- implement keyframe animations - TimeLine?
+- (animation with pluggable/extendable interpolation function)
+
+
+-> Bounding:
+- boundingshape intersection tests - sphere/sphere/ sphere/box/rect (-draw() and update() sperarate again?)
+- add logic and code for boundingshape merging (child needs to inform parents if bounds changed ->reMerge) (use physics enginge for that?)

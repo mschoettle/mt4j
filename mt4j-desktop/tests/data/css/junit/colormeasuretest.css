@@ -1,0 +1,23 @@
+#testrgbcolor {background-color: rgb(60%,60%,40%);}
+#testhexcolor {background-color: #E0E0E0;}
+#testNameColorWhite {background-color: white;}
+#testNameColorRed {background-color: red;}
+#testNameColorGreen {background-color: green;}
+#testNameColorBlue {background-color: blue;}
+#testNameColorPurple {background-color: purple;}
+
+#testWidth {width: 100px;}
+#testHeight {height: 100px;}
+#testWidthPercentage {width: 25%;}
+#testHeightPercentage {height: 25%;}
+
+#testMeasuresPx {width: 100px;}
+#testMeasuresCm {width: 100cm;}
+#testMeasuresIn {width: 100in;}
+#testMeasuresMm {width: 100mm;}
+#testMeasuresPt {width: 100pt;}
+#testMeasuresPc {width: 100pc;}
+#testMeasuresEm {width: 100em;}
+#testMeasuresInt {width: 100;}
+#testMeasuresReal {width: 123.4;}
+#testMeasuresPerc {width: 25%;}
