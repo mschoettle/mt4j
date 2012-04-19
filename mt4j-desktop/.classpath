@@ -24,7 +24,6 @@
 	<classpathentry kind="lib" path="lib/batik/js.jar"/>
 	<classpathentry kind="lib" path="lib/batik/pdf-transcoder.jar"/>
 	<classpathentry kind="lib" path="lib/batik/xml-apis.jar"/>
-	<classpathentry kind="lib" path="lib/whirlylib/log4j-1.2.8.jar"/>
 	<classpathentry kind="lib" path="lib/whirlylib/whirlycache-1.0.1.jar"/>
 	<classpathentry kind="lib" path="extensions/lib/jbullet/jbullet.jar"/>
 	<classpathentry kind="lib" path="extensions/lib/jbullet/stack-alloc.jar"/>
@@ -43,11 +42,12 @@
 	<classpathentry kind="lib" path="lib/tuio/tuio4j.jar"/>
 	<classpathentry kind="lib" path="lib/tuio/tuio4jinput.jar"/>
 	<classpathentry kind="lib" path="lib/core.jar"/>
-	<classpathentry kind="lib" path="lib/jogl/opengl.jar"/>
 	<classpathentry kind="lib" path="lib/jogl/jogl.jar">
 		<attributes>
 			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="mt4j-desktop"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="lib/jogl/opengl.jar"/>
+	<classpathentry kind="lib" path="lib/whirlylib/org.apache.log4j_1.2.15.v201012070815.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
