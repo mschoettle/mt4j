@@ -49,7 +49,6 @@ public class CSSStyleManager {
 		this.app = app;
 	}
 
-
 	/**
 	 * Instantiates a new CSS style manager.
 	 *
@@ -316,5 +315,14 @@ public class CSSStyleManager {
 		return defaultFont;
 	}
 	
-	
+	// bugfix to fix memory leak
+	// see: https://code.google.com/p/mt4j/issues/detail?id=36
+    /**
+     * Unregister component.
+     * 
+     * @param c the c
+     */
+    public void unregisterComponent(CSSStylableComponent c) {
+        components.remove(c);
+    }
 }

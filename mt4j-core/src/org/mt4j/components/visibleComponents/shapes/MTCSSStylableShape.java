@@ -163,6 +163,15 @@ public abstract class MTCSSStylableShape extends AbstractShape implements CSSSty
 	 * @param virtualStyleSheet the virtual style sheet
 	 */
 	abstract protected void applyStyleSheetCustom(CSSStyle virtualStyleSheet);
+	
+	
+	// bugfix to fix memory leak
+	// see: https://code.google.com/p/mt4j/issues/detail?id=36
+	@Override
+	public void destroy() {
+	    this.mtApp.getCssStyleManager().unregisterComponent(this);
+	    super.destroy();
+	}
 
 
 }
