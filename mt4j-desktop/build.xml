@@ -6,7 +6,7 @@
     	
     	<!-- set properties for directories -->
         <property name="workspace.dir" location="${basedir}/.."/>
-        <property name="build.dir" location="${workspace.dir}/ca.mcgill.sel.ram.gui/lib/"/>
+        <property name="build.dir" location="${basedir}"/>
     	<property name="jar.file" location="${build.dir}/mt4j.jar"/>
     	
     	<!-- create jar task -->
