@@ -22,13 +22,11 @@ import org.mt4j.components.TransformSpace;
 import org.mt4j.components.bounds.BoundsZPlaneRectangle;
 import org.mt4j.components.bounds.IBoundingShape;
 import org.mt4j.components.css.style.CSSStyle;
-import org.mt4j.util.PlatformUtil;
 import org.mt4j.util.MT4jSettings;
 import org.mt4j.util.math.Tools3D;
 import org.mt4j.util.math.Vector3D;
 import org.mt4j.util.math.Vertex;
 import org.mt4j.util.opengl.GLTexture;
-import org.mt4j.util.opengl.GLTexture.TEXTURE_TARGET;
 
 import processing.core.PApplet;
 import processing.core.PImage;
@@ -60,7 +58,9 @@ public class MTRectangle extends MTPolygon {
 		UPPER_LEFT,
 		
 		/** The CENTER. */
-		CENTER
+		CENTER,
+		
+		UPPER_RIGHT
 	}
 	
 	
@@ -315,23 +315,34 @@ public class MTRectangle extends MTPolygon {
 		case CENTER:
 			super.setPositionGlobal(position);
 			break;
-		case LOWER_LEFT:{
-			Vertex[] vertices = this.getVerticesGlobal();
-			Vertex lowerLeft = new Vertex(vertices[3]);
-			this.translateGlobal(position.getSubtracted(lowerLeft));
-		}break;
-		case LOWER_RIGHT:{
-			Vertex[] vertices = this.getVerticesGlobal();
-			Vertex v = new Vertex(vertices[2]);
-			this.translateGlobal(position.getSubtracted(v));
-		}break;
-		case UPPER_LEFT:{
-			Vertex[] vertices = this.getVerticesGlobal();
-			Vertex upperLeft = new Vertex(vertices[0]);
-			this.translateGlobal(position.getSubtracted(upperLeft));
-		}break;
-		default:
-			break;
+		case LOWER_LEFT:
+    		{
+    			Vertex[] vertices = this.getVerticesGlobal();
+    			Vertex lowerLeft = new Vertex(vertices[3]);
+    			this.translateGlobal(position.getSubtracted(lowerLeft));
+    		}
+    		break;
+		case LOWER_RIGHT:
+    		{
+    			Vertex[] vertices = this.getVerticesGlobal();
+    			Vertex v = new Vertex(vertices[2]);
+    			this.translateGlobal(position.getSubtracted(v));
+    		}
+    		break;
+		case UPPER_LEFT:
+    		{
+    			Vertex[] vertices = this.getVerticesGlobal();
+    			Vertex upperLeft = new Vertex(vertices[0]);
+    			this.translateGlobal(position.getSubtracted(upperLeft));
+    		}
+    		break;
+		case UPPER_RIGHT:
+    		{
+    		    Vertex[] vertices = this.getVerticesGlobal();
+                Vertex v = new Vertex(vertices[1]);
+                this.translateGlobal(position.getSubtracted(v));
+    		}
+            break;
 		}
 	}
 	
@@ -344,26 +355,38 @@ public class MTRectangle extends MTPolygon {
 		case CENTER:
 			super.setPositionRelativeToParent(position);
 			break;
-		case LOWER_LEFT:{
-			Vertex[] vertices = this.getVerticesLocal();
-			Vertex lowerLeft = new Vertex(vertices[3]);
-			lowerLeft.transform(this.getLocalMatrix());
-			this.translate(position.getSubtracted(lowerLeft), TransformSpace.RELATIVE_TO_PARENT);
-		}break;
-		case LOWER_RIGHT:{
-			Vertex[] vertices = this.getVerticesLocal();
-			Vertex v = new Vertex(vertices[2]);
-			v.transform(this.getLocalMatrix());
-			this.translate(position.getSubtracted(v), TransformSpace.RELATIVE_TO_PARENT);
-		}break;
-		case UPPER_LEFT:{
-			Vertex[] vertices = this.getVerticesLocal();
-			Vertex v = new Vertex(vertices[0]);
-			v.transform(this.getLocalMatrix());
-			this.translate(position.getSubtracted(v), TransformSpace.RELATIVE_TO_PARENT);
-		}break;
-		default:
-			break;
+		case LOWER_LEFT:
+    		{
+    			Vertex[] vertices = this.getVerticesLocal();
+    			Vertex lowerLeft = new Vertex(vertices[3]);
+    			lowerLeft.transform(this.getLocalMatrix());
+    			this.translate(position.getSubtracted(lowerLeft), TransformSpace.RELATIVE_TO_PARENT);
+    		}
+    		break;
+		case LOWER_RIGHT:
+    		{
+    			Vertex[] vertices = this.getVerticesLocal();
+    			Vertex v = new Vertex(vertices[2]);
+    			v.transform(this.getLocalMatrix());
+    			this.translate(position.getSubtracted(v), TransformSpace.RELATIVE_TO_PARENT);
+    		}
+    		break;
+		case UPPER_LEFT:
+    		{
+    			Vertex[] vertices = this.getVerticesLocal();
+    			Vertex v = new Vertex(vertices[0]);
+    			v.transform(this.getLocalMatrix());
+    			this.translate(position.getSubtracted(v), TransformSpace.RELATIVE_TO_PARENT);
+    		}
+    		break;
+		case UPPER_RIGHT:
+    		{
+    		    Vertex[] vertices = this.getVerticesLocal();
+                Vertex v = new Vertex(vertices[1]);
+                v.transform(this.getLocalMatrix());
+                this.translate(position.getSubtracted(v), TransformSpace.RELATIVE_TO_PARENT);
+    		}
+    		break;
 		}
 	}
 
@@ -388,8 +411,8 @@ public class MTRectangle extends MTPolygon {
 				return new Vector3D(this.getVerticesLocal()[2]);
 			case UPPER_LEFT:
 				return new Vector3D(this.getVerticesLocal()[0]);
-			default:
-				break;
+			case UPPER_RIGHT:
+			    return new Vector3D(this.getVerticesLocal()[1]);
 			}
 			break;
 		case RELATIVE_TO_PARENT:
@@ -408,8 +431,10 @@ public class MTRectangle extends MTPolygon {
 				v = new Vector3D(this.getVerticesLocal()[0]);
 				v.transform(this.getLocalMatrix());
 				return v;
-			default:
-				break;
+			case UPPER_RIGHT:
+			    v = new Vector3D(this.getVerticesLocal()[1]);
+                v.transform(this.getLocalMatrix());
+                return v;
 			}
 			break;
 		case GLOBAL:
@@ -428,8 +453,10 @@ public class MTRectangle extends MTPolygon {
 				v = new Vector3D(this.getVerticesLocal()[0]);
 				v.transform(this.getGlobalMatrix());
 				return v;
-			default:
-				break;
+			case UPPER_RIGHT:
+			    v = new Vector3D(this.getVerticesLocal()[1]);
+                v.transform(this.getGlobalMatrix());
+                return v;
 			}
 			break;
 		default:
