@@ -42,7 +42,7 @@ import org.mt4j.util.math.Vector3D;
 public class InputCursor{
 	private static final ILogger logger = MTLoggerFactory.getLogger(InputCursor.class.getName());
 
-	private static final int EVENT_HISTORY_DEPTH = 99;
+	private static final int EVENT_HISTORY_DEPTH = 256;
 	static{
 		logger.setLevel(ILogger.ERROR);
 	}
@@ -349,7 +349,8 @@ public class InputCursor{
 //            events.subList(0, 30).clear();
 //        }
 		if (events.size() > EVENT_HISTORY_DEPTH ){
-          events.remove(0);
+		    // Don't remove the first event in case a user requests the start position of the cursor.
+            events.remove(1);
           //logger.debug(this.getId() + " - First event removed!");
 //          System.out.println("First event removed!");
       }
