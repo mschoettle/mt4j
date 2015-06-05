@@ -46,7 +46,8 @@ public class BitmapFont implements IFont, ITextureFont {
 	static{
 //		logger.setLevel(ILogger.ERROR);
 //		logger.setLevel(ILogger.WARN);
-		logger.setLevel(ILogger.DEBUG);
+	    // Turned off from DEBUG.
+		logger.setLevel(ILogger.OFF);
 	}
 	
 	/** The characters. */

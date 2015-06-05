@@ -39,7 +39,8 @@ import processing.core.PApplet;
 public class FontManager {
 	private static final ILogger logger = MTLoggerFactory.getLogger(FontManager.class.getName());
 	static{
-		logger.setLevel(ILogger.INFO);
+	    // Turned off from INFO.
+		logger.setLevel(ILogger.OFF);
 	}
 	
 	/** The font manager. */
@@ -188,7 +189,7 @@ public class FontManager {
 		
 		IFont font = this.getCachedFont(fontAbsoultePath, fontSize,	fillColor, antiAliased);
 		if (font != null){
-			System.out.println("Using cached font (" + fontFileName + ")");
+			// System.out.println("Using cached font (" + fontFileName + ")");
 			return font;
 		}
 		

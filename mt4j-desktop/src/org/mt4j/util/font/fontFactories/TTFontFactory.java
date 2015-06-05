@@ -53,7 +53,8 @@ public class TTFontFactory implements IFontFactory{
 	private static final ILogger logger = MTLoggerFactory.getLogger(TTFontFactory.class.getName());
 	static{
 //		logger.setLevel(ILogger.ERROR);
-		logger.setLevel(ILogger.WARN);
+	    // Turned off from WARN.
+		logger.setLevel(ILogger.OFF);
 //		logger.setLevel(ILogger.DEBUG);
 	}
 	

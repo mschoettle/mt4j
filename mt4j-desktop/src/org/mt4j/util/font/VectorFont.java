@@ -47,7 +47,8 @@ public class VectorFont implements IFont {
 	static{
 //		logger.setLevel(ILogger.ERROR);
 //		logger.setLevel(ILogger.WARN);
-		logger.setLevel(ILogger.DEBUG);
+	    // Turned off from DEBUG.
+		logger.setLevel(ILogger.OFF);
 	}
 	
 	/** The characters. */

@@ -46,7 +46,8 @@ public class BitmapFontFactoryProxy implements IFontFactory {
 		logger = MTLoggerFactory.getLogger(BitmapFontFactoryProxy.class.getName());
 //		logger.setLevel(ILogger.ERROR);
 //		logger.setLevel(ILogger.WARN);
-		logger.setLevel(ILogger.DEBUG);
+		// Turned off from DEBUG.
+		logger.setLevel(ILogger.OFF);
 	}
 	
 	public static String defaultCharacters = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ¡¿…»ÕÃ”“abcdefghijklmnopqrstuvwxyz·‡ÈËÌÏÛÚ<>|,;.:-_#'+*!\"ß$%&/()=?¥{[]}\\@";

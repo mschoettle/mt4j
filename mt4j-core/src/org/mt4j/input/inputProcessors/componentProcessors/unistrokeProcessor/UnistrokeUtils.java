@@ -247,7 +247,7 @@ public class UnistrokeUtils {
 			float otherScore = 1.0f - (sndBest / getHalfDiagonal());
 			float ratio = otherScore / score;
 
-			System.out.println("Gesture recognition score: " + score);
+			// System.out.println("Gesture recognition score: " + score);
 			if (g != null && score > 0.7) {
 				
 				return g;
