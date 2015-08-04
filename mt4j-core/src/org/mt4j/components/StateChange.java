@@ -35,6 +35,9 @@ public enum StateChange {
 	/**  CHILD added. */
 	CHILD_ADDED,
 	
+	/** Component was translated. */
+	TRANSLATED,
+	
 	/*
 	//TODO add TRANSFORMED? global matrix changed? local matrix changed? scaled? rotated? translated * 
  * - boundsChanged (local transforms + setVertices/geometry)

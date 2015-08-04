@@ -25,7 +25,6 @@ import java.util.Map;
 import org.mt4j.components.PickResult.PickEntry;
 import org.mt4j.components.bounds.IBoundingShape;
 import org.mt4j.components.clipping.Clip;
-import org.mt4j.components.clusters.Cluster;
 import org.mt4j.components.css.util.CSSStylableComponent;
 import org.mt4j.components.interfaces.IMTComponent3D;
 import org.mt4j.components.interfaces.IMTController;
@@ -38,8 +37,8 @@ import org.mt4j.input.inputProcessors.IGestureEventListener;
 import org.mt4j.input.inputProcessors.IInputProcessor;
 import org.mt4j.input.inputProcessors.MTGestureEvent;
 import org.mt4j.input.inputProcessors.componentProcessors.AbstractComponentProcessor;
-import org.mt4j.util.PlatformUtil;
 import org.mt4j.util.MT4jSettings;
+import org.mt4j.util.PlatformUtil;
 import org.mt4j.util.camera.IFrustum;
 import org.mt4j.util.camera.Icamera;
 import org.mt4j.util.logging.ILogger;
@@ -1335,7 +1334,9 @@ public class MTComponent implements IMTComponent3D, IMTInputEventListener, IGest
 		this.setLocalMatrixInternal(ms[0].translateMult(this.getLocalMatrix(), this.getLocalMatrix()));
 		try {
 //			this.setLocalInverseMatrixInternal(this.getLocalInverseMatrix().multLocal(ms[1]));
-			this.setLocalInverseMatrixInternal(this.getLocalInverseMatrix().translateMultLocal(ms[1])); 
+			this.setLocalInverseMatrixInternal(this.getLocalInverseMatrix().translateMultLocal(ms[1]));
+			
+			fireStateChange(StateChange.TRANSLATED);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
