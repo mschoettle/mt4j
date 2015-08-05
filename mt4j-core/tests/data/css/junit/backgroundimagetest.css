@@ -1,0 +1,4 @@
+#id0 {background-image: url(256x256.jpg);}
+#id1 {background-repeat: repeat-x; }
+#id2 {background: red url(256x256.jpg) repeat-x;}
+#id3 {background: repeat-x; }

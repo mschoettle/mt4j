@@ -1,0 +1,2 @@
+FlickrApiKey=
+FlickrSecret=

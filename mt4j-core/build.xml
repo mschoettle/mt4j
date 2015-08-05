@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project default="create_run_jar" name="Create Runnable Jar for Project mt4j-desktop">
+    <!--this file was created by Eclipse Runnable JAR Export Wizard-->
+    <!--ANT 1.7 is required                                        -->
+    <target name="create_run_jar">
+    	
+    	<!-- set properties for directories -->
+        <property name="workspace.dir" location="${basedir}/.."/>
+        <property name="build.dir" location="${basedir}"/>
+    	<property name="jar.file" location="${build.dir}/mt4j.jar"/>
+    	
+    	<!-- create jar task -->
+        <echo message="Creating jar file ..."/>
+        <jar destfile="${jar.file}" filesetmanifest="mergewithoutmain">
+            <manifest>
+                <attribute name="Main-Class" value="basic.mtGestures.StartMTGestures"/>
+                <attribute name="Class-Path" value="."/>
+            </manifest>
+            <fileset dir="${workspace.dir}/mt4j-desktop/bin"/>
+            <zipfileset excludes="META-INF/*.SF" src="${workspace.dir}/mt4j-desktop/lib/GlulogicMT.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="${workspace.dir}/mt4j-desktop/lib/junit-4.8.2.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="${workspace.dir}/mt4j-desktop/lib/mri.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="${workspace.dir}/mt4j-desktop/lib/batik/batik-anim.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="${workspace.dir}/mt4j-desktop/lib/batik/batik-awt-util.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="${workspace.dir}/mt4j-desktop/lib/batik/batik-bridge.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="${workspace.dir}/mt4j-desktop/lib/batik/batik-dom.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="${workspace.dir}/mt4j-desktop/lib/batik/batik-ext.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="${workspace.dir}/mt4j-desktop/lib/batik/batik-extension.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="${workspace.dir}/mt4j-desktop/lib/batik/batik-gvt.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="${workspace.dir}/mt4j-desktop/lib/batik/batik-parser.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="${workspace.dir}/mt4j-desktop/lib/batik/batik-script.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="${workspace.dir}/mt4j-desktop/lib/batik/batik-svg-dom.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="${workspace.dir}/mt4j-desktop/lib/batik/batik-svggen.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="${workspace.dir}/mt4j-desktop/lib/batik/batik-transcoder.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="${workspace.dir}/mt4j-desktop/lib/batik/batik-util.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="${workspace.dir}/mt4j-desktop/lib/batik/batik-xml.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="${workspace.dir}/mt4j-desktop/lib/batik/js.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="${workspace.dir}/mt4j-desktop/lib/batik/pdf-transcoder.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="${workspace.dir}/mt4j-desktop/lib/batik/xml-apis.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="${workspace.dir}/mt4j-desktop/lib/whirlylib/whirlycache-1.0.1.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="${workspace.dir}/mt4j-desktop/extensions/lib/jbullet/jbullet.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="${workspace.dir}/mt4j-desktop/extensions/lib/jbullet/stack-alloc.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="${workspace.dir}/mt4j-desktop/extensions/lib/jbullet/vecmath.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="${workspace.dir}/mt4j-desktop/examples/advanced/flickrMT/lib/flickrj.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="${workspace.dir}/mt4j-desktop/examples/advanced/fluidSimulator/lib/MSAFluid.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="${workspace.dir}/mt4j-desktop/examples/advanced/modestMapsMT/lib/modestMaps.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="${workspace.dir}/mt4j-desktop/examples/advanced/physics/lib/jbox2d.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="${workspace.dir}/mt4j-desktop/examples/advanced/water/lib/waterScene.jar"/>
+            <fileset dir="${workspace.dir}/mt4j-core/bin"/>
+            <zipfileset excludes="META-INF/*.SF" src="${workspace.dir}/mt4j-core/lib/ani.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="${workspace.dir}/mt4j-core/lib/batik-css.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="${workspace.dir}/mt4j-core/lib/xml-apis-ext.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="${workspace.dir}/mt4j-desktop/lib/core.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="${workspace.dir}/mt4j-desktop/lib/jogl/jogl.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="${workspace.dir}/mt4j-desktop/lib/jogl/gluegen-rt.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="${workspace.dir}/mt4j-desktop/lib/muito_blobtracking.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="${workspace.dir}/mt4j-desktop/lib/tuio/tuio4j.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="${workspace.dir}/mt4j-desktop/lib/tuio/tuio4jinput.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="${workspace.dir}/mt4j-desktop/lib/jogl/opengl.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="${workspace.dir}/mt4j-desktop/lib/whirlylib/org.apache.log4j_1.2.15.v201012070815.jar"/>
+        </jar>
+    </target>
+</project>

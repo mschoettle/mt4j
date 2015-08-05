@@ -1,0 +1,43 @@
+#sans {font-family: sans;}
+#sansbold {font-family: sans; font-weight: bold;}
+#sanslight {font-family: sans; font-weight: light;}
+#sansitalic {font-family: sans; font-style: italic;}
+#sansitalicbold {font-family: sans; font-style: italic; font-weight: bold;}
+#sansitaliclight {font-family: sans; font-style: italic; font-weight: light;}
+#sansoblique {font-family: sans; font-style: oblique;}
+#sansobliquebold {font-family: sans; font-style: oblique; font-weight: bold;}
+#sansobliquelight {font-family: sans; font-style: oblique; font-weight: light;}
+#sansnormal {font-family: sans; font-style: normal;}
+#sansnormalbold {font-family: sans; font-style: normal; font-weight: bold;}
+#sansnormallight {font-family: sans; font-style: normal; font-weight: light;}
+
+#serif {font-family: serif;}
+#serifbold {font-family: serif; font-weight: bold;}
+#seriflight {font-family: serif; font-weight: light;}
+#serifitalic {font-family: serif; font-style: italic;}
+#serifitalicbold {font-family: serif; font-style: italic; font-weight: bold;}
+#serifitaliclight {font-family: serif; font-style: italic; font-weight: light;}
+#serifoblique {font-family: serif; font-style: oblique;}
+#serifobliquebold {font-family: serif; font-style: oblique; font-weight: bold;}
+#serifobliquelight {font-family: serif; font-style: oblique; font-weight: light;}
+#serifnormal {font-family: serif; font-style: normal;}
+#serifnormalbold {font-family: serif; font-style: normal; font-weight: bold;}
+#serifnormallight {font-family: serif; font-style: normal; font-weight: light;}
+
+#mono {font-family: mono;}
+#monobold {font-family: mono; font-weight: bold;}
+#monolight {font-family: mono; font-weight: light;}
+#monoitalic {font-family: mono; font-style: italic;}
+#monoitalicbold {font-family: mono; font-style: italic; font-weight: bold;}
+#monoitaliclight {font-family: mono; font-style: italic; font-weight: light;}
+#monooblique {font-family: mono; font-style: oblique;}
+#monoobliquebold {font-family: mono; font-style: oblique; font-weight: bold;}
+#monoobliquelight {font-family: mono; font-style: oblique; font-weight: light;}
+#mononormal {font-family: mono; font-style: normal;}
+#mononormalbold {font-family: mono; font-style: normal; font-weight: bold;}
+#mononormallight {font-family: mono; font-style: normal; font-weight: light;}
+
+#arial {font-family: "arial.ttf"; font-style: italic; font-weight: 90;}
+#arial12 {font-family: "arial.ttf"; font-size: 12pt;}
+#arialgreen {font-family: "arial.ttf"; color: green;}
+#arialsmaller {font-family: "arial.ttf"; font-size: smaller;}
