@@ -26,7 +26,6 @@ import java.nio.IntBuffer;
 import java.util.StringTokenizer;
 
 import javax.media.opengl.GL2;
-import javax.media.opengl.GLException;
 import javax.media.opengl.glu.GLU;
 
 import org.mt4j.AbstractMTApplication;
@@ -212,9 +211,8 @@ public class Tools3D {
 				
 				//-> in dekstop version glScale(1,-1,1) is done every frame because in (Desktop) opengl
 				// 0,0 is on the down left corner instead of upper left
-				if (PlatformUtil.isAndroid()){
-					screenY = MT4jSettings.getInstance().getWindowHeight() - screenY;
-				}
+				// Not only Android is inverted but also Processing 2.0
+				screenY = MT4jSettings.getInstance().getWindowHeight() - screenY;
 				
 				projectionTmp.apply(modelViewTmp);
 				projectionTmp.invert(); //Expensive!
@@ -469,11 +467,9 @@ public class Tools3D {
 			float x = applet.screenX(point.x, point.y, point.z);
 			
 			float y = 0;
-			if (PlatformUtil.isAndroid()){ //because android opengl isnt inverted..?
-				y = applet.screenY(point.x, (MT4jSettings.getInstance().getWindowHeight() - point.y) * -1, point.z); //	 applet.height - screenY
-			}else{
-				y = applet.screenY(point.x, point.y, point.z);
-			}
+			
+			// Not only Android is inverted but also Processing 2.0
+			y = applet.screenY(point.x, (MT4jSettings.getInstance().getWindowHeight() - point.y) * -1, point.z); //	 applet.height - screenY
 			
 //			float y = applet.screenY(point.x, point.y, point.z);
 //			float y = applet.screenY(point.x, -1 * point.y, point.z); //	y = -1 * y;
