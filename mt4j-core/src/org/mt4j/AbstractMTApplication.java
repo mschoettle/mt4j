@@ -73,7 +73,7 @@ import processing.opengl.PGraphicsOpenGL;
  * 
  * @author Christopher Ruff
  */
-public abstract class AbstractMTApplication extends PApplet implements IMTApplication{
+public abstract class AbstractMTApplication extends PApplet {
 	/** The Constant logger. */
 	protected static ILogger logger;
 	

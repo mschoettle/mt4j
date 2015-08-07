@@ -11,7 +11,7 @@ FullscreenExclusive=false
 DisplayWidth=1024
 DisplayHeight=768
 #Which display to use for fullscreen
-Display=1
+Display=0
 #Framerate maximum
 MaximumFrameRate=60
 #Vertical_sync:'true' or 'false'
