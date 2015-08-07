@@ -460,7 +460,7 @@ public class MTTextArea extends MTRectangle implements ITextInputListener, Compa
 		
 		if (this.isUseDirectGL()){
 //			GL gl = Tools3D.beginGL(pa);
-			GL2 gl = Tools3D.getGL(pa);
+			GL2 gl = Tools3D.beginGLAndGetGL(pa);
 			if (totalScrollTextX != 0.0f || totalScrollTextY != 0.0f){
 				gl.glTranslatef(totalScrollTextX, totalScrollTextY + font.getFontMaxAscent(), 0);
 			}else{
@@ -481,7 +481,7 @@ public class MTTextArea extends MTRectangle implements ITextInputListener, Compa
 			
 			drawCharactersGL(gl, this.font, characterList, charListSize, lastXAdvancement, thisLineTotalXAdvancement);
 			
-//			Tools3D.endGL(pa);
+			Tools3D.endGL(pa);
 //			PlatformUtil.endGL();
 		}
 		else{ //P3D rendering

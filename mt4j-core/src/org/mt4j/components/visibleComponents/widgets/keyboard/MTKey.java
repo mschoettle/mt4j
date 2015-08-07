@@ -241,7 +241,7 @@ public class MTKey extends
 		if (this.isUseDirectGL()){
 			if (this.isUseDisplayList()){
 //				GL gl = Tools3D.beginGL(g);
-				GL2 gl = Tools3D.getGL(g);
+				GL2 gl = Tools3D.beginGLAndGetGL(g);
 				
 				int[] pds = buttonBackGround.getGeometryInfo().getDisplayListIDs();
 				//Draw only filling of background polygon, without outer stroke
@@ -249,7 +249,7 @@ public class MTKey extends
 				gl.glCallList(pds[0]);
 				gl.glColor4f(this.getFillColor().getR(), this.getFillColor().getG(), this.getFillColor().getB(), this.getFillColor().getAlpha()); //needed when we use the displaylist of the key font, which be default doesent set its own fillcolor
 				super.drawComponent(gl); 
-//				Tools3D.endGL(g);
+				Tools3D.endGL(g);
 //				PlatformUtil.endGL();
 			}else{
 				buttonBackGround.drawComponent(g);

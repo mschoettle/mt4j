@@ -594,7 +594,8 @@ public class Tools3D {
 //			}
 //			gl.glDepthFunc(GL.GL_LEQUAL); //This is used by standart processing..
 			//FIXME TEST
-			gl.glPopAttrib(); 
+			// TODO
+//			gl.glPopAttrib(); 
 			break;
 		case MT4jSettings.P3D_MODE:
 			break;
@@ -622,7 +623,7 @@ public class Tools3D {
 		if (!MT4jSettings.getInstance().isOpenGlMode())
 			return;
 //		GL gl =((PGraphicsOpenGL)pa.g).beginGL();
-		GL2 gl = Tools3D.getGL(pa); 
+		GL2 gl = Tools3D.beginGLAndGetGL(pa); 
 		String ext = gl.glGetString(GL2.GL_EXTENSIONS);
 		StringTokenizer tok = new StringTokenizer( ext, " " );
 		while (tok.hasMoreTokens()) {
@@ -646,7 +647,7 @@ public class Tools3D {
 		System.out.println("Alpha bits: " + blueBits[0]);
 		System.out.println("Depth Buffer bits: " + depthBits[0]);
 		System.out.println("Stencil Buffer bits: " + stencilBits[0]);
-//		((PGraphicsOpenGL)pa.g).endGL();
+		Tools3D.endGL(pa.g);
 //		PlatformUtil.endGL();
 	}
 	
@@ -734,7 +735,7 @@ public class Tools3D {
 	 * @return the gL
 	 */
 	public static PGL beginGL(PGraphics g){
-        return ((PGraphicsOpenGL) g).beginPGL();
+        return g.beginPGL();
 	}
 
 	public static GL2 beginGLAndGetGL(PGraphics g) {
@@ -750,8 +751,7 @@ public class Tools3D {
 //            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
 //        }
         
-        // TODO ROMAIN here in UC they can call beginPGL directly on g. We can't w\ the cast
-        ((PGraphicsOpenGL) g).beginPGL();
+        g.beginPGL();
 
         return gl2;
     }
@@ -767,7 +767,7 @@ public class Tools3D {
 	 * @param pa the pa
 	 */
 	public static void endGL(PApplet pa){
-		((PGraphicsOpenGL) pa.g).endPGL();
+		pa.g.endPGL();
 	}
 	
 	/**
@@ -776,7 +776,7 @@ public class Tools3D {
 	 * @param g the g
 	 */
 	public static void endGL(PGraphics g){
-		((PGraphicsOpenGL) g).endPGL();
+		g.endPGL();
 	}
 
 

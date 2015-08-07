@@ -42,6 +42,7 @@ import org.mt4j.util.PlatformUtil;
 import org.mt4j.util.MT4jSettings;
 import org.mt4j.util.animation.AnimationManager;
 import org.mt4j.util.logging.ILogger;
+import org.mt4j.util.math.Tools3D;
 import org.mt4j.util.opengl.GLCommon;
 import org.mt4j.util.opengl.GLTexture;
 import org.mt4j.util.opengl.GLTexture.EXPANSION_FILTER;
@@ -267,7 +268,9 @@ public abstract class AbstractMTApplication extends PApplet {
 	 */
 	@Override
 	public void draw(){
+		Tools3D.beginGL(this);
 		this.runApplication();
+		Tools3D.endGL(this);
 	}
 	
 	

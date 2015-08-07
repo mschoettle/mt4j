@@ -177,7 +177,7 @@ public class MTPolygon extends MTCSSStylableShape{
 		if (MT4jSettings.getInstance().isOpenGlMode()   
 		   && this.isUseDirectGL()){
 //			GL gl = Tools3D.beginGL(renderer);
-			GL2 gl = Tools3D.getGL(g);
+			GL2 gl = Tools3D.beginGLAndGetGL(g);
 			
 			//Draw with PURE opengl
 			if (this.isUseDisplayList() /*&& this.getDisplayListIDs() != null && this.getDisplayListIDs()[0] != -1 && this.getDisplayListIDs()[1] != -1*/){
@@ -194,7 +194,7 @@ public class MTPolygon extends MTCSSStylableShape{
 				this.drawPureGl(gl);
 			}
 //			Tools3D.endGL(renderer);
-//			PlatformUtil.endGL();
+			Tools3D.endGL(g);
 		}else{ //Draw with pure proccessing commands...
 			MTColor fillColor = this.getFillColor();
 			MTColor strokeColor = this.getStrokeColor();
