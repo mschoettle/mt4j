@@ -41,6 +41,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.Stack;
 
+import javax.media.opengl.GL2;
 import javax.swing.JPanel;
 
 import org.apache.batik.bridge.AbstractSVGGradientElementBridge;
@@ -137,11 +138,10 @@ import org.mt4j.util.logging.ILogger;
 import org.mt4j.util.logging.MTLoggerFactory;
 import org.mt4j.util.math.ConvexityUtil;
 import org.mt4j.util.math.Matrix;
+import org.mt4j.util.math.Tools3D;
 import org.mt4j.util.math.ToolsGeometry;
 import org.mt4j.util.math.Vector3D;
 import org.mt4j.util.math.Vertex;
-import org.mt4j.util.opengl.GL10;
-import org.mt4j.util.opengl.GL11Plus;
 import org.mt4j.util.opengl.GLTexture;
 import org.mt4j.util.opengl.GluTrianglulator;
 import org.w3c.dom.Document;
@@ -1493,7 +1493,7 @@ public class SVGLoader implements SVGConstants{
         		rectangle.setTexture(swingTex.getTextureToRenderTo());
         		rectangle.setNoStroke(true);
         		rectangle.setPickable(false);
-        		rectangle.setFillDrawMode(GL11Plus.GL_QUADS);
+        		rectangle.setFillDrawMode(GL2.GL_QUADS);
 
         		//Use displaylist by default for gradientshape
         		if (MT4jSettings.getInstance().isOpenGlMode()){
@@ -1550,7 +1550,7 @@ public class SVGLoader implements SVGConstants{
         		 */
         	}
 //        	FillPaint gradStencil = new FillPaint(((PGraphicsOpenGL)pa.g).gl, rectangle);
-        	FillPaint gradStencil = new FillPaint(PlatformUtil.getGL(), rectangle);
+        	FillPaint gradStencil = new FillPaint(Tools3D.getGL(), rectangle);
         	return gradStencil;
 //      	return null;
         }
@@ -1756,7 +1756,7 @@ public class SVGLoader implements SVGConstants{
 
 	private FillPaint setUpRotatedGradientUserSpace(AbstractShape testShape, float angle, List<Stop> stops, Point2D p1, Point2D p2){
 //		GL gl = ((PGraphicsOpenGL)pa.g).gl;
-		GL10 gl = PlatformUtil.getGL();
+		GL2 gl = Tools3D.getGL();
 		float gradAngle = angle;
 		
 		float invAngle = angle*-1;
@@ -1886,7 +1886,7 @@ public class SVGLoader implements SVGConstants{
         p.setNoStroke(true);
         p.setPickable(false);
         p.setStrokeWeight(testShape.getStrokeWeight());
-        p.setFillDrawMode(GL11Plus.GL_QUADS);
+        p.setFillDrawMode(GL2.GL_QUADS);
         //Use displaylist by default for gradientshape
         p.generateAndUseDisplayLists();
         
@@ -1897,7 +1897,7 @@ public class SVGLoader implements SVGConstants{
 	
 	private FillPaint setUpRotatedGradientBBox(AbstractShape testShape, float angle, List<Stop> stops){
 //			GL gl = ((PGraphicsOpenGL)pa.g).gl;
-			GL10 gl = PlatformUtil.getGL();
+			GL2 gl = Tools3D.getGL();
 			float gradAngle = angle;
 			
 			//Get copy of shapes vertices
@@ -1951,7 +1951,7 @@ public class SVGLoader implements SVGConstants{
 			MTPolygon p = new MTPolygon(pa, newBounds);
 	        p.setNoStroke(true);
 	        p.setPickable(false);
-	        p.setFillDrawMode(GL11Plus.GL_QUADS);
+	        p.setFillDrawMode(GL2.GL_QUADS);
 	        p.setStrokeWeight(testShape.getStrokeWeight());
 	        //Use displaylist by default for gradientshape
 	        p.generateAndUseDisplayLists();

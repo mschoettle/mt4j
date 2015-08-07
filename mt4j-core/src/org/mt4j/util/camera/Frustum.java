@@ -17,12 +17,14 @@
  ***********************************************************************/
 package org.mt4j.util.camera;
 
-import org.mt4j.util.PlatformUtil;
+import javax.media.opengl.GL2;
+
 import org.mt4j.util.MT4jSettings;
+import org.mt4j.util.PlatformUtil;
 import org.mt4j.util.math.Plane;
+import org.mt4j.util.math.Tools3D;
 import org.mt4j.util.math.ToolsMath;
 import org.mt4j.util.math.Vector3D;
-import org.mt4j.util.opengl.GL10;
 
 import processing.core.PApplet;
 
@@ -39,7 +41,7 @@ public class Frustum implements IFrustum{
 	private float nearD;
 	private float farD;
 	
-	private GL10 gl;
+	private GL2 gl;
 	
 	private Vector3D _tmpVec3 = new Vector3D();
 	private Vector3D _tmpVec2 = new Vector3D();
@@ -91,7 +93,7 @@ public class Frustum implements IFrustum{
 	public Frustum(PApplet pa){
 		if (MT4jSettings.getInstance().isOpenGlMode()){
 //			this.gl = ((PGraphicsOpenGL)pa.g).gl;
-			this.gl = PlatformUtil.getGL();
+			this.gl = Tools3D.getGL(pa);
 		}
 		
 		

@@ -21,7 +21,9 @@ import org.mt4j.util.MTColor;
 import org.mt4j.util.font.IFont;
 import org.mt4j.util.math.Tools3D;
 import org.mt4j.util.math.Vector3D;
+
 import processing.core.PGraphics;
+import processing.opengl.PGraphicsOpenGL;
 
 /**
  * The Class MTSuggestionTextArea.
@@ -121,7 +123,7 @@ public class MTSuggestionTextArea extends MTTextArea {
 	 * (processing.core.PGraphics)
 	 */
 	@Override
-	public void drawComponent(PGraphics g) {
+	public void drawComponent(PGraphicsOpenGL g) {
 		super.drawComponent(g);
 		if (keyboard != null) {
 			if (o++ > 30) {

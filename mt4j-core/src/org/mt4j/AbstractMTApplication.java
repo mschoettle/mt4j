@@ -22,6 +22,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import javax.media.opengl.GL2;
+
 import org.mt4j.components.css.util.CSSStyleManager;
 import org.mt4j.input.IKeyListener;
 import org.mt4j.input.InputManager;
@@ -40,10 +42,6 @@ import org.mt4j.util.PlatformUtil;
 import org.mt4j.util.MT4jSettings;
 import org.mt4j.util.animation.AnimationManager;
 import org.mt4j.util.logging.ILogger;
-import org.mt4j.util.opengl.GL10;
-import org.mt4j.util.opengl.GL11;
-import org.mt4j.util.opengl.GL11Plus;
-import org.mt4j.util.opengl.GL20;
 import org.mt4j.util.opengl.GLCommon;
 import org.mt4j.util.opengl.GLTexture;
 import org.mt4j.util.opengl.GLTexture.EXPANSION_FILTER;
@@ -55,6 +53,7 @@ import processing.core.PApplet;
 import processing.core.PGraphics;
 import processing.core.PImage;
 import processing.core.PMatrix3D;
+import processing.opengl.PGraphicsOpenGL;
 
 
 
@@ -124,11 +123,7 @@ public abstract class AbstractMTApplication extends PApplet implements IMTApplic
 
 	protected ArrayDeque<IPreDrawAction> preDrawActions;
 
-	protected GLCommon glCommon;
-	protected GL10 iGL10;
-	protected GL11 iGL11;
-	protected GL20 iGL20;
-	protected GL11Plus iGL11Plus;
+	protected GL2 iGL2;
 	
 	protected boolean gl20Supported;
 
@@ -136,6 +131,9 @@ public abstract class AbstractMTApplication extends PApplet implements IMTApplic
 
 	protected boolean gl11PlusSupported;
 
+    public PGraphicsOpenGL graphicsOpenGL() {
+        return (PGraphicsOpenGL) this.g;
+    }
 	
 //	private static boolean fullscreen;
 	/*
@@ -367,7 +365,7 @@ public abstract class AbstractMTApplication extends PApplet implements IMTApplic
 		//Handle scene transitions
 		if (this.pendingTransition != null){
 			//Run the transition
-			this.pendingTransition.transition.drawAndUpdate(this.g, timeDelta);
+			this.pendingTransition.transition.drawAndUpdate(this.graphicsOpenGL(), timeDelta);
 			
 			if (this.pendingTransition.transition.isFinished()){
 				this.pendingTransition.transition.onLeave();
@@ -378,7 +376,7 @@ public abstract class AbstractMTApplication extends PApplet implements IMTApplic
 			//Draw the current scene
 			Iscene theCurrentScene = this.getCurrentScene();
 			if (theCurrentScene != null){
-				theCurrentScene.drawAndUpdate(this.g, timeDelta);	
+				theCurrentScene.drawAndUpdate(this.graphicsOpenGL(), timeDelta);	
 			}
 		}
 //		 */
@@ -841,13 +839,13 @@ public abstract class AbstractMTApplication extends PApplet implements IMTApplic
 		return PlatformUtil.getModelViewInv();
 	}
 	
-	public GL10 beginGL() {
-		PlatformUtil.beginGL();
-		return this.iGL10;
+	public GL2 beginGL() {
+		this.graphicsOpenGL().beginPGL();
+		return this.iGL2;
 	}
     
     public void endGL(){
-    	PlatformUtil.endGL();
+    	this.graphicsOpenGL().endPGL();
     }
 //    */
 	
@@ -879,35 +877,10 @@ public abstract class AbstractMTApplication extends PApplet implements IMTApplic
     /**
      * @return a {@link GLCommon} instance
      */
-    public GLCommon getGLCommon (){
-    	return this.glCommon;
+    public GL2 getGL2 (){
+    	return this.iGL2;
     }
 
-    /**
-     * @return the {@link GL10} instance or null if not supported
-     */
-    public GL10 getGL10 (){
-    	return this.iGL10;
-    }
-
-    /**
-     * @return the {@link GL11} instance or null if not supported
-     */
-    public GL11 getGL11 (){
-    	return this.iGL11;
-    }
-    
-    /**
-     * @return the {@link GL20} instance or null if not supported
-     */
-    public GL20 getGL20 (){
-    	return this.iGL20;
-    }
-    
-    public GL11Plus getGL11Plus (){
-    	return this.iGL11Plus;
-    }
-	
 
 /////////////////////////	
 	/**

@@ -27,7 +27,7 @@ import org.mt4j.util.camera.Icamera;
 import org.mt4j.util.opengl.GLMaterial;
 
 import processing.core.PApplet;
-import processing.core.PGraphics;
+import processing.opengl.PGraphicsOpenGL;
 
 /**
  * The Class AbstractVisibleComponent. Abstract class for creating visible
@@ -77,7 +77,7 @@ public abstract class AbstractVisibleComponent extends MTComponent {
 	}
 
 	
-	abstract public void drawComponent(PGraphics g);
+	abstract public void drawComponent(PGraphicsOpenGL g);
 	
 
 	/**
@@ -101,7 +101,7 @@ public abstract class AbstractVisibleComponent extends MTComponent {
 
 
 	@Override
-	public void preDraw(PGraphics graphics) {
+	public void preDraw(PGraphicsOpenGL graphics) {
 		super.preDraw(graphics);
 		
 		//Apply material if set 
@@ -146,7 +146,7 @@ public abstract class AbstractVisibleComponent extends MTComponent {
 
 
 	@Override
-	public void postDraw(PGraphics graphics) {
+	public void postDraw(PGraphicsOpenGL graphics) {
 		super.postDraw(graphics);
 
 		//Draw gradient
@@ -178,7 +178,7 @@ public abstract class AbstractVisibleComponent extends MTComponent {
 	 * @see org.mt4j.components.MTComponent#postDrawChildren(processing.core.PGraphics)
 	 */
 	@Override
-	public void postDrawChildren(PGraphics g) {
+	public void postDrawChildren(PGraphicsOpenGL g) {
 		//FIXME this is a hack to draw the outline of the shape
 		//over the clipped children, to not process the clipmask
 		//in the superclass we temporarily set it to null

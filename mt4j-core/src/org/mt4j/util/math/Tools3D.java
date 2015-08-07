@@ -25,6 +25,10 @@ import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
 import java.util.StringTokenizer;
 
+import javax.media.opengl.GL2;
+import javax.media.opengl.GLException;
+import javax.media.opengl.glu.GLU;
+
 import org.mt4j.AbstractMTApplication;
 import org.mt4j.components.interfaces.IMTComponent3D;
 import org.mt4j.components.visibleComponents.StyleInfo;
@@ -35,8 +39,6 @@ import org.mt4j.util.MT4jSettings;
 import org.mt4j.util.PlatformUtil;
 import org.mt4j.util.camera.IFrustum;
 import org.mt4j.util.camera.Icamera;
-import org.mt4j.util.opengl.GL10;
-import org.mt4j.util.opengl.GL11Plus;
 import org.mt4j.util.opengl.GLTexture;
 import org.mt4j.util.opengl.GLTexture.TEXTURE_TARGET;
 
@@ -44,6 +46,8 @@ import processing.core.PApplet;
 import processing.core.PGraphics;
 import processing.core.PImage;
 import processing.core.PMatrix3D;
+import processing.opengl.PGL;
+import processing.opengl.PGraphicsOpenGL;
 
 
 /**
@@ -508,8 +512,8 @@ public class Tools3D {
 		switch (MT4jSettings.getInstance().getRendererMode()) {
 		case MT4jSettings.OPENGL_MODE:
 //			GL gl = ((PGraphicsOpenGL)pa.g).gl; 
-			GL10 gl = PlatformUtil.getGL(); 
-			gl.glDepthFunc(GL10.GL_ALWAYS); //turn off Z buffering
+			GL2 gl = Tools3D.getGL(pa); 
+			gl.glDepthFunc(GL2.GL_ALWAYS); //turn off Z buffering
 			//reset to the default camera
 			pa.camera(); 
 			break;
@@ -535,8 +539,8 @@ public class Tools3D {
 		switch (MT4jSettings.getInstance().getRendererMode()) {
 		case MT4jSettings.OPENGL_MODE:
 //			GL gl = ((PGraphicsOpenGL)pa.g).gl;
-			GL10 gl = PlatformUtil.getGL(); 
-			gl.glDepthFunc(GL10.GL_LEQUAL); //This is used by standart processing..
+			GL2 gl = Tools3D.getGL(pa); 
+			gl.glDepthFunc(GL2.GL_LEQUAL); //This is used by standart processing..
 			//Change camera back to current 3d camera
 			camera.update();
 			break;
@@ -554,19 +558,19 @@ public class Tools3D {
 	 * 
 	 * @param g the g
 	 */
-	public static void disableDepthBuffer(PGraphics g){ 
+	public static void disableDepthBuffer(PGraphicsOpenGL g){ 
 		
 		switch (MT4jSettings.getInstance().getRendererMode()) {
 		case MT4jSettings.OPENGL_MODE:
 //			GL gl = ((PGraphicsOpenGL)pa.g).gl;
 //			GL gl = ((PGraphicsOpenGL)g).gl;
-			GL10 gl = PlatformUtil.getGL();
-			GL11Plus plus = PlatformUtil.getGL11Plus();
-			if (plus != null){
-				plus.glPushAttrib(GL10.GL_DEPTH_BUFFER_BIT);//FIXME TEST	
-			}
+			GL2 gl = Tools3D.getGL(g); 
+//			GL11Plus plus = PlatformUtil.getGL11Plus();
+//			if (plus != null){
+//				plus.glPushAttrib(GL10.GL_DEPTH_BUFFER_BIT);//FIXME TEST	
+//			}
 //			gl.glPushAttrib(GL10.GL_DEPTH_BUFFER_BIT);//FIXME TEST
-			gl.glDepthFunc(GL10.GL_ALWAYS); //turn off Z buffering
+			gl.glDepthFunc(GL2.GL_ALWAYS); //turn off Z buffering
 			break;
 		case MT4jSettings.P3D_MODE:
 			//FIXME how to handle platform independent?
@@ -584,17 +588,17 @@ public class Tools3D {
 	 * 
 	 * @param g the g
 	 */
-	public static void restoreDepthBuffer(PGraphics g){ 
+	public static void restoreDepthBuffer(PGraphicsOpenGL g){ 
 		switch (MT4jSettings.getInstance().getRendererMode()) {
 		case MT4jSettings.OPENGL_MODE:
 //			GL gl = ((PGraphicsOpenGL)g).gl;
-			GL11Plus plus = PlatformUtil.getGL11Plus();
-			if (plus != null){
-				plus.glPopAttrib(); 
-			}
+			GL2 gl = Tools3D.getGL(g); 
+//			if (plus != null){
+//				plus.glPopAttrib(); 
+//			}
 //			gl.glDepthFunc(GL.GL_LEQUAL); //This is used by standart processing..
 			//FIXME TEST
-//			gl.glPopAttrib(); 
+			gl.glPopAttrib(); 
 			break;
 		case MT4jSettings.P3D_MODE:
 			break;
@@ -622,8 +626,8 @@ public class Tools3D {
 		if (!MT4jSettings.getInstance().isOpenGlMode())
 			return;
 //		GL gl =((PGraphicsOpenGL)pa.g).beginGL();
-		GL10 gl = PlatformUtil.getGL();
-		String ext = gl.glGetString(GL10.GL_EXTENSIONS);
+		GL2 gl = Tools3D.getGL(pa); 
+		String ext = gl.glGetString(GL2.GL_EXTENSIONS);
 		StringTokenizer tok = new StringTokenizer( ext, " " );
 		while (tok.hasMoreTokens()) {
 			System.out.println(tok.nextToken());
@@ -634,12 +638,12 @@ public class Tools3D {
          int[] alphaBits 	= new int[1];
          int[] stencilBits 	= new int[1];
          int[] depthBits 	= new int[1];
-         gl.glGetIntegerv(GL10.GL_RED_BITS, redBits,0);
-         gl.glGetIntegerv(GL10.GL_GREEN_BITS, greenBits,0);
-         gl.glGetIntegerv(GL10.GL_BLUE_BITS, blueBits,0);
-         gl.glGetIntegerv(GL10.GL_ALPHA_BITS, alphaBits,0);
-         gl.glGetIntegerv(GL10.GL_STENCIL_BITS, stencilBits,0);
-         gl.glGetIntegerv(GL10.GL_DEPTH_BITS, depthBits,0);
+         gl.glGetIntegerv(GL2.GL_RED_BITS, redBits,0);
+         gl.glGetIntegerv(GL2.GL_GREEN_BITS, greenBits,0);
+         gl.glGetIntegerv(GL2.GL_BLUE_BITS, blueBits,0);
+         gl.glGetIntegerv(GL2.GL_ALPHA_BITS, alphaBits,0);
+         gl.glGetIntegerv(GL2.GL_STENCIL_BITS, stencilBits,0);
+         gl.glGetIntegerv(GL2.GL_DEPTH_BITS, depthBits,0);
 		System.out.println("Red bits: " + redBits[0]);
 		System.out.println("Green bits: " + greenBits[0]);
 		System.out.println("Blue bits: " + blueBits[0]);
@@ -647,7 +651,7 @@ public class Tools3D {
 		System.out.println("Depth Buffer bits: " + depthBits[0]);
 		System.out.println("Stencil Buffer bits: " + stencilBits[0]);
 //		((PGraphicsOpenGL)pa.g).endGL();
-		PlatformUtil.endGL();
+//		PlatformUtil.endGL();
 	}
 	
 		
@@ -656,9 +660,9 @@ public class Tools3D {
 		 * 
 		 * @param gl the gl
 		 */
-		public static int getGLError(GL10 gl){
+		public static int getGLError(GL2 gl){
 			int error = gl.glGetError();
-			if (error != GL10.GL_NO_ERROR){
+			if (error != GL2.GL_NO_ERROR){
 				System.out.println("GL Error: " + error);
 			}else{
 	//			System.out.println("No gl error.");
@@ -667,27 +671,55 @@ public class Tools3D {
 		}
 
 
-		/**
-		 * Gets the openGL context.
-		 * <br>NOTE: If you want to invoke any opengl drawing commands (or other commands influencing or depending on the current modelview matrix)
-		 * you have to call GL <code>Tools3D.beginGL(PApplet pa)</code> instead!
-		 * <br>NOTE: the openGL context is only valid and current when the rendering thread is the current thread.
-		 * <br>
-		 * This only gets the opengl context if started in opengl mode using the opengl renderer.
-		 * 
-		 * @param pa the pa
-		 * 
-		 * @return the gL
-		 */
-		public static GL10 getGL(PApplet pa){
-			return PlatformUtil.getGL();
-		}
-		
-		
-		public static GL10 getGL(PGraphics g){
-			return PlatformUtil.getGL();
-		}
+	/**
+	 * Gets the openGL context. <br>
+	 * NOTE: If you want to invoke any opengl drawing commands (or other
+	 * commands influencing or depending on the current modelview matrix) you
+	 * have to call GL <code>Tools3D.beginGL(PApplet pa)</code> instead! <br>
+	 * NOTE: the openGL context is only valid and current when the rendering
+	 * thread is the current thread. <br>
+	 * This only gets the opengl context if started in opengl mode using the
+	 * opengl renderer.
+	 * 
+	 * @param pa
+	 *            the pa
+	 * 
+	 * @return the gL
+	 */
+	public static GL2 getGL(PApplet pa) {
+//		PGraphicsOpenGL pogl = (PGraphicsOpenGL) pa.g; // g may change
+		GL2 gl2 = GLU.getCurrentGL().getGL2();
+//		try {
+//			gl2 = pogl.beginPGL().gl.getGL2();
+//		} catch (GLException e) {
+//			System.err.println("Error while getting GL2 context");
+//			e.printStackTrace(); // To change body of catch statement use File |
+//									// Settings | File Templates.
+//		}
+//		pogl.endPGL();
 
+		return gl2;
+	}
+	
+    public static GL2 getGL() {
+        return GLU.getCurrentGL().getGL2();
+    }
+		
+	public static GL2 getGL(PGraphicsOpenGL g) {
+
+//		PGraphicsOpenGL pogl = (PGraphicsOpenGL) g; // g may change
+		GL2 gl2 = getGL();
+//		try {
+//			gl2 = pogl.beginPGL().gl.getGL2();
+//		} catch (GLException e) {
+//			System.err.println("Error while getting GL2 context");
+//			e.printStackTrace(); // To change body of catch statement use File |
+//									// Settings | File Templates.
+//		}
+//		pogl.endPGL();
+
+		return gl2;
+	}
 	
 	/**
 	 * Begin gl.
@@ -695,8 +727,8 @@ public class Tools3D {
 	 * @param pa the pa
 	 * @return the gL
 	 */
-	public static GL10 beginGL(PApplet pa){
-		return PlatformUtil.beginGL();
+	public static PGL beginGL(PApplet pa){
+		return ((PGraphicsOpenGL) pa.g).beginPGL();
 	}
 	
 	/**
@@ -705,10 +737,33 @@ public class Tools3D {
 	 * @param g the g
 	 * @return the gL
 	 */
-	public static GL10 beginGL(PGraphics g){
-		return PlatformUtil.beginGL();
+	public static PGL beginGL(PGraphics g){
+        return ((PGraphicsOpenGL) g).beginPGL();
 	}
 
+	public static GL2 beginGLAndGetGL(PGraphics g) {
+
+        GL2 gl2 = GLU.getCurrentGL().getGL2();
+        
+//		PGraphicsOpenGL pogl = (PGraphicsOpenGL) g; // g may change
+//        GL2 gl2 = null;
+//        try {
+//            gl2 = pogl.beginPGL().gl.getGL2();
+//        } catch (GLException e) {
+//            System.err.println("Error while getting GL2 context");
+//            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+//        }
+        
+        // TODO ROMAIN here in UC they can call beginPGL directly on g. We can't w\ the cast
+        ((PGraphicsOpenGL) g).beginPGL();
+
+        return gl2;
+    }
+
+    public static GL2 beginGLAndGetGL(PApplet pa) {
+        return beginGLAndGetGL(pa.g) ;
+    }
+	
 	
 	/**
 	 * End gl.
@@ -716,7 +771,7 @@ public class Tools3D {
 	 * @param pa the pa
 	 */
 	public static void endGL(PApplet pa){
-		PlatformUtil.endGL();
+		((PGraphicsOpenGL) pa.g).endPGL();
 	}
 	
 	/**
@@ -725,7 +780,7 @@ public class Tools3D {
 	 * @param g the g
 	 */
 	public static void endGL(PGraphics g){
-		PlatformUtil.endGL();
+		((PGraphicsOpenGL) g).endPGL();
 	}
 
 
@@ -744,11 +799,11 @@ public class Tools3D {
 			return false;
 		
 //		GL gl =((PGraphicsOpenGL)pa.g).gl;
-		GL11Plus gl = PlatformUtil.getGL11Plus();
+		GL2 gl = Tools3D.getGL(pa);
 		if (gl != null){
 			boolean avail = gl.isExtensionAvailable(extensionName);
 			/*
-			String ext = gl.glGetString(GL.GL_EXTENSIONS);
+			String ext = gl.glGetString(GL2.GL_EXTENSIONS);
 			*/
 			return(avail);
 		}else{
@@ -789,7 +844,7 @@ public class Tools3D {
 	public static void setVSyncing(PApplet pa, boolean on){
 		if (MT4jSettings.getInstance().getRendererMode() == MT4jSettings.OPENGL_MODE){
 //			GL gl = getGL(pa);
-			GL11Plus gl = PlatformUtil.getGL11Plus();
+			GL2 gl = getGL(pa);
 			if (on){
 				gl.setSwapInterval(1);
 			}else{
@@ -799,21 +854,21 @@ public class Tools3D {
 	}
 
 
-	public static void setLineSmoothEnabled(GL10 gl, boolean enable){
+	public static void setLineSmoothEnabled(GL2 gl, boolean enable){
 	//    	/*
 	    	//DO this if we use multisampling and enable line_smooth from the beginning 
 	    	//and use multisampling -> we turn off multisampling then before using line_smooth for best restult
 	    	if (enable){
 	    		if (MT4jSettings.getInstance().isMultiSampling()){
-					gl.glDisable(GL10.GL_MULTISAMPLE);
+					gl.glDisable(GL2.GL_MULTISAMPLE);
 				}
 	    		//TODO Eventually even dont do that since enabled form the beginning!
-	    		gl.glEnable(GL10.GL_LINE_SMOOTH); 
+	    		gl.glEnable(GL2.GL_LINE_SMOOTH); 
 	    	}else{
 	    		if (MT4jSettings.getInstance().isMultiSampling()){
-					gl.glEnable(GL10.GL_MULTISAMPLE);
+					gl.glEnable(GL2.GL_MULTISAMPLE);
 				}
-	//    		gl.glDisable(GL.GL_LINE_SMOOTH); //Actually never disable line smooth
+	//    		gl.glDisable(GL2.GL_LINE_SMOOTH); //Actually never disable line smooth
 	    	}
 	//    	*/
 	    	
@@ -823,15 +878,15 @@ public class Tools3D {
 	    	/*
 	    	if (enable){
 	    		if (MT4jSettings.getInstance().isMultiSampling()){
-					gl.glDisable(GL.GL_MULTISAMPLE);
+					gl.glDisable(GL2.GL_MULTISAMPLE);
 				}
 	    		//TODO Eventually even dont do that since enabled form the beginning!
-	    		gl.glEnable(GL.GL_LINE_SMOOTH); 
+	    		gl.glEnable(GL2.GL_LINE_SMOOTH); 
 	    	}else{
 	    		if (MT4jSettings.getInstance().isMultiSampling()){
-					gl.glEnable(GL.GL_MULTISAMPLE);
+					gl.glEnable(GL2.GL_MULTISAMPLE);
 				}
-	//    		gl.glDisable(GL.GL_LINE_SMOOTH); //Actually never disable line smooth
+	//    		gl.glDisable(GL2.GL_LINE_SMOOTH); //Actually never disable line smooth
 	    	}
 	    	*/
 	    }
@@ -885,19 +940,18 @@ public class Tools3D {
 		FloatBuffer strokeColBuff 	= geometryInfo.getStrokeColBuff();
 		Buffer indexBuff 		    = geometryInfo.getIndexBuff(); //null if not indexed
 		
-		GL10 gl = PlatformUtil.beginGL();
-		GL11Plus gl11Plus = PlatformUtil.getGL11Plus();
+        GL2 gl = Tools3D.beginGLAndGetGL(pa);
 		
 		//Generate new list IDs
 		int[] returnVal = new int[2];
-		int listIDFill = gl11Plus.glGenLists(1);
+		int listIDFill = gl.glGenLists(1);
 		if (listIDFill == 0){
 			System.err.println("Failed to create fill display list");
 			returnVal[0] = -1;
 			returnVal[1] = -1;
 			return returnVal;
 		}
-		int listIDOutline = gl11Plus.glGenLists(1);
+		int listIDOutline = gl.glGenLists(1);
 		if (listIDOutline == 0){
 			System.err.println("Failed to create stroke display list");
 			returnVal[0] = -1;
@@ -905,14 +959,14 @@ public class Tools3D {
 			return returnVal;
 		}
 		
-		gl.glEnableClientState(GL10.GL_VERTEX_ARRAY);
-		gl.glEnableClientState(GL10.GL_COLOR_ARRAY);
+		gl.glEnableClientState(GL2.GL_VERTEX_ARRAY);
+		gl.glEnableClientState(GL2.GL_COLOR_ARRAY);
 		
-		gl.glVertexPointer(3, GL10.GL_FLOAT, 0, vertBuff);
-		gl.glColorPointer(4, GL10.GL_FLOAT, 0, colorBuff);
+		gl.glVertexPointer(3, GL2.GL_FLOAT, 0, vertBuff);
+		gl.glColorPointer(4, GL2.GL_FLOAT, 0, colorBuff);
 		
 		//Default target
-		int textureTarget = GL10.GL_TEXTURE_2D;
+		int textureTarget = GL2.GL_TEXTURE_2D;
 		
 		/////// DO FILL LIST/////////////////////////////////
 		
@@ -932,21 +986,21 @@ public class Tools3D {
 			usedTextureID = tex.getTextureID();
 			gl.glBindTexture(textureTarget, tex.getTextureID());
 			
-			gl.glEnableClientState(GL10.GL_TEXTURE_COORD_ARRAY);
-			gl.glTexCoordPointer(2, GL10.GL_FLOAT, 0, tbuff);
+			gl.glEnableClientState(GL2.GL_TEXTURE_COORD_ARRAY);
+			gl.glTexCoordPointer(2, GL2.GL_FLOAT, 0, tbuff);
 			textureDrawn = true;
 		}
 		
 		// Normals
 		if (geometryInfo.isContainsNormals()){
-			gl.glEnableClientState(GL10.GL_NORMAL_ARRAY);
-			gl.glNormalPointer(GL10.GL_FLOAT, 0, geometryInfo.getNormalsBuff());
+			gl.glEnableClientState(GL2.GL_NORMAL_ARRAY);
+			gl.glNormalPointer(GL2.GL_FLOAT, 0, geometryInfo.getNormalsBuff());
 		}
 		
-		gl.glColorPointer(4, GL10.GL_FLOAT, 0, colorBuff);
+		gl.glColorPointer(4, GL2.GL_FLOAT, 0, colorBuff);
 		
 		// START recording display list and DRAW////////////////////
-		gl11Plus.glNewList(listIDFill, GL11Plus.GL_COMPILE);
+		gl.glNewList(listIDFill, GL2.GL_COMPILE);
 			if (textureDrawn){
 				gl.glEnable(textureTarget); //muss texture in der liste gebinded werden? anscheinend JA!
 				gl.glBindTexture(textureTarget, usedTextureID);
@@ -954,7 +1008,7 @@ public class Tools3D {
 			
 			//DRAW with drawElements if geometry is indexed, else draw with drawArrays!
 			if (geometryInfo.isIndexed()){
-				gl.glDrawElements(fillDrawMode, indexBuff.capacity(), GL10.GL_UNSIGNED_SHORT, indexBuff); //limit() oder capacity()??
+				gl.glDrawElements(fillDrawMode, indexBuff.capacity(), GL2.GL_UNSIGNED_SHORT, indexBuff); //limit() oder capacity()??
 			}else{
 				gl.glDrawArrays(fillDrawMode, 0, vertBuff.capacity()/3);
 			}
@@ -963,22 +1017,22 @@ public class Tools3D {
 				gl.glBindTexture(textureTarget, 0);
 				gl.glDisable(textureTarget); 
 			}
-		gl11Plus.glEndList();
+		gl.glEndList();
 		//// STOP recording display list and DRAW////////////////////
 		
 		if (geometryInfo.isContainsNormals()){
-			gl.glDisableClientState(GL10.GL_NORMAL_ARRAY);
+			gl.glDisableClientState(GL2.GL_NORMAL_ARRAY);
 		}
 
 		if (textureDrawn){
-			gl.glDisableClientState(GL10.GL_TEXTURE_COORD_ARRAY);
+			gl.glDisableClientState(GL2.GL_TEXTURE_COORD_ARRAY);
 		}
 		returnVal[0] = listIDFill;
 		
 		/////// DO OUTLINE LIST////////////////////////////
-		gl.glColorPointer(4, GL10.GL_FLOAT, 0, strokeColBuff);
+		gl.glColorPointer(4, GL2.GL_FLOAT, 0, strokeColBuff);
 		//Start recording display list
-		gl11Plus.glNewList(listIDOutline, GL11Plus.GL_COMPILE);
+		gl.glNewList(listIDOutline, GL2.GL_COMPILE);
 		
 //			if (drawSmooth)
 //				gl.glEnable(GL.GL_LINE_SMOOTH);
@@ -990,9 +1044,9 @@ public class Tools3D {
 			
 			//DRAW
 			if (geometryInfo.isIndexed()){
-				gl.glDrawElements(GL10.GL_LINE_STRIP, indexBuff.capacity(), GL10.GL_UNSIGNED_SHORT, indexBuff); ////indices.limit()?
+				gl.glDrawElements(GL2.GL_LINE_STRIP, indexBuff.capacity(), GL2.GL_UNSIGNED_SHORT, indexBuff); ////indices.limit()?
 			}else{
-				gl.glDrawArrays(GL10.GL_LINE_STRIP, 0, vertBuff.capacity()/3);
+				gl.glDrawArrays(GL2.GL_LINE_STRIP, 0, vertBuff.capacity()/3);
 			}
 			
 //			if (drawSmooth)
@@ -1000,13 +1054,13 @@ public class Tools3D {
 			//FIXME TEST
 			Tools3D.setLineSmoothEnabled(gl, false);
 			
-		gl11Plus.glEndList();
+		gl.glEndList();
 		returnVal[1] = listIDOutline;
 		////////////////////////////////////////////////////
 		
 		//Disable client states
-		gl.glDisableClientState(GL10.GL_VERTEX_ARRAY);
-		gl.glDisableClientState(GL10.GL_COLOR_ARRAY);
+		gl.glDisableClientState(GL2.GL_VERTEX_ARRAY);
+		gl.glDisableClientState(GL2.GL_COLOR_ARRAY);
 		return returnVal;
 	}
 	
@@ -1028,24 +1082,24 @@ public class Tools3D {
 	 */
 	public static int generateOutLineDisplayList(PApplet pa, FloatBuffer vertBuff, FloatBuffer strokeColBuff, IntBuffer indexBuff, 
 												boolean drawSmooth, float strokeWeight, short lineStipple){
-//		GL gl = beginGL(pa.g);
-		GL10 gl = PlatformUtil.beginGL();
-		GL11Plus gl11Plus = PlatformUtil.getGL11Plus();
+//		GL gl = beginGL(pa.g);        
+		GL2 gl = Tools3D.beginGLAndGetGL(pa);
+
 		
 		//Generate new list IDs
 		int returnVal = -1;
-		int listIDOutline = gl11Plus.glGenLists(1);
+		int listIDOutline = gl.glGenLists(1);
 		if (listIDOutline == 0){
 			System.err.println("Failed to create display list");
 			return returnVal;
 		}
-		gl.glEnableClientState(GL10.GL_VERTEX_ARRAY);
-		gl.glEnableClientState(GL10.GL_COLOR_ARRAY);
-		gl.glVertexPointer(3, GL10.GL_FLOAT, 0, vertBuff);
-		gl.glColorPointer(4, GL10.GL_FLOAT, 0, strokeColBuff);
+		gl.glEnableClientState(GL2.GL_VERTEX_ARRAY);
+		gl.glEnableClientState(GL2.GL_COLOR_ARRAY);
+		gl.glVertexPointer(3, GL2.GL_FLOAT, 0, vertBuff);
+		gl.glColorPointer(4, GL2.GL_FLOAT, 0, strokeColBuff);
 		
 		//Start recording display list
-		gl11Plus.glNewList(listIDOutline, GL11Plus.GL_COMPILE);
+		gl.glNewList(listIDOutline, GL2.GL_COMPILE);
 //			if (drawSmooth)
 //				gl.glEnable(GL.GL_LINE_SMOOTH);
 			//FIXME TEST for multisample
@@ -1054,33 +1108,33 @@ public class Tools3D {
 			if (strokeWeight > 0)
 				gl.glLineWidth(strokeWeight);
 			if (lineStipple != 0){
-				gl11Plus.glLineStipple(1, lineStipple);
-				gl.glEnable(GL11Plus.GL_LINE_STIPPLE);
+				gl.glLineStipple(1, lineStipple);
+				gl.glEnable(GL2.GL_LINE_STIPPLE);
 			}
 			
 			if (indexBuff == null){
-				gl.glDrawArrays(GL10.GL_LINE_STRIP, 0, vertBuff.capacity()/3);
+				gl.glDrawArrays(GL2.GL_LINE_STRIP, 0, vertBuff.capacity()/3);
 			}else{
-				gl.glDrawElements(GL10.GL_LINE_STRIP, indexBuff.capacity(), GL10.GL_UNSIGNED_SHORT, indexBuff); ////indices.limit()?
+				gl.glDrawElements(GL2.GL_LINE_STRIP, indexBuff.capacity(), GL2.GL_UNSIGNED_SHORT, indexBuff); ////indices.limit()?
 			}
 			
 			//RESET LINE STIPPLE
 			if (lineStipple != 0)
-				gl.glDisable(GL11Plus.GL_LINE_STIPPLE); 
+				gl.glDisable(GL2.GL_LINE_STIPPLE); 
 			
 //			if (drawSmooth)
 //				gl.glDisable(GL.GL_LINE_SMOOTH);
 			//FIXME TEST for multisample
 			Tools3D.setLineSmoothEnabled(gl, false);
 			
-		gl11Plus.glEndList();
+			gl.glEndList();
 		returnVal = listIDOutline;
 		
 		//Disable client states
-		gl.glDisableClientState(GL10.GL_VERTEX_ARRAY);
-		gl.glDisableClientState(GL10.GL_COLOR_ARRAY);
+		gl.glDisableClientState(GL2.GL_VERTEX_ARRAY);
+		gl.glDisableClientState(GL2.GL_COLOR_ARRAY);
 //		((PGraphicsOpenGL)pa.g).endGL();
-		PlatformUtil.endGL();
+		Tools3D.endGL(pa);
 		return returnVal;
 	}
 	

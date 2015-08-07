@@ -19,6 +19,8 @@ package org.mt4j.components.visibleComponents.widgets;
 
 import java.util.HashMap;
 
+import javax.media.opengl.GL2;
+
 import org.mt4j.AbstractMTApplication;
 import org.mt4j.components.visibleComponents.shapes.MTRectangle;
 import org.mt4j.input.inputData.AbstractCursorInputEvt;
@@ -27,22 +29,19 @@ import org.mt4j.input.inputData.MTInputEvent;
 import org.mt4j.input.inputProcessors.globalProcessors.AbstractGlobalInputProcessor;
 import org.mt4j.input.inputProcessors.globalProcessors.CursorTracer;
 import org.mt4j.sceneManagement.Iscene;
-import org.mt4j.util.PlatformUtil;
 import org.mt4j.util.MT4jSettings;
 import org.mt4j.util.camera.Icamera;
 import org.mt4j.util.math.Plane;
 import org.mt4j.util.math.Tools3D;
 import org.mt4j.util.math.Vector3D;
 import org.mt4j.util.math.Vertex;
-import org.mt4j.util.opengl.GL10;
-import org.mt4j.util.opengl.GL11Plus;
-import org.mt4j.util.opengl.GL20;
 import org.mt4j.util.opengl.GLFBO;
 import org.mt4j.util.opengl.GLFboStack;
 import org.mt4j.util.opengl.GLStencilUtil;
 import org.mt4j.util.opengl.GLTexture;
 
-import processing.core.PGraphics;
+import processing.opengl.PGraphicsOpenGL;
+
 
 /**
  * The Class MTSceneTexture. This class allows to display a scene from within another scene.
@@ -152,69 +151,72 @@ public class MTSceneTexture extends MTRectangle {
 	
 
 	@Override
-	public void drawComponent(PGraphics g){
-//		PGraphicsOpenGL pgl = (PGraphicsOpenGL)g; 
-//		GL gl = pgl.gl;
-		GL10 gl = PlatformUtil.getGL();
-		GL20 gl20 = PlatformUtil.getGL20();
+	public void drawComponent(PGraphicsOpenGL g) {
+		// PGraphicsOpenGL pgl = (PGraphicsOpenGL)g;
+		// GL gl = pgl.gl;
+		GL2 gl = Tools3D.getGL(g);
 
-//		boolean b = false;
-//		if (GLStencilUtil.getInstance().isClipActive()){
-//			GLStencilUtil.getInstance().endClipping(gl);
-//			b = true;
-//		}
-			
-			
+		// boolean b = false;
+		// if (GLStencilUtil.getInstance().isClipActive()){
+		// GLStencilUtil.getInstance().endClipping(gl);
+		// b = true;
+		// }
+
 		fbo.startRenderToTexture();
-			//Change blending mode to avoid artifacts from alpha blending at antialiasing for example
-//			gl.glBlendFuncSeparate(GL10.GL_SRC_ALPHA, GL10.GL_ONE_MINUS_SRC_ALPHA, GL10.GL_ZERO, GL10.GL_ONE);
-			if (gl20 != null)
-				gl20.glBlendFuncSeparate(GL10.GL_SRC_ALPHA, GL10.GL_ONE_MINUS_SRC_ALPHA, GL10.GL_ONE, GL10.GL_ONE_MINUS_SRC_ALPHA);
-			
-//			/*
-			boolean clipping = false;
-			if (GLStencilUtil.getInstance().isClipActive()){
-				clipping = true;
-				if (gl instanceof GL11Plus) {
-					GL11Plus gl11Plus = (GL11Plus) gl;
-					gl11Plus.glPushAttrib(GL10.GL_STENCIL_BUFFER_BIT);
-				}
-//				gl.glPushAttrib(GL10.GL_STENCIL_BUFFER_BIT);
-				gl.glClearStencil(GLStencilUtil.stencilValueStack.peek());
-				gl.glClear(GL10.GL_STENCIL_BUFFER_BIT);
-				//			gl.glDisable(GL10.GL_STENCIL_TEST);
-			}
-//			*/
-			
-//			gl.glEnable(gl.GL_ALPHA_TEST);
-//			gl.glAlphaFunc(gl.GL_GREATER, 0.0f);
-//			gl.glDisable(gl.GL_ALPHA_TEST);
-			//Draw scene to texture
-			scene.drawAndUpdate(g, this.lastUpdateTime);
-			
-//			/*
-			if (clipping){
-//				gl.glPopAttrib();
-				if (gl instanceof GL11Plus) {
-					GL11Plus gl11Plus = (GL11Plus) gl;
-					gl11Plus.glPopAttrib();
-				}
-			}
-//			 */
-//			GLStencilUtil.getInstance().endClipping(gl, this);
+		// Change blending mode to avoid artifacts from alpha blending at
+		// antialiasing for example
+		// gl.glBlendFuncSeparate(GL10.GL_SRC_ALPHA,
+		// GL10.GL_ONE_MINUS_SRC_ALPHA, GL10.GL_ZERO, GL10.GL_ONE);
+		gl.glBlendFuncSeparate(GL2.GL_SRC_ALPHA, GL2.GL_ONE_MINUS_SRC_ALPHA,
+				GL2.GL_ONE, GL2.GL_ONE_MINUS_SRC_ALPHA);
+
+		// /*
+		boolean clipping = false;
+		if (GLStencilUtil.getInstance().isClipActive()) {
+			clipping = true;
+			gl.glPushAttrib(GL2.GL_STENCIL_BUFFER_BIT);
+			// gl.glPushAttrib(GL10.GL_STENCIL_BUFFER_BIT);
+			gl.glClearStencil(GLStencilUtil.stencilValueStack.peek());
+			gl.glClear(GL2.GL_STENCIL_BUFFER_BIT);
+			// gl.glDisable(GL10.GL_STENCIL_TEST);
+		}
+		// */
+
+		// gl.glEnable(gl.GL_ALPHA_TEST);
+		// gl.glAlphaFunc(gl.GL_GREATER, 0.0f);
+		// gl.glDisable(gl.GL_ALPHA_TEST);
+		// Draw scene to texture
+		scene.drawAndUpdate(g, this.lastUpdateTime);
+
+		// /*
+		if (clipping) {
+			// gl.glPopAttrib();
+				gl.glPopAttrib();
+		}
+		// */
+		// GLStencilUtil.getInstance().endClipping(gl, this);
 		fbo.stopRenderToTexture();
-			
-		if (gl20 != null && GLFboStack.getInstance((GL20) gl).peekFBO() == 0)
-			gl.glBlendFunc(GL10.GL_SRC_ALPHA, GL10.GL_ONE_MINUS_SRC_ALPHA); //Restore default blend mode //FIXME TEST -> neccessary?
-		
-		//FIXME NOT NEEDED!? sufficient to call glGenerateMipmapEXT at texture creation!? 
-		//TODO I actually think its necessary to call each time after rendering to the texture! But only for POT dimensions!?
+
+		if (gl != null && GLFboStack.getInstance(gl).peekFBO() == 0)
+			gl.glBlendFunc(GL2.GL_SRC_ALPHA, GL2.GL_ONE_MINUS_SRC_ALPHA); // Restore
+																			// default
+																			// blend
+																			// mode
+																			// //FIXME
+																			// TEST
+																			// ->
+																			// neccessary?
+
+		// FIXME NOT NEEDED!? sufficient to call glGenerateMipmapEXT at texture
+		// creation!?
+		// TODO I actually think its necessary to call each time after rendering
+		// to the texture! But only for POT dimensions!?
 		/*
-		GLTexture tex = (GLTexture) this.getTexture();
-		gl.glBindTexture(tex.getTextureTarget(), tex.getTextureID());
-		gl.glGenerateMipmapEXT(tex.getTextureTarget());
-		gl.glBindTexture(tex.getTextureTarget(), 0);
-		*/
+		 * GLTexture tex = (GLTexture) this.getTexture();
+		 * gl.glBindTexture(tex.getTextureTarget(), tex.getTextureID());
+		 * gl.glGenerateMipmapEXT(tex.getTextureTarget());
+		 * gl.glBindTexture(tex.getTextureTarget(), 0);
+		 */
 		super.drawComponent(g);
 	}
 	

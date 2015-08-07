@@ -21,6 +21,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.media.opengl.GL2;
+
 import org.mt4j.components.MTComponent;
 import org.mt4j.components.visibleComponents.font.BitmapFontCharacter;
 import org.mt4j.util.MTColor;
@@ -32,7 +34,6 @@ import org.mt4j.util.font.fontFactories.BitmapFontFactory;
 import org.mt4j.util.font.fontFactories.IFontFactory;
 import org.mt4j.util.logging.ILogger;
 import org.mt4j.util.logging.MTLoggerFactory;
-import org.mt4j.util.opengl.GL10;
 
 import processing.core.PApplet;
 
@@ -339,28 +340,28 @@ public class BitmapFont implements IFont, ITextureFont {
 
 
 	@Override
-	public void beginBatchRenderGL(GL10 gl, IFont font) {
+	public void beginBatchRenderGL(GL2 gl, IFont font) {
 		MTColor fillColor = font.getFillColor();
 		gl.glColor4f(fillColor.getR()/255f, fillColor.getG()/255f, fillColor.getB()/255f, fillColor.getAlpha()/255f); 
 		
 		//Default texture target -> has to be POT dimensions
-		int textureTarget = GL10.GL_TEXTURE_2D;
+		int textureTarget = GL2.GL_TEXTURE_2D;
 		gl.glEnable(textureTarget);
 		
 		//Enable Pointers, set vertex array pointer
-		gl.glEnableClientState(GL10.GL_VERTEX_ARRAY);
-		gl.glEnableClientState(GL10.GL_TEXTURE_COORD_ARRAY);
+		gl.glEnableClientState(GL2.GL_VERTEX_ARRAY);
+		gl.glEnableClientState(GL2.GL_TEXTURE_COORD_ARRAY);
 	}
 
 
 	@Override
-	public void endBatchRenderGL(GL10 gl, IFont font) {
-		int textureTarget = GL10.GL_TEXTURE_2D;
+	public void endBatchRenderGL(GL2 gl, IFont font) {
+		int textureTarget = GL2.GL_TEXTURE_2D;
 		gl.glBindTexture(textureTarget, 0);//Unbind texture
 		gl.glDisable(textureTarget); 
 		
-		gl.glDisableClientState(GL10.GL_TEXTURE_COORD_ARRAY);
-		gl.glDisableClientState(GL10.GL_VERTEX_ARRAY);
+		gl.glDisableClientState(GL2.GL_TEXTURE_COORD_ARRAY);
+		gl.glDisableClientState(GL2.GL_VERTEX_ARRAY);
 	}
 
 

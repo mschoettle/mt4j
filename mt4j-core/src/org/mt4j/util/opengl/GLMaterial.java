@@ -21,6 +21,8 @@ import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.nio.FloatBuffer;
 
+import javax.media.opengl.GL2;
+
 
 /**
  * Abstracts usage of OpenGL materials.
@@ -109,7 +111,7 @@ public class GLMaterial {
     private FloatBuffer shininess;    // size of the reflection highlight
 
     /** The gl. */
-    private GL10 gl;
+    private GL2 gl;
     
 	/**
 	 *  set up some default material color values
@@ -131,7 +133,7 @@ public class GLMaterial {
      * 
      * @param gl the gl
      */
-    public GLMaterial(GL10 gl) {
+    public GLMaterial(GL2 gl) {
     	this.gl = gl;
         this.setDefaults();
     }
@@ -142,7 +144,7 @@ public class GLMaterial {
      * @param gl the gl
      * @param color the color
      */
-    public GLMaterial(GL10 gl, float[] color) {
+    public GLMaterial(GL2 gl, float[] color) {
     	this.gl = gl;
         this.setDefaults();
         this.setDiffuseAndAmbientColor(color);
@@ -232,19 +234,19 @@ public class GLMaterial {
     public void apply() {
     	/*
     	// GL_FRONT: affect only front facing triangles
-    	gl.glMaterialfv(GL10.GL_FRONT, GL10.GL_AMBIENT, this.ambient);
-        gl.glMaterialfv(GL10.GL_FRONT, GL10.GL_DIFFUSE, this.diffuse);
-        gl.glMaterialfv(GL10.GL_FRONT, GL10.GL_SPECULAR, this.specular);
-        gl.glMaterialfv(GL10.GL_FRONT, GL10.GL_EMISSION, this.emission);
-        gl.glMaterialfv(GL10.GL_FRONT, GL10.GL_SHININESS, this.shininess);
+    	gl.glMaterialfv(GL2.GL_FRONT, GL2.GL_AMBIENT, this.ambient);
+        gl.glMaterialfv(GL2.GL_FRONT, GL2.GL_DIFFUSE, this.diffuse);
+        gl.glMaterialfv(GL2.GL_FRONT, GL2.GL_SPECULAR, this.specular);
+        gl.glMaterialfv(GL2.GL_FRONT, GL2.GL_EMISSION, this.emission);
+        gl.glMaterialfv(GL2.GL_FRONT, GL2.GL_SHININESS, this.shininess);
         */
 //    	/*
     	//FIXME welche einstellung nehmen?
-    	gl.glMaterialfv(GL10.GL_FRONT_AND_BACK, GL10.GL_AMBIENT, this.ambient);
-    	gl.glMaterialfv(GL10.GL_FRONT_AND_BACK, GL10.GL_DIFFUSE, this.diffuse);
-        gl.glMaterialfv(GL10.GL_FRONT_AND_BACK, GL10.GL_SPECULAR, this.specular);
-        gl.glMaterialfv(GL10.GL_FRONT_AND_BACK, GL10.GL_EMISSION, this.emission);
-        gl.glMaterialfv(GL10.GL_FRONT_AND_BACK, GL10.GL_SHININESS, this.shininess);
+    	gl.glMaterialfv(GL2.GL_FRONT_AND_BACK, GL2.GL_AMBIENT, this.ambient);
+    	gl.glMaterialfv(GL2.GL_FRONT_AND_BACK, GL2.GL_DIFFUSE, this.diffuse);
+        gl.glMaterialfv(GL2.GL_FRONT_AND_BACK, GL2.GL_SPECULAR, this.specular);
+        gl.glMaterialfv(GL2.GL_FRONT_AND_BACK, GL2.GL_EMISSION, this.emission);
+        gl.glMaterialfv(GL2.GL_FRONT_AND_BACK, GL2.GL_SHININESS, this.shininess);
 //    	 */
     }
 
@@ -253,18 +255,18 @@ public class GLMaterial {
      * 
      * @param gl the gl
      */
-    public static void clear(GL10 gl) {
-        gl.glMaterialfv(GL10.GL_FRONT, GL10.GL_DIFFUSE, defaultDiffuse);
-        gl.glMaterialfv(GL10.GL_FRONT, GL10.GL_AMBIENT, defaultAmbient);
-        gl.glMaterialfv(GL10.GL_FRONT, GL10.GL_SPECULAR, defaultSpecular);
-        gl.glMaterialfv(GL10.GL_FRONT, GL10.GL_EMISSION, defaultEmission);
-        gl.glMaterialfv(GL10.GL_FRONT, GL10.GL_SHININESS, defaultShine);
+    public static void clear(GL2 gl) {
+        gl.glMaterialfv(GL2.GL_FRONT, GL2.GL_DIFFUSE, defaultDiffuse);
+        gl.glMaterialfv(GL2.GL_FRONT, GL2.GL_AMBIENT, defaultAmbient);
+        gl.glMaterialfv(GL2.GL_FRONT, GL2.GL_SPECULAR, defaultSpecular);
+        gl.glMaterialfv(GL2.GL_FRONT, GL2.GL_EMISSION, defaultEmission);
+        gl.glMaterialfv(GL2.GL_FRONT, GL2.GL_SHININESS, defaultShine);
         /*
-        gl.glMaterialfv(GL10.GL_FRONT_AND_BACK, GL10.GL_DIFFUSE, defaultDiffuse);
-        gl.glMaterialfv(GL10.GL_FRONT_AND_BACK, GL10.GL_AMBIENT, defaultAmbient);
-        gl.glMaterialfv(GL10.GL_FRONT_AND_BACK, GL10.GL_SPECULAR, defaultSpecular);
-        gl.glMaterialfv(GL10.GL_FRONT_AND_BACK, GL10.GL_EMISSION, defaultEmission);
-        gl.glMaterialfv(GL10.GL_FRONT_AND_BACK, GL10.GL_SHININESS, defaultShine);
+        gl.glMaterialfv(GL2.GL_FRONT_AND_BACK, GL2.GL_DIFFUSE, defaultDiffuse);
+        gl.glMaterialfv(GL2.GL_FRONT_AND_BACK, GL2.GL_AMBIENT, defaultAmbient);
+        gl.glMaterialfv(GL2.GL_FRONT_AND_BACK, GL2.GL_SPECULAR, defaultSpecular);
+        gl.glMaterialfv(GL2.GL_FRONT_AND_BACK, GL2.GL_EMISSION, defaultEmission);
+        gl.glMaterialfv(GL2.GL_FRONT_AND_BACK, GL2.GL_SHININESS, defaultShine);
         */
     }
 

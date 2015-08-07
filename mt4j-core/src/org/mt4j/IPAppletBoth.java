@@ -6,6 +6,8 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
 
+import javax.media.opengl.GL2;
+
 import org.mt4j.util.opengl.GLCommon;
 
 import processing.core.PApplet;
@@ -4291,7 +4293,7 @@ public void blend(PImage src, int sx, int sy, int sw, int sh, int dx, int dy,
 //	
 //	public PMatrix3D getModelViewInv();
 
-	public GLCommon beginGL();
+	public GL2 beginGL();
     
     public void endGL();
 

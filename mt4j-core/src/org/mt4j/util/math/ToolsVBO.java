@@ -19,9 +19,10 @@ package org.mt4j.util.math;
 
 import java.nio.FloatBuffer;
 
-import org.mt4j.util.PlatformUtil;
-import org.mt4j.util.opengl.GL11;
-import org.mt4j.util.opengl.GL11Plus;
+import javax.media.opengl.GL2;
+import javax.media.opengl.glu.GLU;
+
+import com.jogamp.common.nio.Buffers;
 
 import processing.core.PApplet;
 
@@ -50,14 +51,14 @@ public class ToolsVBO {
 	public static int generateVertexVBO(PApplet pa, FloatBuffer vertexBuffer, int vertexCount){
 		int[] vboVertices = new int[1]; 
 //		GL gl = Tools3D.getGL(pa);
-			GL11 gl = PlatformUtil.getGL11();
+		GL2 gl = GLU.getCurrentGL().getGL2();
 			gl.glGenBuffers(1, vboVertices, 0);  // Get A Valid Name
-			gl.glBindBuffer(GL11.GL_ARRAY_BUFFER, vboVertices[0]);  // Bind The Buffer
+			gl.glBindBuffer(GL2.GL_ARRAY_BUFFER, vboVertices[0]);  // Bind The Buffer
 			// Load The Data
-			gl.glBufferData(GL11.GL_ARRAY_BUFFER, vertexCount * 3 * (int)GL11Plus.SIZEOF_FLOAT, vertexBuffer, GL11.GL_STATIC_DRAW);
+			gl.glBufferData(GL2.GL_ARRAY_BUFFER, vertexCount * 3 * (int)Buffers.SIZEOF_FLOAT, vertexBuffer, GL2.GL_STATIC_DRAW);
 			//Unbind VBOs 
-			gl.glBindBuffer(GL11.GL_ARRAY_BUFFER, 0);
-			gl.glBindBuffer(GL11.GL_ELEMENT_ARRAY_BUFFER, 0);
+			gl.glBindBuffer(GL2.GL_ARRAY_BUFFER, 0);
+			gl.glBindBuffer(GL2.GL_ELEMENT_ARRAY_BUFFER, 0);
 		return vboVertices[0];
 	}
 	
@@ -71,13 +72,13 @@ public class ToolsVBO {
 	 */
 	public static void updateVertexVBO(PApplet pa, FloatBuffer vertexBuffer, int vertexCount, int vboName){
 //		GL gl = Tools3D.getGL(pa);
-		GL11 gl = PlatformUtil.getGL11();
-		gl.glBindBuffer(GL11.GL_ARRAY_BUFFER, vboName);  // Bind The Buffer
+		GL2 gl = GLU.getCurrentGL().getGL2();
+		gl.glBindBuffer(GL2.GL_ARRAY_BUFFER, vboName);  // Bind The Buffer
 		// Load The Data
-		gl.glBufferData(GL11.GL_ARRAY_BUFFER, vertexCount * 3 * (int)GL11Plus.SIZEOF_FLOAT, vertexBuffer, GL11.GL_STATIC_DRAW);
+		gl.glBufferData(GL2.GL_ARRAY_BUFFER, vertexCount * 3 * (int)Buffers.SIZEOF_FLOAT, vertexBuffer, GL2.GL_STATIC_DRAW);
 		//Unbind VBOs 
-		gl.glBindBuffer(GL11.GL_ARRAY_BUFFER, 0);
-		gl.glBindBuffer(GL11.GL_ELEMENT_ARRAY_BUFFER, 0);
+		gl.glBindBuffer(GL2.GL_ARRAY_BUFFER, 0);
+		gl.glBindBuffer(GL2.GL_ELEMENT_ARRAY_BUFFER, 0);
 	}
 	
 	/**
@@ -92,14 +93,14 @@ public class ToolsVBO {
 	public static int generateTextureVBO(PApplet pa, FloatBuffer textureBuffer, int vertexCount){
 		int[] vboTexCoords = new int[1];// Texture Coordinate VBO Name
 //		GL gl = Tools3D.getGL(pa);
-		GL11 gl = PlatformUtil.getGL11();
+		GL2 gl = GLU.getCurrentGL().getGL2();
 			gl.glGenBuffers(1, vboTexCoords, 0);  // Get A Valid Name
-			gl.glBindBuffer(GL11.GL_ARRAY_BUFFER, vboTexCoords[0]); // Bind The Buffer
+			gl.glBindBuffer(GL2.GL_ARRAY_BUFFER, vboTexCoords[0]); // Bind The Buffer
 			// Load The Data
-			gl.glBufferData(GL11.GL_ARRAY_BUFFER, vertexCount * 2 * (int)GL11Plus.SIZEOF_FLOAT, textureBuffer, GL11.GL_STATIC_DRAW);
+			gl.glBufferData(GL2.GL_ARRAY_BUFFER, vertexCount * 2 * (int)Buffers.SIZEOF_FLOAT, textureBuffer, GL2.GL_STATIC_DRAW);
 			//Unbind VBOs 
-			gl.glBindBuffer(GL11.GL_ARRAY_BUFFER, 0);
-			gl.glBindBuffer(GL11.GL_ELEMENT_ARRAY_BUFFER, 0);
+			gl.glBindBuffer(GL2.GL_ARRAY_BUFFER, 0);
+			gl.glBindBuffer(GL2.GL_ELEMENT_ARRAY_BUFFER, 0);
 		return vboTexCoords[0];
 	}
 	
@@ -113,13 +114,13 @@ public class ToolsVBO {
 	 */
 	public static void updateTextureVBO(PApplet pa, FloatBuffer textureBuffer, int vertexCount, int vboName){
 //		GL gl = Tools3D.getGL(pa);
-		GL11 gl = PlatformUtil.getGL11();
-			gl.glBindBuffer(GL11.GL_ARRAY_BUFFER, vboName); // Bind The Buffer
+		GL2 gl = GLU.getCurrentGL().getGL2();
+			gl.glBindBuffer(GL2.GL_ARRAY_BUFFER, vboName); // Bind The Buffer
 			// Load The Data
-			gl.glBufferData(GL11.GL_ARRAY_BUFFER, vertexCount * 2 * (int)GL11Plus.SIZEOF_FLOAT, textureBuffer, GL11.GL_STATIC_DRAW);
+			gl.glBufferData(GL2.GL_ARRAY_BUFFER, vertexCount * 2 * (int)Buffers.SIZEOF_FLOAT, textureBuffer, GL2.GL_STATIC_DRAW);
 			//Unbind VBOs 
-			gl.glBindBuffer(GL11.GL_ARRAY_BUFFER, 0);
-			gl.glBindBuffer(GL11.GL_ELEMENT_ARRAY_BUFFER, 0);
+			gl.glBindBuffer(GL2.GL_ARRAY_BUFFER, 0);
+			gl.glBindBuffer(GL2.GL_ELEMENT_ARRAY_BUFFER, 0);
 	}
 	
 	/**
@@ -134,14 +135,14 @@ public class ToolsVBO {
 	public static int generateColorVBO(PApplet pa, FloatBuffer colorBuffer, int vertexCount){
 		int[] vboColor = new int[1];// vertexcolor Coordinate VBO Name
 //		GL gl = Tools3D.getGL(pa);
-		GL11 gl = PlatformUtil.getGL11();
+		GL2 gl = GLU.getCurrentGL().getGL2();
 			gl.glGenBuffers(1, vboColor, 0);  // Get A Valid Name
-			gl.glBindBuffer(GL11.GL_ARRAY_BUFFER, vboColor[0]); // Bind The Buffer
+			gl.glBindBuffer(GL2.GL_ARRAY_BUFFER, vboColor[0]); // Bind The Buffer
 			// Load The Data
-			gl.glBufferData(GL11.GL_ARRAY_BUFFER, vertexCount * 4 * (int)GL11Plus.SIZEOF_FLOAT, colorBuffer, GL11.GL_STATIC_DRAW);
+			gl.glBufferData(GL2.GL_ARRAY_BUFFER, vertexCount * 4 * (int)Buffers.SIZEOF_FLOAT, colorBuffer, GL2.GL_STATIC_DRAW);
 			//Unbind VBOs 
-			gl.glBindBuffer(GL11.GL_ARRAY_BUFFER, 0);
-			gl.glBindBuffer(GL11.GL_ELEMENT_ARRAY_BUFFER, 0);
+			gl.glBindBuffer(GL2.GL_ARRAY_BUFFER, 0);
+			gl.glBindBuffer(GL2.GL_ELEMENT_ARRAY_BUFFER, 0);
 		return vboColor[0];
 	}
 	
@@ -155,13 +156,13 @@ public class ToolsVBO {
 	 */
 	public static void updateColorVBO(PApplet pa, FloatBuffer colorBuffer, int vertexCount, int vboName){
 //		GL gl = Tools3D.getGL(pa);
-		GL11 gl = PlatformUtil.getGL11();
-			gl.glBindBuffer(GL11.GL_ARRAY_BUFFER, vboName); // Bind The Buffer
+		GL2 gl = GLU.getCurrentGL().getGL2();
+			gl.glBindBuffer(GL2.GL_ARRAY_BUFFER, vboName); // Bind The Buffer
 			// Load The Data
-			gl.glBufferData(GL11.GL_ARRAY_BUFFER, vertexCount * 4 * (int)GL11Plus.SIZEOF_FLOAT, colorBuffer, GL11.GL_STATIC_DRAW);
+			gl.glBufferData(GL2.GL_ARRAY_BUFFER, vertexCount * 4 * (int)Buffers.SIZEOF_FLOAT, colorBuffer, GL2.GL_STATIC_DRAW);
 			//Unbind VBOs 
-			gl.glBindBuffer(GL11.GL_ARRAY_BUFFER, 0);
-			gl.glBindBuffer(GL11.GL_ELEMENT_ARRAY_BUFFER, 0);
+			gl.glBindBuffer(GL2.GL_ARRAY_BUFFER, 0);
+			gl.glBindBuffer(GL2.GL_ELEMENT_ARRAY_BUFFER, 0);
 	}
 	
 	/**
@@ -176,14 +177,14 @@ public class ToolsVBO {
 	public static int generateStrokeColorVBO(PApplet pa, FloatBuffer strokeColBuffer, int vertexCount){
 		int[] vboStrokeColor = new int[1];// stroke Coordinate VBO Name
 //		GL gl = Tools3D.getGL(pa);
-		GL11 gl = PlatformUtil.getGL11();
+		GL2 gl = GLU.getCurrentGL().getGL2();
 			gl.glGenBuffers(1, vboStrokeColor, 0);  // Get A Valid Name
-			gl.glBindBuffer(GL11.GL_ARRAY_BUFFER, vboStrokeColor[0]); // Bind The Buffer
+			gl.glBindBuffer(GL2.GL_ARRAY_BUFFER, vboStrokeColor[0]); // Bind The Buffer
 			// Load The Data
-			gl.glBufferData(GL11.GL_ARRAY_BUFFER,vertexCount * 4 * (int)GL11Plus.SIZEOF_FLOAT, strokeColBuffer, GL11.GL_STATIC_DRAW);
+			gl.glBufferData(GL2.GL_ARRAY_BUFFER,vertexCount * 4 * (int)Buffers.SIZEOF_FLOAT, strokeColBuffer, GL2.GL_STATIC_DRAW);
 			//Unbind VBOs 
-			gl.glBindBuffer(GL11.GL_ARRAY_BUFFER, 0);
-			gl.glBindBuffer(GL11.GL_ELEMENT_ARRAY_BUFFER, 0);
+			gl.glBindBuffer(GL2.GL_ARRAY_BUFFER, 0);
+			gl.glBindBuffer(GL2.GL_ELEMENT_ARRAY_BUFFER, 0);
 		return vboStrokeColor[0];
 	}
 	
@@ -197,13 +198,13 @@ public class ToolsVBO {
 	 */
 	public static void updateStrokeColorVBO(PApplet pa, FloatBuffer strokeColBuffer, int vertexCount, int vboName){
 //		GL gl = Tools3D.getGL(pa);
-		GL11 gl = PlatformUtil.getGL11();
-			gl.glBindBuffer(GL11.GL_ARRAY_BUFFER, vboName); // Bind The Buffer
+		GL2 gl = GLU.getCurrentGL().getGL2();
+			gl.glBindBuffer(GL2.GL_ARRAY_BUFFER, vboName); // Bind The Buffer
 			// Load The Data
-			gl.glBufferData(GL11.GL_ARRAY_BUFFER,vertexCount * 4 * (int)GL11Plus.SIZEOF_FLOAT, strokeColBuffer, GL11.GL_STATIC_DRAW);
+			gl.glBufferData(GL2.GL_ARRAY_BUFFER,vertexCount * 4 * (int)Buffers.SIZEOF_FLOAT, strokeColBuffer, GL2.GL_STATIC_DRAW);
 			//Unbind VBOs 
-			gl.glBindBuffer(GL11.GL_ARRAY_BUFFER, 0);
-			gl.glBindBuffer(GL11.GL_ELEMENT_ARRAY_BUFFER, 0);
+			gl.glBindBuffer(GL2.GL_ARRAY_BUFFER, 0);
+			gl.glBindBuffer(GL2.GL_ELEMENT_ARRAY_BUFFER, 0);
 	}
 	
 	
@@ -219,14 +220,14 @@ public class ToolsVBO {
 	public static int generateNormalsVBO(PApplet pa, FloatBuffer normalsBuffer, int normalsCount){
 		int[] vboNormals = new int[1]; 
 //		GL gl = Tools3D.getGL(pa);
-		GL11 gl = PlatformUtil.getGL11();
+		GL2 gl = GLU.getCurrentGL().getGL2();
 			gl.glGenBuffers(1, vboNormals, 0);  // Get A Valid Name
-			gl.glBindBuffer(GL11.GL_ARRAY_BUFFER, vboNormals[0]);  // Bind The Buffer
+			gl.glBindBuffer(GL2.GL_ARRAY_BUFFER, vboNormals[0]);  // Bind The Buffer
 			// Load The Data
-			gl.glBufferData(GL11.GL_ARRAY_BUFFER, normalsCount * 3 * (int)GL11Plus.SIZEOF_FLOAT, normalsBuffer, GL11.GL_STATIC_DRAW);
+			gl.glBufferData(GL2.GL_ARRAY_BUFFER, normalsCount * 3 * (int)Buffers.SIZEOF_FLOAT, normalsBuffer, GL2.GL_STATIC_DRAW);
 			//Unbind VBOs 
-			gl.glBindBuffer(GL11.GL_ARRAY_BUFFER, 0);
-			gl.glBindBuffer(GL11.GL_ELEMENT_ARRAY_BUFFER, 0);
+			gl.glBindBuffer(GL2.GL_ARRAY_BUFFER, 0);
+			gl.glBindBuffer(GL2.GL_ELEMENT_ARRAY_BUFFER, 0);
 		return vboNormals[0];
 	}
 	
@@ -241,13 +242,13 @@ public class ToolsVBO {
 	 */
 	public static void updateNormalsVBO(PApplet pa, FloatBuffer normalsBuffer, int normalsCount, int vboName){
 //		GL gl = Tools3D.getGL(pa);
-		GL11 gl = PlatformUtil.getGL11();
-		gl.glBindBuffer(GL11.GL_ARRAY_BUFFER, vboName);  // Bind The Buffer
+		GL2 gl = GLU.getCurrentGL().getGL2();
+		gl.glBindBuffer(GL2.GL_ARRAY_BUFFER, vboName);  // Bind The Buffer
 		// Load The Data
-		gl.glBufferData(GL11.GL_ARRAY_BUFFER, normalsCount * 3 * (int)GL11Plus.SIZEOF_FLOAT, normalsBuffer, GL11.GL_STATIC_DRAW);
+		gl.glBufferData(GL2.GL_ARRAY_BUFFER, normalsCount * 3 * (int)Buffers.SIZEOF_FLOAT, normalsBuffer, GL2.GL_STATIC_DRAW);
 		//Unbind VBOs 
-		gl.glBindBuffer(GL11.GL_ARRAY_BUFFER, 0);
-		gl.glBindBuffer(GL11.GL_ELEMENT_ARRAY_BUFFER, 0);
+		gl.glBindBuffer(GL2.GL_ARRAY_BUFFER, 0);
+		gl.glBindBuffer(GL2.GL_ELEMENT_ARRAY_BUFFER, 0);
 	}
 
 }

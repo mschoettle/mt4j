@@ -19,22 +19,25 @@ package org.mt4j.sceneManagement;
 
 import java.util.Iterator;
 
+import javax.media.opengl.GL2;
+
 import org.mt4j.AbstractMTApplication;
 import org.mt4j.components.MTCanvas;
 import org.mt4j.input.inputProcessors.globalProcessors.AbstractGlobalInputProcessor;
 import org.mt4j.input.inputProcessors.globalProcessors.InputRetargeter;
 import org.mt4j.sceneManagement.transition.ITransition;
 import org.mt4j.util.ArrayDeque;
-import org.mt4j.util.PlatformUtil;
 import org.mt4j.util.MT4jSettings;
 import org.mt4j.util.MTColor;
+import org.mt4j.util.PlatformUtil;
 import org.mt4j.util.camera.Icamera;
 import org.mt4j.util.camera.MTCamera;
 import org.mt4j.util.logging.ILogger;
 import org.mt4j.util.logging.MTLoggerFactory;
-import org.mt4j.util.opengl.GL10;
+import org.mt4j.util.math.Tools3D;
 
-import processing.core.PGraphics;
+import processing.opengl.PGraphicsOpenGL;
+
 
 /**
  * A class representing a scene in a program or game.
@@ -149,7 +152,7 @@ public abstract class AbstractScene implements Iscene {
 	/* (non-Javadoc)
 	 * @see org.mt4j.sceneManagement.Iscene#drawAndUpdate(processing.core.PGraphics, long)
 	 */
-	public void drawAndUpdate(PGraphics graphics, long timeDelta){
+	public void drawAndUpdate(PGraphicsOpenGL graphics, long timeDelta){
 		//Process preDrawActions
 		synchronized (preDrawActions) {
 			for (Iterator<IPreDrawAction> iter = preDrawActions.iterator(); iter.hasNext();) {
@@ -172,15 +175,15 @@ public abstract class AbstractScene implements Iscene {
 	
 	
 
-	protected void clear(PGraphics graphics){
+	protected void clear(PGraphicsOpenGL graphics){
 		if (MT4jSettings.getInstance().isOpenGlMode() && !PlatformUtil.isAndroid()){
 //			GL gl = Tools3D.getGL(mtApplication);
-			GL10 gl = PlatformUtil.getGL();
+			GL2 gl = Tools3D.getGL(mtApplication);
 			gl.glClearColor(this.glClearColor.getR(), this.glClearColor.getG(), this.glClearColor.getB(), this.glClearColor.getAlpha());
 			gl.glClear(
-					GL10.GL_COLOR_BUFFER_BIT 
+					GL2.GL_COLOR_BUFFER_BIT 
 					| 
-					GL10.GL_DEPTH_BUFFER_BIT
+					GL2.GL_DEPTH_BUFFER_BIT
 					);
 //			gl.glDepthMask(false);
 //			gl.glDisable(GL.GL_DEPTH_TEST);

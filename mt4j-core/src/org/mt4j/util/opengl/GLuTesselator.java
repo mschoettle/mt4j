@@ -21,6 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.media.opengl.GL;
+import javax.media.opengl.GL2;
 import javax.media.opengl.glu.GLU;
 import javax.media.opengl.glu.GLUtessellator;
 import javax.media.opengl.glu.GLUtessellatorCallbackAdapter;
@@ -44,7 +45,7 @@ import processing.core.PApplet;
 public class GLuTesselator extends GLUtessellatorCallbackAdapter{
 	   
    	/** The gl. */
-   	private GL gl;
+   	private GL2 gl;
        
        /** The glu. */
        private GLU glu;
@@ -68,7 +69,7 @@ public class GLuTesselator extends GLUtessellatorCallbackAdapter{
         * @param gl the gl
         * @param glu the glu
         */
-       public GLuTesselator(GL gl, GLU glu) {
+       public GLuTesselator(GL2 gl, GLU glu) {
            this.gl = gl;
            this.glu = glu;
            
@@ -138,7 +139,7 @@ public class GLuTesselator extends GLUtessellatorCallbackAdapter{
 		 */
 	   	public int tesselateToDisplayList(List<Vertex[]> contours, PApplet pa, int windingRule){
 	   		int listId = gl.glGenLists(1);
-			gl.glNewList(listId, GL.GL_COMPILE);
+			gl.glNewList(listId, GL2.GL_COMPILE);
 			this.tesselate(contours, windingRule);
 			gl.glEndList();
 			return listId;

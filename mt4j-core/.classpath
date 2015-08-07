@@ -8,8 +8,6 @@
 	<classpathentry kind="lib" path="lib/batik-css.jar"/>
 	<classpathentry kind="lib" path="lib/xml-apis-ext.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="lib" path="lib/jogl/jogl.jar"/>
-	<classpathentry kind="lib" path="lib/jogl/opengl.jar"/>
 	<classpathentry kind="lib" path="lib/batik/batik-dom.jar"/>
 	<classpathentry kind="lib" path="lib/batik/batik-ext.jar"/>
 	<classpathentry kind="lib" path="lib/batik/batik-extension.jar"/>
@@ -42,5 +40,7 @@
 	<classpathentry kind="lib" path="examples/advanced/fluidSimulator/lib/MSAFluid.jar"/>
 	<classpathentry kind="lib" path="examples/advanced/modestMapsMT/lib/modestMaps.jar"/>
 	<classpathentry kind="lib" path="examples/advanced/water/lib/waterScene.jar"/>
+	<classpathentry kind="lib" path="lib/jogl/jogl-all.jar"/>
+	<classpathentry kind="lib" path="lib/jogl/core.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

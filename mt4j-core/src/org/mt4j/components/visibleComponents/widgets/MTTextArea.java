@@ -20,6 +20,8 @@ package org.mt4j.components.visibleComponents.widgets;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.media.opengl.GL2;
+
 import org.mt4j.AbstractMTApplication;
 import org.mt4j.components.TransformSpace;
 import org.mt4j.components.clipping.Clip;
@@ -27,7 +29,6 @@ import org.mt4j.components.css.style.CSSFont;
 import org.mt4j.components.css.style.CSSStyle;
 import org.mt4j.components.visibleComponents.shapes.MTRectangle;
 import org.mt4j.components.visibleComponents.widgets.keyboard.ITextInputListener;
-import org.mt4j.util.PlatformUtil;
 import org.mt4j.util.MT4jSettings;
 import org.mt4j.util.MTColor;
 import org.mt4j.util.font.FontManager;
@@ -36,12 +37,12 @@ import org.mt4j.util.font.IFontCharacter;
 import org.mt4j.util.font.ITextureFont;
 import org.mt4j.util.font.ITextureFontCharacter;
 import org.mt4j.util.math.Matrix;
+import org.mt4j.util.math.Tools3D;
 import org.mt4j.util.math.Vector3D;
 import org.mt4j.util.math.Vertex;
-import org.mt4j.util.opengl.GL10;
 
 import processing.core.PApplet;
-import processing.core.PGraphics;
+import processing.opengl.PGraphicsOpenGL;
 
 /**
  * The Class MTTextArea. This widget allows to display text with a specified font.
@@ -354,7 +355,7 @@ public class MTTextArea extends MTRectangle implements ITextInputListener, Compa
 	
 	
 	@Override
-	public void preDraw(PGraphics graphics) {
+	public void preDraw(PGraphicsOpenGL graphics) {
 		super.preDraw(graphics);
 		
 		//Hack for drawing anti aliased stroke outline over the clipped area
@@ -392,7 +393,7 @@ public class MTTextArea extends MTRectangle implements ITextInputListener, Compa
 	
 	
 	@Override
-	public void drawComponent(PGraphics g) {
+	public void drawComponent(PGraphicsOpenGL g) {
 		super.drawComponent(g);
 		
 		//FIXME snapping wont be useful if textarea is created at non-integer value!? and if Camera isnt default camera
@@ -459,7 +460,7 @@ public class MTTextArea extends MTRectangle implements ITextInputListener, Compa
 		
 		if (this.isUseDirectGL()){
 //			GL gl = Tools3D.beginGL(pa);
-			GL10 gl = PlatformUtil.beginGL();
+			GL2 gl = Tools3D.getGL(pa);
 			if (totalScrollTextX != 0.0f || totalScrollTextY != 0.0f){
 				gl.glTranslatef(totalScrollTextX, totalScrollTextY + font.getFontMaxAscent(), 0);
 			}else{
@@ -481,7 +482,7 @@ public class MTTextArea extends MTRectangle implements ITextInputListener, Compa
 			drawCharactersGL(gl, this.font, characterList, charListSize, lastXAdvancement, thisLineTotalXAdvancement);
 			
 //			Tools3D.endGL(pa);
-			PlatformUtil.endGL();
+//			PlatformUtil.endGL();
 		}
 		else{ //P3D rendering
 			g.pushMatrix(); //FIXME TEST text scrolling - but IMHO better done with parent list/scroll container
@@ -558,7 +559,7 @@ public class MTTextArea extends MTRectangle implements ITextInputListener, Compa
 		this.getFont().setFillColor(fontColor);
 	}
 	
-	private void drawCharactersGL(GL10 gl, IFont font, List<IFontCharacter> characterList, int charListSize, int lastXAdv, int lineTotalAdv){
+	private void drawCharactersGL(GL2 gl, IFont font, List<IFontCharacter> characterList, int charListSize, int lastXAdv, int lineTotalAdv){
 		int lastXAdvancement = lastXAdv;
 		int thisLineTotalXAdvancement = lineTotalAdv;
 		
@@ -613,7 +614,7 @@ public class MTTextArea extends MTRectangle implements ITextInputListener, Compa
 	private boolean noStrokeSettingSaved;
 	
 	@Override
-	public void postDraw(PGraphics graphics) {
+	public void postDraw(PGraphicsOpenGL graphics) {
 		super.postDraw(graphics);
 		//Hack for drawing anti aliased stroke outline over the clipped area
 		if (this.mode == MODE_WRAP && this.getClip()!= null && !noStrokeSettingSaved){
@@ -1256,8 +1257,8 @@ public class MTTextArea extends MTRectangle implements ITextInputListener, Compa
 	 * @author Christopher Ruff
 	 */
 	protected class ArtificalLineBreak implements IFontCharacter{
-		public void drawComponent(PGraphics g) {}
-		public void drawComponent(GL10 gl) {	}
+		public void drawComponent(PGraphicsOpenGL g) {}
+		public void drawComponent(GL2 gl) {	}
 		public void destroy() {	}
 		public int getHorizontalDist() {
 			return 0;

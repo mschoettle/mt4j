@@ -19,9 +19,11 @@ package org.mt4j.util.opengl;
 
 import java.util.Stack;
 
+import javax.media.opengl.GL2;
+
 import org.mt4j.components.visibleComponents.AbstractVisibleComponent;
 
-import processing.core.PGraphics;
+import processing.opengl.PGraphicsOpenGL;
 
 /**
  * Abstracts the OpenGL stencil buffer for
@@ -79,7 +81,7 @@ public class GLStencilUtil {
 	 * 
 	 * @param gl the gl
 	 */
-	public void beginDrawClipShape(GL10 gl){ //begin draw clip shape
+	public void beginDrawClipShape(GL2 gl){ //begin draw clip shape
 //		gl.glPushAttrib(GL10.GL_STENCIL_BUFFER_BIT | GL10.GL_STENCIL_TEST); //FIXME do only at initialization??
 //		gl.glPushAttrib(GL10.GL_STENCIL_BUFFER_BIT); //FIXME do only at initialization??
 
@@ -93,8 +95,8 @@ public class GLStencilUtil {
 			
 			//Enable stencilbuffer
 			gl.glClearStencil(stencilValueStack.peek());
-			gl.glClear(GL10.GL_STENCIL_BUFFER_BIT);
-			gl.glEnable(GL10.GL_STENCIL_TEST);
+			gl.glClear(GL2.GL_STENCIL_BUFFER_BIT);
+			gl.glEnable(GL2.GL_STENCIL_TEST);
 //			gl.glStencilMask (0x0000000D);
 		}
 
@@ -102,25 +104,25 @@ public class GLStencilUtil {
 
 		//Dont draw into the color or depth buffer while drawing the clip shape
 		gl.glColorMask(false,false,false,false);
-		gl.glDisable(GL10.GL_BLEND);
+		gl.glDisable(GL2.GL_BLEND);
 		gl.glDepthMask(false);//remove..?
 
 		if (!initialized){
 			initialized = true;
 			//If were at the top level = nothing written into stencil buffer yet
 			//draw mask value into buffer regardless if stencilfunc suceeds 
-			gl.glStencilFunc (GL10.GL_ALWAYS, currentStencilValue, currentStencilValue);
+			gl.glStencilFunc (GL2.GL_ALWAYS, currentStencilValue, currentStencilValue);
 		}else{
 			//= draw mask value into stencil only where the current/last stencil value is equal to the current stencil value?
 			//we may not write into the stencil somehwhere else -> the parent may have also clipped something
 			//-> write only where the parent clip wrote its stencil clip mask and dont go beyond that
-			gl.glStencilFunc (GL10.GL_EQUAL, currentStencilValue, currentStencilValue); 
+			gl.glStencilFunc (GL2.GL_EQUAL, currentStencilValue, currentStencilValue); 
 		}
 		 
 		//We write the current stencil value +1 ! into the stencil buffer where the 
 		//stencil func succeeds
 		//This marks the area where we are allowed to draw the clipped shape later
-		gl.glStencilOp(GL10.GL_KEEP, GL10.GL_KEEP, GL10.GL_INCR); //FIXME also write stencil value if depth test fails?
+		gl.glStencilOp(GL2.GL_KEEP, GL2.GL_KEEP, GL2.GL_INCR); //FIXME also write stencil value if depth test fails?
 	    
 	    //- we increment the value on the stencil stack 
 	    //so it correlates with the incremented value in the stencil buffer
@@ -135,7 +137,7 @@ public class GLStencilUtil {
 	 * 
 	 * @param gl the gl
 	 */
-	public void beginDrawClipped(GL10 gl){ //draw clipped
+	public void beginDrawClipped(GL2 gl){ //draw clipped
 		int incrementedStencilValue = stencilValueStack.peek();
 		//TODO instead of setting depth, blend etc, use glPush/Popattrib !?
 		
@@ -143,11 +145,11 @@ public class GLStencilUtil {
 		//the same as the current stencil stack value 
 		//(the value which was written into the buffer at "beginDrawClippingShape()"
 		gl.glDepthMask(true);
-		gl.glEnable (GL10.GL_BLEND); 
+		gl.glEnable (GL2.GL_BLEND); 
 //		gl.glBlendFunc(GL10.GL_SRC_ALPHA, GL10.GL_ONE_MINUS_SRC_ALPHA);  //FIXME NEEDED?
 		gl.glColorMask(true, true, true, true);
-		gl.glStencilFunc(GL10.GL_EQUAL, incrementedStencilValue, incrementedStencilValue);
-		gl.glStencilOp(GL10.GL_KEEP, GL10.GL_KEEP, GL10.GL_KEEP);
+		gl.glStencilFunc(GL2.GL_EQUAL, incrementedStencilValue, incrementedStencilValue);
+		gl.glStencilOp(GL2.GL_KEEP, GL2.GL_KEEP, GL2.GL_KEEP);
 	}
 
 	
@@ -156,7 +158,7 @@ public class GLStencilUtil {
 	 * 
 	 * @param gl the gl
 	 */
-	public void endClipping(PGraphics g, GL10 gl){
+	public void endClipping(PGraphicsOpenGL g, GL2 gl){
 		this.endClipping(g, gl, null);
 	}
 	
@@ -171,7 +173,7 @@ public class GLStencilUtil {
 	 * @param gl the gl
 	 * @param clipShape the clip shape
 	 */
-	public void endClipping(PGraphics g, GL10 gl, AbstractVisibleComponent clipShape){ //stop clipping
+	public void endClipping(PGraphicsOpenGL g, GL2 gl, AbstractVisibleComponent clipShape){ //stop clipping
 		//Remove the top/last used stencil mask value from the stack
 		int currentStencilValue = stencilValueStack.pop();
 		
@@ -194,10 +196,11 @@ public class GLStencilUtil {
 				//ORIGINAL
 				//Decrease stencil value again where we increased it at drawing the clipping shape 
 				//(so the stencil values are same as before drawing the clip shape)
-				gl.glStencilFunc (GL10.GL_EQUAL, currentStencilValue, currentStencilValue); 
-				gl.glStencilOp(GL10.GL_KEEP, GL10.GL_KEEP, GL10.GL_DECR);
+				gl.glStencilFunc (GL2.GL_EQUAL, currentStencilValue, currentStencilValue); 
+				gl.glStencilOp(GL2.GL_KEEP, GL2.GL_KEEP, GL2.GL_DECR);
 				//FIXME this can be bad for performance if the clipshape is complex
-				clipShape.drawComponent(clipShape.getRenderer().g); 
+				PGraphicsOpenGL p = (PGraphicsOpenGL) clipShape.getRenderer().g;
+				clipShape.drawComponent(p); 
 //				*/
 				gl.glDepthMask(true);
 				gl.glColorMask(true, true, true, true);
@@ -253,10 +256,10 @@ public class GLStencilUtil {
 //		}
 		
 		//Restore /glpushAttrib not available in OpenGL ES
-		gl.glStencilFunc(GL10.GL_EQUAL, stencilValueStack.peek(), stencilValueStack.peek());
-		gl.glStencilOp(GL10.GL_KEEP, GL10.GL_KEEP, GL10.GL_KEEP);
+		gl.glStencilFunc(GL2.GL_EQUAL, stencilValueStack.peek(), stencilValueStack.peek());
+		gl.glStencilOp(GL2.GL_KEEP, GL2.GL_KEEP, GL2.GL_KEEP);
 		if (!initialized){
-			gl.glDisable(GL10.GL_STENCIL_TEST);
+			gl.glDisable(GL2.GL_STENCIL_TEST);
 		}
 		
 		/*

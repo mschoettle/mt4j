@@ -43,6 +43,9 @@ public class MT4jSettings {
 	/** The Constant P3D_MODE. */
 	public static final int P3D_MODE    = 2;
 	
+	/** The Constant GLGRAPHICS_MODE. */
+    public static final int GLGRAPHICS_MODE = 3;
+	
 	/** Current DrawMode. */
 	public int renderer = P3D_MODE;
 	

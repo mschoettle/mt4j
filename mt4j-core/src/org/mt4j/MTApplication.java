@@ -13,6 +13,8 @@ import java.io.InputStream;
 import java.util.Properties;
 
 import javax.media.opengl.GL;
+import javax.media.opengl.GL2;
+import javax.media.opengl.glu.GLU;
 import javax.swing.ImageIcon;
 
 import org.mt4j.input.DesktopInputManager;
@@ -34,9 +36,6 @@ import org.mt4j.util.modelImporter.file3ds.Model3dsFileFactory;
 import org.mt4j.util.modelImporter.fileObj.ModelObjFileFactory;
 import org.mt4j.util.opengl.GLCommon;
 import org.mt4j.util.opengl.GLFBO;
-import org.mt4j.util.opengl.JoglGL10;
-import org.mt4j.util.opengl.JoglGL11;
-import org.mt4j.util.opengl.JoglGL20Plus;
 
 import processing.core.PApplet;
 import processing.opengl.PGraphicsOpenGL;
@@ -205,12 +204,20 @@ public abstract class MTApplication extends AbstractMTApplication {
 			getSettingsFromFile();
 		}
 		
-		// Applet size - size() must be the first command in setup() method
-		if (MT4jSettings.getInstance().getRendererMode() == MT4jSettings.OPENGL_MODE)
-			this.size(MT4jSettings.getInstance().getWindowWidth(), MT4jSettings.getInstance().getWindowHeight(), CUSTOM_OPENGL_GRAPHICS);
-		else if (MT4jSettings.getInstance().getRendererMode() == MT4jSettings.P3D_MODE)
-			this.size(MT4jSettings.getInstance().getWindowWidth(), MT4jSettings.getInstance().getWindowHeight(), PApplet.P3D);
-		
+//		try{
+			 this.size(MT4jSettings.getInstance().getWindowWidth(), MT4jSettings.getInstance().getWindowHeight(), MTApplication.OPENGL);
+//				}catch(Exception e){
+//				setup();
+//			}
+			 
+//		// Applet size - size() must be the first command in setup() method
+//		if (MT4jSettings.getInstance().getRendererMode() == MT4jSettings.OPENGL_MODE)
+//			this.size(MT4jSettings.getInstance().getWindowWidth(), MT4jSettings.getInstance().getWindowHeight(), CUSTOM_OPENGL_GRAPHICS);
+//		else if (MT4jSettings.getInstance().getRendererMode() == MT4jSettings.P3D_MODE)
+//			this.size(MT4jSettings.getInstance().getWindowWidth(), MT4jSettings.getInstance().getWindowHeight(), PApplet.P3D);
+//		else if (MT4jSettings.getInstance().getRendererMode() == MT4jSettings.GLGRAPHICS_MODE)
+//			this.size(MT4jSettings.getInstance().getWindowWidth(), MT4jSettings.getInstance().getWindowHeight(), OPENGL);
+
 		//TOGGLES ALWAYS ON TOP MODE
 		//this.frame.setAlwaysOnTop(true);
 		
@@ -333,35 +340,37 @@ public abstract class MTApplication extends AbstractMTApplication {
 	
 
 	protected void loadGL(){
-		String version = ((PGraphicsOpenGL)g).gl.glGetString(GL.GL_VERSION);
+        iGL2 = GLU.getCurrentGL().getGL2();
+
+		String version = iGL2.glGetString(GL.GL_VERSION);
 		logger.info("OpenGL Version: " + version);
         int major = Integer.parseInt("" + version.charAt(0));
         int minor = Integer.parseInt("" + version.charAt(2));
         
         this.gl11Supported = false;
         this.gl20Supported = false;
-        if (major >= 2) {
-//                JoglGL20 jogl20 = new JoglGL20(((PGraphicsOpenGL)g).gl);
-        		JoglGL20Plus jogl20 = new JoglGL20Plus(((PGraphicsOpenGL)g).gl);
-                iGL20 = jogl20;
-                //FIXME ADDED
-                iGL10  = jogl20;
-                iGL11 = jogl20;
-                iGL11Plus = jogl20;
-                glCommon = iGL20;
-                this.gl20Supported = true;
-                this.gl11Supported = true;
-                this.gl11PlusSupported = true;
-        } else {
-                if (major == 1 && minor < 5) {
-                        iGL10 = new JoglGL10(((PGraphicsOpenGL)g).gl);
-                } else {
-                        iGL11 = new JoglGL11(((PGraphicsOpenGL)g).gl);
-                        iGL10 = iGL11;
-                        this.gl11Supported = true;
-                }
-                glCommon = iGL10;
-        }
+//        if (major >= 2) {
+////                JoglGL20 jogl20 = new JoglGL20(((PGraphicsOpenGL)g).gl);
+//        		JoglGL20Plus jogl20 = new JoglGL20Plus(gl);
+//                iGL20 = jogl20;
+//                //FIXME ADDED
+//                iGL10  = jogl20;
+//                iGL11 = jogl20;
+//                iGL11Plus = jogl20;
+//                glCommon = iGL20;
+//                this.gl20Supported = true;
+//                this.gl11Supported = true;
+//                this.gl11PlusSupported = true;
+//        } else {
+//                if (major == 1 && minor < 5) {
+//                        iGL10 = new JoglGL10(gl);
+//                } else {
+//                        iGL11 = new JoglGL11(gl);
+//                        iGL10 = iGL11;
+//                        this.gl11Supported = true;
+//                }
+//                glCommon = iGL10;
+//        }
 	}
 	
 	/**
@@ -388,7 +397,7 @@ public abstract class MTApplication extends AbstractMTApplication {
 	        //////////////////////////
 	        
 //	    	GL gl = Tools3D.getGL(this);
-	        GLCommon gl = getGLCommon();
+	        GL2 gl = getGL2();
 	    	
 	    	logger.info("OpenGL Version: \"" + gl.glGetString(GL.GL_VERSION) + "\"" + " - Vendor: \"" + gl.glGetString(GL.GL_VENDOR) + "\"" + " - Renderer: \"" + gl.glGetString(GL.GL_RENDERER) + "\"");
 //	    	logger.info("Shading language version: \"" +  gl.glGetString(GL.GL_SHADING_LANGUAGE_VERSION) + "\"");

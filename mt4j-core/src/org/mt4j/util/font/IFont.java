@@ -17,8 +17,9 @@
  ***********************************************************************/
 package org.mt4j.util.font;
 
+import javax.media.opengl.GL2;
+
 import org.mt4j.util.MTColor;
-import org.mt4j.util.opengl.GL10;
 
 /**
  * The Interface IFont.
@@ -141,9 +142,9 @@ public interface IFont {
 
 	
 	
-	public void beginBatchRenderGL(GL10 gl, IFont font);
+	public void beginBatchRenderGL(GL2 gl, IFont font);
 
-	public void endBatchRenderGL(GL10 gl, IFont font);
+	public void endBatchRenderGL(GL2 gl, IFont font);
 
 	public boolean isEqual(IFont font);
 }

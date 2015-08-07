@@ -169,8 +169,8 @@ public class FlipTransition extends AbstractTransition {
 				nextSceneRectangle.setVisible(false);
 
 				//Draw scenes into texture once!
-				lastSceneWindow.drawComponent(app.g);
-				nextSceneWindow.drawComponent(app.g);
+				lastSceneWindow.drawComponent(app.graphicsOpenGL());
+				nextSceneWindow.drawComponent(app.graphicsOpenGL());
 				
 				anim.start();
 			}

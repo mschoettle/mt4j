@@ -1,7 +1,7 @@
 #Wed Jan 30 04:24:13 CET 2008	
 Frametitle=MT Application
 #Renderer: OpenGL: 1 P3D: 2
-Renderer=1
+Renderer=2
 #Fullscreen:'true' or 'false'
 Fullscreen=false
 #Switch for using fullscreen exclusive mode 

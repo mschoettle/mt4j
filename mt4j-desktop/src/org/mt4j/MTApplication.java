@@ -388,7 +388,7 @@ public abstract class MTApplication extends AbstractMTApplication {
 	        //////////////////////////
 	        
 //	    	GL gl = Tools3D.getGL(this);
-	        GLCommon gl = getGLCommon();
+	        GLCommon gl = getGL2();
 	    	
 	    	logger.info("OpenGL Version: \"" + gl.glGetString(GL.GL_VERSION) + "\"" + " - Vendor: \"" + gl.glGetString(GL.GL_VENDOR) + "\"" + " - Renderer: \"" + gl.glGetString(GL.GL_RENDERER) + "\"");
 //	    	logger.info("Shading language version: \"" +  gl.glGetString(GL.GL_SHADING_LANGUAGE_VERSION) + "\"");

@@ -21,6 +21,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.media.opengl.GL2;
+
 import org.mt4j.components.MTComponent;
 import org.mt4j.components.visibleComponents.font.VectorFontCharacter;
 import org.mt4j.util.MTColor;
@@ -31,7 +33,6 @@ import org.mt4j.util.font.fontFactories.IFontFactory;
 import org.mt4j.util.font.fontFactories.TTFontFactory;
 import org.mt4j.util.logging.ILogger;
 import org.mt4j.util.logging.MTLoggerFactory;
-import org.mt4j.util.opengl.GL10;
 
 import processing.core.PApplet;
 
@@ -407,14 +408,14 @@ public class VectorFont implements IFont {
 
 
 	@Override
-	public void beginBatchRenderGL(GL10 gl, IFont font) {
+	public void beginBatchRenderGL(GL2 gl, IFont font) {
 		MTColor fillColor = font.getFillColor();
 		gl.glColor4f(fillColor.getR()/255f, fillColor.getG()/255f, fillColor.getB()/255f, fillColor.getAlpha()/255f); 
 	}
 
 
 	@Override
-	public void endBatchRenderGL(GL10 gl, IFont font) {
+	public void endBatchRenderGL(GL2 gl, IFont font) {
 		// TODO Auto-generated method stub
 		
 	}

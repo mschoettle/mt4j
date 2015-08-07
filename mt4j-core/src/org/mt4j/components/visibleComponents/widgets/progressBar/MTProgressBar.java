@@ -19,6 +19,8 @@ package org.mt4j.components.visibleComponents.widgets.progressBar;
 
 //import javax.media.opengl.GL;
 
+import javax.media.opengl.GL2;
+
 import org.mt4j.components.TransformSpace;
 import org.mt4j.components.visibleComponents.shapes.MTRectangle;
 import org.mt4j.components.visibleComponents.shapes.MTRoundRectangle;
@@ -26,17 +28,14 @@ import org.mt4j.input.inputProcessors.componentProcessors.dragProcessor.DragProc
 import org.mt4j.input.inputProcessors.componentProcessors.rotateProcessor.RotateProcessor;
 import org.mt4j.input.inputProcessors.componentProcessors.scaleProcessor.ScaleProcessor;
 import org.mt4j.input.inputProcessors.componentProcessors.tapProcessor.TapProcessor;
-import org.mt4j.util.PlatformUtil;
 import org.mt4j.util.MT4jSettings;
 import org.mt4j.util.MTColor;
 import org.mt4j.util.math.Tools3D;
 import org.mt4j.util.math.Vector3D;
-import org.mt4j.util.opengl.GL10;
 
 import processing.core.PApplet;
 import processing.core.PFont;
-import processing.core.PGraphics;
-//import processing.opengl.PGraphicsOpenGL;
+import processing.opengl.PGraphicsOpenGL;
 
 /**
  * The Class MTProgressBar.
@@ -207,7 +206,7 @@ public class MTProgressBar extends MTRoundRectangle {
 
 
 	@Override
-	public void drawComponent(PGraphics g) {
+	public void drawComponent(PGraphicsOpenGL g) {
 		if (progressInfo == null){
 			return;
 		}
@@ -217,7 +216,7 @@ public class MTProgressBar extends MTRoundRectangle {
 		}
 		
 		//gl.scissor so text gezts clipped
-		GL10 gl = null;
+		GL2 gl = null;
 		if (openGl){
 			/*
 			gl= GraphicsUtil.beginGL();

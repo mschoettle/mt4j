@@ -19,6 +19,8 @@ package org.mt4j.components.visibleComponents.widgets.keyboard;
 
 import java.util.List;
 
+import javax.media.opengl.GL2;
+
 import org.mt4j.components.TransformSpace;
 import org.mt4j.components.bounds.BoundsZPlaneRectangle;
 import org.mt4j.components.bounds.IBoundingShape;
@@ -26,15 +28,13 @@ import org.mt4j.components.visibleComponents.shapes.AbstractShape;
 import org.mt4j.components.visibleComponents.shapes.GeometryInfo;
 import org.mt4j.components.visibleComponents.shapes.MTPolygon;
 import org.mt4j.components.visibleComponents.shapes.mesh.MTTriangleMesh;
-import org.mt4j.util.PlatformUtil;
 import org.mt4j.util.MT4jSettings;
 import org.mt4j.util.MTColor;
+import org.mt4j.util.math.Tools3D;
 import org.mt4j.util.math.Vertex;
-import org.mt4j.util.opengl.GL10;
-import org.mt4j.util.opengl.GL11Plus;
 
 import processing.core.PApplet;
-import processing.core.PGraphics;
+import processing.opengl.PGraphicsOpenGL;
 
 /**
  * Key class used in the mt keyboard.
@@ -237,20 +237,20 @@ public class MTKey extends
 	/**
 	 * Overridden to also draw the key background (would be translucent else)
 	 */
-	public void drawComponent(PGraphics g) {
+	public void drawComponent(PGraphicsOpenGL g) {
 		if (this.isUseDirectGL()){
 			if (this.isUseDisplayList()){
 //				GL gl = Tools3D.beginGL(g);
-				GL10 gl = PlatformUtil.beginGL();
-				GL11Plus gl11Plus = PlatformUtil.getGL11Plus();
+				GL2 gl = Tools3D.getGL(g);
+				
 				int[] pds = buttonBackGround.getGeometryInfo().getDisplayListIDs();
 				//Draw only filling of background polygon, without outer stroke
 //				gl.glCallList(pds[0]);
-				gl11Plus.glCallList(pds[0]);
+				gl.glCallList(pds[0]);
 				gl.glColor4f(this.getFillColor().getR(), this.getFillColor().getG(), this.getFillColor().getB(), this.getFillColor().getAlpha()); //needed when we use the displaylist of the key font, which be default doesent set its own fillcolor
 				super.drawComponent(gl); 
 //				Tools3D.endGL(g);
-				PlatformUtil.endGL();
+//				PlatformUtil.endGL();
 			}else{
 				buttonBackGround.drawComponent(g);
 				super.drawComponent(g); 

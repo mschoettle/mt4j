@@ -57,11 +57,13 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import javax.media.opengl.GL2;
+
 import org.mt4j.AbstractMTApplication;
 import org.mt4j.components.visibleComponents.shapes.GeometryInfo;
 import org.mt4j.components.visibleComponents.shapes.mesh.MTTriangleMesh;
-import org.mt4j.util.PlatformUtil;
 import org.mt4j.util.TriangleNormalGenerator;
+import org.mt4j.util.math.Tools3D;
 import org.mt4j.util.math.Vector3D;
 import org.mt4j.util.math.Vertex;
 import org.mt4j.util.modelImporter.ModelImporterFactory;
@@ -536,11 +538,13 @@ public class ModelObjFileFactory  extends ModelImporterFactory {
                 MTTriangleMesh mesh = new MTTriangleMesh(pa, geometry);
 
                 if (mesh != null) {
+                	GL2 gl = Tools3D.getGL();
+                	
                     mesh.setName(currentGroupName);
                     //Assign texture and material
                     String matName = groupMaterials.get(currentGroupName);
 //                    materials.assignMaterial(((PGraphicsOpenGL) pa.g).gl, matName, mesh);
-                    materials.assignMaterial(PlatformUtil.getGL(), matName, mesh);
+                    materials.assignMaterial(gl, matName, mesh);
 
                     if (mesh.getTexture() != null) {
                         mesh.setTextureEnabled(true);

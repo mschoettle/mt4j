@@ -17,13 +17,15 @@
  ***********************************************************************/
 package org.mt4j.components;
 
+import javax.media.opengl.GL2;
+import javax.media.opengl.glu.GLU;
+
 import org.mt4j.util.PlatformUtil;
 import org.mt4j.util.math.ToolsLight;
 import org.mt4j.util.math.Vector3D;
-import org.mt4j.util.opengl.GL10;
-import org.mt4j.util.opengl.GL11Plus;
 
 import processing.core.PApplet;
+import processing.opengl.PGraphicsOpenGL;
 
 /**
  * The Class MTLight. Abstracts the opengl lightning.
@@ -36,7 +38,7 @@ public class MTLight {
 	
 	/** The gl. */
 //	private GL gl;
-	private GL10 gl;
+	private GL2 gl;
 	
 	
 	/** The light ambient. */
@@ -67,36 +69,36 @@ public class MTLight {
 	 * @param anbientB the anbient b
 	 * @param ambientA the ambient a
 	 */
-	public static void enableLightningAndAmbient(PApplet pa, float ambientR, float ambientG, float anbientB, float ambientA){
-//	    	GL gl = ((PGraphicsOpenGL)pa.g).gl;
-			GL10 gl = PlatformUtil.getGL();
-	    	
-	    	//ENABLE LIGHTNING
-	    	gl.glEnable(GL10.GL_LIGHTING);
-	    	
-	    	//Set default ambient lightning for all objs
-	    	ToolsLight.setAmbientLight(gl, new float[]{ambientR/255, ambientG/255, anbientB/255, ambientA/255});
-	    	
-	    	//This means that glMaterial will control the polygon's specular and emission colours
-	    	//and the ambient and diffuse will both be set using glColor. 
-//	    	gl.glColorMaterial(GL.GL_FRONT, GL.GL_AMBIENT_AND_DIFFUSE);
-//	    	gl.glColorMaterial(GL.GL_FRONT_AND_BACK, GL.GL_AMBIENT_AND_DIFFUSE);
-	    	if (gl instanceof GL11Plus) {
-				GL11Plus gl11Plus = (GL11Plus) gl;
-				gl11Plus.glColorMaterial(GL10.GL_FRONT_AND_BACK, GL10.GL_AMBIENT_AND_DIFFUSE);
-	    	}
-	    	
-	    	//Enable color material
-	    	gl.glEnable(GL10.GL_COLOR_MATERIAL);
+	public static void enableLightningAndAmbient(PApplet pa, float ambientR,
+			float ambientG, float anbientB, float ambientA) {
+		// GL gl = ((PGraphicsOpenGL)pa.g).gl;
+		GL2 gl = GLU.getCurrentGL().getGL2();
 
-	    	/*
-	    	 * GL_RESCALE_NORMAL multiplies the transformed normal by a scale factor. 
-	    	 * If the original normals are unit length, and the ModelView matrix contains 
-	    	 * uniform scaling, this multiplication will restore the normals to unit length.
-	    	 * If the ModelView matrix contains nonuniform scaling, GL_NORMALIZE is the 
-	    	 * preferred solution.
-	    	*/
-	    	gl.glEnable(GL10.GL_RESCALE_NORMAL);
+		// ENABLE LIGHTNING
+		gl.glEnable(GL2.GL_LIGHTING);
+
+		// Set default ambient lightning for all objs
+		ToolsLight.setAmbientLight(gl, new float[] { ambientR / 255,
+				ambientG / 255, anbientB / 255, ambientA / 255 });
+
+		// This means that glMaterial will control the polygon's specular and
+		// emission colours
+		// and the ambient and diffuse will both be set using glColor.
+		// gl.glColorMaterial(GL.GL_FRONT, GL.GL_AMBIENT_AND_DIFFUSE);
+		// gl.glColorMaterial(GL.GL_FRONT_AND_BACK, GL.GL_AMBIENT_AND_DIFFUSE);
+		gl.glColorMaterial(GL2.GL_FRONT_AND_BACK, GL2.GL_AMBIENT_AND_DIFFUSE);
+
+		// Enable color material
+		gl.glEnable(GL2.GL_COLOR_MATERIAL);
+
+		/*
+		 * GL_RESCALE_NORMAL multiplies the transformed normal by a scale
+		 * factor. If the original normals are unit length, and the ModelView
+		 * matrix contains uniform scaling, this multiplication will restore the
+		 * normals to unit length. If the ModelView matrix contains nonuniform
+		 * scaling, GL_NORMALIZE is the preferred solution.
+		 */
+		gl.glEnable(GL2.GL_RESCALE_NORMAL);
 	}
 	
 	
@@ -111,7 +113,7 @@ public class MTLight {
 		super();
 		this.lightId = lightId;
 //		this.gl = ((PGraphicsOpenGL)pa.g).gl;
-		this.gl = PlatformUtil.getGL();
+		this.gl = GLU.getCurrentGL().getGL2();
 		
 		this.lightAmbient  = new float[]{ .2f, .2f, .2f, 1f }; // scattered light
 		this.lightDiffuse  = new float[]{ 1.0f, 1.0f, 1.0f, 1f }; // direct light
@@ -161,7 +163,7 @@ public class MTLight {
 	 */
 	public void updateLightPosition(float x, float y, float z){ 
 		this.lightPosition = new float[] {x,y,z,1};
-		gl.glLightfv(this.lightId, GL10.GL_POSITION, lightPosition, 0);
+		gl.glLightfv(this.lightId, GL2.GL_POSITION, lightPosition, 0);
     }
 	
 	

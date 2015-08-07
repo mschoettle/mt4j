@@ -5,6 +5,7 @@ import java.io.File;
 import java.util.ArrayList;
 
 import javax.media.opengl.GL;
+import javax.media.opengl.GL2;
 
 import org.mt4j.AbstractMTApplication;
 import org.mt4j.components.MTComponent;
@@ -27,9 +28,9 @@ import org.mt4j.input.inputProcessors.globalProcessors.CursorTracer;
 import org.mt4j.sceneManagement.AbstractScene;
 import org.mt4j.util.PlatformUtil;
 import org.mt4j.util.camera.Icamera;
+import org.mt4j.util.math.Tools3D;
 import org.mt4j.util.math.Vector3D;
 import org.mt4j.util.modelImporter.ModelImporterFactory;
-import org.mt4j.util.opengl.GL10;
 import org.mt4j.util.opengl.GLMaterial;
 import org.mt4jx.input.gestureAction.CreateDragHelperAction;
 import org.mt4jx.input.inputProcessors.componentProcessors.Group3DProcessorNew.ClusterDataManager;
@@ -42,6 +43,7 @@ import org.mt4jx.util.extension3D.ComponentHelper;
 import org.mt4jx.util.extension3D.collision.CollisionManager;
 
 import processing.core.PGraphics;
+import processing.opengl.PGraphicsOpenGL;
 
 public class Extension3DScene extends AbstractScene {
 	private AbstractMTApplication mtApp;
@@ -69,10 +71,10 @@ public class Extension3DScene extends AbstractScene {
 		//Init light settings
 		MTLight.enableLightningAndAmbient(mtApplication, 150, 150, 150, 255);
 		//Create a light source //I think GL_LIGHT0 is used by processing!
-		MTLight light = new MTLight(mtApplication, GL.GL_LIGHT3, new Vector3D(0,0,0));
+		MTLight light = new MTLight(mtApplication, GL2.GL_LIGHT3, new Vector3D(0,0,0));
 		
 		//Set up a material to react to the light
-		GLMaterial material = new GLMaterial(PlatformUtil.getGL());
+		GLMaterial material = new GLMaterial(Tools3D.getGL());
 		material.setAmbient(new float[]{ .3f, .3f, .3f, 1f });
 		material.setDiffuse(new float[]{ .9f, .9f, .9f, 1f } );
 		material.setEmission(new float[]{ .0f, .0f, .0f, 1f });
@@ -249,12 +251,12 @@ public class Extension3DScene extends AbstractScene {
 		
 	}
 	
-	public void drawAndUpdate(PGraphics g, long timeDelta) {
+	public void drawAndUpdate(PGraphicsOpenGL g, long timeDelta) {
         super.drawAndUpdate(g, timeDelta);
         g.pushMatrix();
 //        Tools3D.beginGL(mtApp);
 //        GL gl = Tools3D.getGL(mtApp);
-        GL10 gl = PlatformUtil.beginGL();
+        GL2 gl = Tools3D.getGL(g);
         if(drawAction!=null)
         {
         	for(Rotate3DAction act:drawAction)
@@ -267,7 +269,7 @@ public class Extension3DScene extends AbstractScene {
         }
         
 //        Tools3D.endGL(mtApp);
-        PlatformUtil.endGL();
+//        PlatformUtil.endGL();
         g.popMatrix();
     }
 	

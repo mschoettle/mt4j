@@ -22,6 +22,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.media.opengl.GL2;
+import javax.media.opengl.glu.GLU;
+
 import org.mt4j.components.PickResult.PickEntry;
 import org.mt4j.components.bounds.IBoundingShape;
 import org.mt4j.components.clipping.Clip;
@@ -47,10 +50,9 @@ import org.mt4j.util.math.Matrix;
 import org.mt4j.util.math.Ray;
 import org.mt4j.util.math.Tools3D;
 import org.mt4j.util.math.Vector3D;
-import org.mt4j.util.opengl.GL10;
 
 import processing.core.PApplet;
-import processing.core.PGraphics;
+import processing.opengl.PGraphicsOpenGL;
 
 /**
  * This is the base class for all MT4j scene graph nodes. It provides basic methods
@@ -1696,7 +1698,7 @@ public class MTComponent implements IMTComponent3D, IMTInputEventListener, IGest
 	 * It sets up the components matrix, clipping and other stuff.
 	 * @param g the graphics context
 	 */
-	public void preDraw(PGraphics g) {
+	public void preDraw(PGraphicsOpenGL g) {
 		if (this.isDepthBufferDisabled()){
 			Tools3D.disableDepthBuffer(g);
 		}
@@ -1704,8 +1706,8 @@ public class MTComponent implements IMTComponent3D, IMTInputEventListener, IGest
 		g.pushMatrix();
 
 		if (light != null){
-			GL10 gl = PlatformUtil.getGL();
-			gl.glEnable(GL10.GL_LIGHTING); //this is expensive
+			GL2 gl = GLU.getCurrentGL().getGL2();
+			gl.glEnable(GL2.GL_LIGHTING); //this is expensive
 			light.enable();
 		}
 
@@ -1727,7 +1729,7 @@ public class MTComponent implements IMTComponent3D, IMTInputEventListener, IGest
 	 * not invoke this method directly!
 	 * @param g the graphics context
 	 */
-	public void drawComponent(PGraphics g){ 	}
+	public void drawComponent(PGraphicsOpenGL g){ 	}
 	
 	
 	/**
@@ -1736,7 +1738,7 @@ public class MTComponent implements IMTComponent3D, IMTInputEventListener, IGest
 	 * 
 	 * @param g the g
 	 */
-	public void postDraw(PGraphics g) {
+	public void postDraw(PGraphicsOpenGL g) {
 		if (clip != null){
 			clip.disableClip(g);
 		}
@@ -1752,7 +1754,7 @@ public class MTComponent implements IMTComponent3D, IMTInputEventListener, IGest
 	 * Called after drawing this component and its children.
 	 * @param g the graphics context
 	 */
-	public void postDrawChildren(PGraphics g) {
+	public void postDrawChildren(PGraphicsOpenGL g) {
 		if (this.isDepthBufferDisabled()){
 			Tools3D.restoreDepthBuffer(g);
 		}
@@ -1766,8 +1768,8 @@ public class MTComponent implements IMTComponent3D, IMTInputEventListener, IGest
 		//FIXME TRIAL
 		if (light != null){
 			light.disable();
-			GL10 gl = PlatformUtil.getGL();
-			gl.glDisable(GL10.GL_LIGHTING);
+			GL2 gl = GLU.getCurrentGL().getGL2();
+			gl.glDisable(GL2.GL_LIGHTING);
 		}
 	}
 	
