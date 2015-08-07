@@ -19,8 +19,8 @@ import javax.swing.ImageIcon;
 
 import org.mt4j.input.DesktopInputManager;
 import org.mt4j.util.DesktopPlatformUtil;
-import org.mt4j.util.PlatformUtil;
 import org.mt4j.util.MT4jSettings;
+import org.mt4j.util.PlatformUtil;
 import org.mt4j.util.SettingsMenu;
 import org.mt4j.util.animation.ani.AniAnimation;
 import org.mt4j.util.font.FontManager;
@@ -34,11 +34,9 @@ import org.mt4j.util.math.Tools3D;
 import org.mt4j.util.modelImporter.ModelImporterFactory;
 import org.mt4j.util.modelImporter.file3ds.Model3dsFileFactory;
 import org.mt4j.util.modelImporter.fileObj.ModelObjFileFactory;
-import org.mt4j.util.opengl.GLCommon;
 import org.mt4j.util.opengl.GLFBO;
 
 import processing.core.PApplet;
-import processing.opengl.PGraphicsOpenGL;
 
 
 public abstract class MTApplication extends AbstractMTApplication {
@@ -302,7 +300,7 @@ public abstract class MTApplication extends AbstractMTApplication {
 	    logger.info("Maximum framerate: \"" + MT4jSettings.getInstance().getMaxFrameRate() + "\"");
 	    
 	    //FIXME TODO add in settings.txt?
-	    hint(AbstractMTApplication.DISABLE_OPENGL_ERROR_REPORT);
+	    hint(AbstractMTApplication.DISABLE_OPENGL_ERRORS);
 		
 		MT4jSettings.getInstance().programStartTime = System.currentTimeMillis();
 		

@@ -254,9 +254,9 @@ public abstract class AbstractMTApplication extends PApplet implements IMTApplic
 	
 	public void setOpenGLErrorReportingEnabled(boolean reportErros){
 		if (reportErros){
-			hint(AbstractMTApplication.ENABLE_OPENGL_ERROR_REPORT);
+			hint(AbstractMTApplication.ENABLE_OPENGL_ERRORS);
 		}else{
-			hint(AbstractMTApplication.DISABLE_OPENGL_ERROR_REPORT);
+			hint(AbstractMTApplication.DISABLE_OPENGL_ERRORS);
 		}
 	}
 	
