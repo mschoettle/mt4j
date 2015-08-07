@@ -36,7 +36,7 @@ import org.mt4j.util.math.Vector3D;
 import org.mt4j.util.math.Vertex;
 
 import processing.core.PApplet;
-import processing.opengl.PGraphicsOpenGL;
+import processing.core.PGraphics;
 
 /**
  * The Class MTWindow. A round rectangle class that clips its 
@@ -57,7 +57,7 @@ public class MTWindow extends MTRoundRectangle {
 	private boolean savedNoStrokeSetting;
 	
 	
-	//TODO in abstractviscomp code von hier nehmen, clipshape bounds drüber zeichnen?
+	//TODO in abstractviscomp code von hier nehmen, clipshape bounds drï¿½ber zeichnen?
 	//TODO add titlebar, maximize, close buttons
 	//TODO scale border so its width doesent change..
 	
@@ -159,7 +159,7 @@ public class MTWindow extends MTRoundRectangle {
 	 * @see org.mt4j.components.visibleComponents.AbstractVisibleComponent#preDraw(processing.core.PGraphics)
 	 */
 	@Override
-	public void preDraw(PGraphicsOpenGL graphics) {
+	public void preDraw(PGraphics graphics) {
 		this.savedNoStrokeSetting = this.isNoStroke();
 		super.preDraw(graphics);
 	}
@@ -169,7 +169,7 @@ public class MTWindow extends MTRoundRectangle {
 	 * @see org.mt4j.components.visibleComponents.AbstractVisibleComponent#postDrawChildren(processing.core.PGraphics)
 	 */
 	@Override
-	public void postDrawChildren(PGraphicsOpenGL g) {
+	public void postDrawChildren(PGraphics g) {
 		this.clip.disableClip(g);
 		
 		//Draw clipshape outline over all children to get an

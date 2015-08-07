@@ -10,7 +10,7 @@ import org.mt4j.sceneManagement.ISceneChangeListener;
 import org.mt4j.sceneManagement.Iscene;
 import org.mt4j.util.opengl.GLCommon;
 
-public interface IMTApplication extends IPAppletBoth{
+public interface IMTApplication {
 	
 
 

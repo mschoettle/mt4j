@@ -33,7 +33,7 @@ import org.mt4j.util.math.Vector3D;
 import org.mt4j.util.math.Vertex;
 
 import processing.core.PApplet;
-import processing.opengl.PGraphicsOpenGL;
+import processing.core.PGraphics;
 
 /**
  * A class for drawing a simple line segment.
@@ -201,7 +201,7 @@ public class MTLine extends MTCSSStylableShape{
 	}
 	
 	@Override
-	public void drawComponent(PGraphicsOpenGL g) {
+	public void drawComponent(PGraphics g) {
 		if (MT4jSettings.getInstance().isOpenGlMode()   
 		    && this.isUseDirectGL()){
 				GL2 gl = Tools3D.beginGLAndGetGL(g);

@@ -34,6 +34,7 @@ import org.mt4j.util.opengl.GLTexture;
 import org.mt4j.util.opengl.GluTrianglulator;
 
 import processing.core.PApplet;
+import processing.core.PGraphics;
 import processing.opengl.PGraphicsOpenGL;
 
 /**
@@ -89,7 +90,7 @@ public class VectorFontCharacter extends
 	//so we can set the color once in the 
 	
 	@Override
-	public void drawComponent(PGraphicsOpenGL g) {
+	public void drawComponent(PGraphics g) {
 		if (this.isUseDirectGL()){
 			super.drawComponent(g);
 		}else{

@@ -7,6 +7,7 @@ import org.mt4j.util.math.Tools3D;
 import org.mt4j.util.opengl.IGLU;
 import org.mt4j.util.opengl.JoglGLU;
 
+import processing.core.PConstants;
 import processing.core.PGraphics;
 import processing.core.PMatrix3D;
 import processing.opengl.PGraphicsOpenGL;
@@ -53,19 +54,6 @@ public class DesktopPlatformUtil implements IPlatformUtil {
 	public float getCameraFar() {
 		return pGraphicsOpenGL.cameraFar;
 	}
-
-//	public GL10 getGL() {
-//		return ((PGraphicsOpenGL)app.getPGraphics()).gl;
-//	}
-//
-//	public GL10 beginGL() {
-//		((PGraphicsOpenGL)app.getPGraphics()).beginGL();
-//		return app.getGLCommon();
-//	}
-//    
-//    public void endGL(){
-//    	((PGraphicsOpenGL)app.getPGraphics()).endGL();
-//    }
 	
     public int getPlatform() {
 		return IPlatformUtil.DESKTOP;
@@ -87,8 +75,7 @@ public class DesktopPlatformUtil implements IPlatformUtil {
 
 	@Override
 	public boolean isBigEndian() {
-		return true;
-//		return PGraphicsOpenGL.BIG_ENDIAN;
+	    return false;
 	}
 
 	@Override

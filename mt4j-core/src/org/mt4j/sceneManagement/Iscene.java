@@ -22,7 +22,7 @@ import org.mt4j.components.MTCanvas;
 import org.mt4j.sceneManagement.transition.ITransition;
 import org.mt4j.util.camera.Icamera;
 
-import processing.opengl.PGraphicsOpenGL;
+import processing.core.PGraphics;
 
 
 
@@ -80,7 +80,7 @@ public interface Iscene {
 	 * 
 	 * @param timeDelta the time delta
 	 */
-	public void drawAndUpdate(PGraphicsOpenGL graphics, long timeDelta);
+	public void drawAndUpdate(PGraphics graphics, long timeDelta);
 	
 	/**
 	 * Shedule a action to be processed before the next drawing.

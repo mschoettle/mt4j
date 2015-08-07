@@ -37,7 +37,7 @@ import org.mt4j.util.math.Vertex;
 import org.mt4j.util.opengl.GLTexture;
 
 import processing.core.PApplet;
-import processing.opengl.PGraphicsOpenGL;
+import processing.core.PGraphics;
 
 /**
  * This class represents a planar, convex polygon. The user of this class
@@ -170,7 +170,7 @@ public class MTPolygon extends MTCSSStylableShape{
 	 * @see org.mt4j.components.visibleComponents.AbstractVisibleComponent#drawComponent(processing.core.PGraphics)
 	 */
 	@Override
-	public void drawComponent(PGraphicsOpenGL g) {
+	public void drawComponent(PGraphics g) {
 //		super.drawComponent(g);
 		
 		//Draw the shape
@@ -260,7 +260,7 @@ public class MTPolygon extends MTCSSStylableShape{
 	 * and texture.
 	 * @param g PGraphics
 	 */
-	protected void drawWithProcessing(PGraphicsOpenGL g){
+	protected void drawWithProcessing(PGraphics g){
 		g.beginShape(PApplet.POLYGON); //TODO make setbeginshape() behavior settable
 		if (this.getTexture() != null && this.isTextureEnabled()){
 			g.texture(this.getTexture());

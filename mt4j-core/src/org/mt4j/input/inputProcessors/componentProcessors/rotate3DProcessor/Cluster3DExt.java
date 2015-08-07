@@ -7,7 +7,7 @@ import org.mt4j.util.math.Matrix;
 import org.mt4j.util.math.Vector3D;
 
 import processing.core.PApplet;
-import processing.opengl.PGraphicsOpenGL;
+import processing.core.PGraphics;
 
 public class Cluster3DExt extends MTComponent {
 
@@ -270,7 +270,7 @@ public class Cluster3DExt extends MTComponent {
 	}
 	
 	@Override
-	public void drawComponent(PGraphicsOpenGL g)
+	public void drawComponent(PGraphics g)
 	{			
 		if(getVisualizeProvider()!=null)
 		{

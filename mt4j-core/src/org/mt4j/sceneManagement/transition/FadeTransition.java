@@ -27,7 +27,7 @@ import org.mt4j.util.animation.AnimationEvent;
 import org.mt4j.util.animation.IAnimationListener;
 import org.mt4j.util.animation.MultiPurposeInterpolator;
 
-import processing.opengl.PGraphicsOpenGL;
+import processing.core.PGraphics;
 
 
 /**
@@ -151,7 +151,7 @@ public class FadeTransition extends AbstractTransition {
 	 * @see org.mt4j.sceneManagement.AbstractScene#drawAndUpdate(processing.core.PGraphics, long)
 	 */
 	@Override
-	public void drawAndUpdate(PGraphicsOpenGL graphics, long timeDelta) {
+	public void drawAndUpdate(PGraphics graphics, long timeDelta) {
 		super.drawAndUpdate(graphics, timeDelta);
 		sceneToDraw.drawAndUpdate(graphics, timeDelta);
 		fullScreenQuad.drawComponent(graphics);

@@ -161,7 +161,6 @@ public class MouseInputSource extends AbstractInputSource {
       */
     public void mouseDragged(MouseEvent e) {
         //System.err.println("mouse dragged");
-        System.out.println(e.getX() + ", " + e.getY());
         try {
             InputCursor m = ActiveCursorPool.getInstance().getActiveCursorByID(lastUsedMouseID);
             if (m != null) {

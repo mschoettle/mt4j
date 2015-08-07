@@ -23,7 +23,7 @@ import org.mt4j.components.MTComponent;
 import org.mt4j.components.visibleComponents.AbstractVisibleComponent;
 import org.mt4j.util.opengl.GLStencilUtil;
 
-import processing.opengl.PGraphicsOpenGL;
+import processing.core.PGraphics;
 
 
 /**
@@ -68,7 +68,7 @@ public class FillPaint {
 	 * 
 	 * @param g the g
 	 */
-	public void pre(PGraphicsOpenGL g) {
+	public void pre(PGraphics g) {
 		GLStencilUtil.getInstance().beginDrawClipShape(gl);
 	}
 
@@ -78,7 +78,7 @@ public class FillPaint {
 	 * 
 	 * @param g the g
 	 */
-	public void post(PGraphicsOpenGL g) {
+	public void post(PGraphics g) {
 		GLStencilUtil.getInstance().beginDrawClipped(gl);
 		drawFillPaint(g);
 		GLStencilUtil.getInstance().endClipping(g, gl, clipShape);
@@ -89,7 +89,7 @@ public class FillPaint {
 	 * 
 	 * @param g the g
 	 */
-	protected void drawFillPaint(PGraphicsOpenGL g){
+	protected void drawFillPaint(PGraphics g){
 		//Draw the fill paint clipped to the area of the original shape
 		fillPaint.drawComponent(g); 
 	}

@@ -23,7 +23,7 @@ import javax.media.opengl.GL2;
 
 import org.mt4j.components.visibleComponents.AbstractVisibleComponent;
 
-import processing.opengl.PGraphicsOpenGL;
+import processing.core.PGraphics;
 
 /**
  * Abstracts the OpenGL stencil buffer for
@@ -158,7 +158,7 @@ public class GLStencilUtil {
 	 * 
 	 * @param gl the gl
 	 */
-	public void endClipping(PGraphicsOpenGL g, GL2 gl){
+	public void endClipping(PGraphics g, GL2 gl){
 		this.endClipping(g, gl, null);
 	}
 	
@@ -173,7 +173,7 @@ public class GLStencilUtil {
 	 * @param gl the gl
 	 * @param clipShape the clip shape
 	 */
-	public void endClipping(PGraphicsOpenGL g, GL2 gl, AbstractVisibleComponent clipShape){ //stop clipping
+	public void endClipping(PGraphics g, GL2 gl, AbstractVisibleComponent clipShape){ //stop clipping
 		//Remove the top/last used stencil mask value from the stack
 		int currentStencilValue = stencilValueStack.pop();
 		
@@ -199,7 +199,7 @@ public class GLStencilUtil {
 				gl.glStencilFunc (GL2.GL_EQUAL, currentStencilValue, currentStencilValue); 
 				gl.glStencilOp(GL2.GL_KEEP, GL2.GL_KEEP, GL2.GL_DECR);
 				//FIXME this can be bad for performance if the clipshape is complex
-				PGraphicsOpenGL p = (PGraphicsOpenGL) clipShape.getRenderer().g;
+				PGraphics p = clipShape.getRenderer().g;
 				clipShape.drawComponent(p); 
 //				*/
 				gl.glDepthMask(true);

@@ -46,7 +46,6 @@ import processing.core.PGraphics;
 import processing.core.PImage;
 import processing.core.PMatrix3D;
 import processing.opengl.PGL;
-import processing.opengl.PGraphicsOpenGL;
 
 
 /**
@@ -554,13 +553,13 @@ public class Tools3D {
 	 * 
 	 * @param g the g
 	 */
-	public static void disableDepthBuffer(PGraphicsOpenGL g){ 
+	public static void disableDepthBuffer(PGraphics g){ 
 		
 		switch (MT4jSettings.getInstance().getRendererMode()) {
 		case MT4jSettings.OPENGL_MODE:
 //			GL gl = ((PGraphicsOpenGL)pa.g).gl;
 //			GL gl = ((PGraphicsOpenGL)g).gl;
-			GL2 gl = Tools3D.getGL(g); 
+			GL2 gl = Tools3D.getGL(); 
 //			GL11Plus plus = PlatformUtil.getGL11Plus();
 //			if (plus != null){
 //				plus.glPushAttrib(GL10.GL_DEPTH_BUFFER_BIT);//FIXME TEST	
@@ -584,11 +583,11 @@ public class Tools3D {
 	 * 
 	 * @param g the g
 	 */
-	public static void restoreDepthBuffer(PGraphicsOpenGL g){ 
+	public static void restoreDepthBuffer(PGraphics g){ 
 		switch (MT4jSettings.getInstance().getRendererMode()) {
 		case MT4jSettings.OPENGL_MODE:
 //			GL gl = ((PGraphicsOpenGL)g).gl;
-			GL2 gl = Tools3D.getGL(g); 
+			GL2 gl = Tools3D.getGL(); 
 //			if (plus != null){
 //				plus.glPopAttrib(); 
 //			}
@@ -702,7 +701,7 @@ public class Tools3D {
         return GLU.getCurrentGL().getGL2();
     }
 		
-	public static GL2 getGL(PGraphicsOpenGL g) {
+	public static GL2 getGL(PGraphics g) {
 
 //		PGraphicsOpenGL pogl = (PGraphicsOpenGL) g; // g may change
 		GL2 gl2 = getGL();
@@ -725,7 +724,7 @@ public class Tools3D {
 	 * @return the gL
 	 */
 	public static PGL beginGL(PApplet pa){
-		return ((PGraphicsOpenGL) pa.g).beginPGL();
+		return pa.g.beginPGL();
 	}
 	
 	/**

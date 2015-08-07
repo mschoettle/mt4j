@@ -18,13 +18,14 @@
 package org.mt4j.input.inputSources;
 
 
+import java.awt.event.KeyEvent;
+
 import org.mt4j.AbstractMTApplication;
 import org.mt4j.input.inputData.ActiveCursorPool;
 import org.mt4j.input.inputData.InputCursor;
 import org.mt4j.input.inputData.MTFingerInputEvt;
 
 import processing.core.PApplet;
-import processing.event.KeyEvent;
 
 /**
  * The Class KeyboardInputSource.
@@ -92,14 +93,14 @@ public class KeyboardInputSource extends AbstractInputSource {
 		this.locationY = 0;
 		
 		
-		this.moveUpKeyCode = 'W';
-        this.moveLeftKeyCode = 'A';
-        this.moveDownKeyCode = 'S';
-        this.moveRightKeyCode = 'D';
-
-        this.newFingerLocationKCode = 'N';
-
-        this.fingerDownKeyCode = 'M';
+		this.moveUpKeyCode = KeyEvent.VK_W;
+		this.moveLeftKeyCode = KeyEvent.VK_A;
+		this.moveDownKeyCode = KeyEvent.VK_S;
+		this.moveRightKeyCode = KeyEvent.VK_D;
+		
+		this.newFingerLocationKCode = KeyEvent.VK_N;
+		
+		this.fingerDownKeyCode = KeyEvent.VK_SHIFT;
 	}
 
 	
@@ -109,13 +110,13 @@ public class KeyboardInputSource extends AbstractInputSource {
 	 * 
 	 * @param e the e
 	 */
-	public void keyEvent(KeyEvent e){
+	public void keyEvent(processing.event.KeyEvent e){
 //		System.out.println(e.getID());
 //		System.out.println(e.getKeyCode());
 		
 		int evtID = e.getAction();
 		
-		if (evtID == KeyEvent.TOUCH ){
+		if (evtID == processing.event.KeyEvent.PRESS) {
 			if (e.isControlDown() && e.getKeyCode() == this.newFingerLocationKCode){
 				locationX = applet.mouseX;
 				locationY = applet.mouseY;
@@ -142,7 +143,7 @@ public class KeyboardInputSource extends AbstractInputSource {
 			}else if (e.getKeyCode() == this.fingerDownKeyCode){
 				fingerDown(e);
 			}
-		}else if (evtID == KeyEvent.RELEASE){
+		}else if (evtID == processing.event.KeyEvent.RELEASE){
 			if (e.getKeyCode() == this.fingerDownKeyCode){
 				fingerUp(e);
 			}
@@ -233,7 +234,7 @@ public class KeyboardInputSource extends AbstractInputSource {
 	 * 
 	 * @param e the e
 	 */
-	private void fingerDown(KeyEvent e){
+	private void fingerDown(processing.event.KeyEvent e){
 		if (!spaceHasBeenPressed){
 			InputCursor m = new InputCursor();
 			MTFingerInputEvt touchEvt = new MTFingerInputEvt(this, locationX, locationY, MTFingerInputEvt.INPUT_STARTED, m);
@@ -264,7 +265,7 @@ public class KeyboardInputSource extends AbstractInputSource {
 	 * 
 	 * @param e the e
 	 */
-	private void fingerUp(KeyEvent e) {
+	private void fingerUp(processing.event.KeyEvent e) {
 		InputCursor m = ActiveCursorPool.getInstance().getActiveCursorByID(lastUsedKeybID);
 		MTFingerInputEvt te = new MTFingerInputEvt(this, locationX, locationY, MTFingerInputEvt.INPUT_ENDED, m);
 //		m.addEvent(te);

@@ -22,7 +22,7 @@ import org.mt4j.input.inputProcessors.IInputProcessor;
 import org.mt4j.util.math.Vector3D;
 
 import processing.core.PApplet;
-import processing.opengl.PGraphicsOpenGL;
+import processing.core.PGraphics;
 
 /**
  * The Interface IMTComponent.
@@ -71,7 +71,7 @@ public interface IMTComponent {
 	 * 
 	 * @param g the g
 	 */
-	public void drawComponent(PGraphicsOpenGL g);
+	public void drawComponent(PGraphics g);
 	
 	
 	/**

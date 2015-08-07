@@ -52,16 +52,10 @@ public abstract class MTApplication extends AbstractMTApplication {
 	
 	private static boolean settingsLoadedFromFile = false; //cant initialize in constructor, need it before that!
 	protected ImageIcon mt4jIcon;
-	public static String CUSTOM_OPENGL_GRAPHICS = "org.mt4j.util.opengl.CustomPGraphicsOpenGL"; //PApplet.OPENGL
-//	public static String CUSTOM_OPENGL_GRAPHICS = OPENGL; //PApplet.OPENGL
-	
-	
-	
+		
 	public MTApplication(){
 		super();
-	}
-	
-	
+	}	
 	
 	/**
 	 * Initializes the processings settings.

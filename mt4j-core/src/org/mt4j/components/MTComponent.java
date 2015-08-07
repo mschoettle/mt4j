@@ -52,7 +52,7 @@ import org.mt4j.util.math.Tools3D;
 import org.mt4j.util.math.Vector3D;
 
 import processing.core.PApplet;
-import processing.opengl.PGraphicsOpenGL;
+import processing.core.PGraphics;
 
 /**
  * This is the base class for all MT4j scene graph nodes. It provides basic methods
@@ -1698,7 +1698,7 @@ public class MTComponent implements IMTComponent3D, IMTInputEventListener, IGest
 	 * It sets up the components matrix, clipping and other stuff.
 	 * @param g the graphics context
 	 */
-	public void preDraw(PGraphicsOpenGL g) {
+	public void preDraw(PGraphics g) {
 		if (this.isDepthBufferDisabled()){
 			Tools3D.disableDepthBuffer(g);
 		}
@@ -1729,7 +1729,7 @@ public class MTComponent implements IMTComponent3D, IMTInputEventListener, IGest
 	 * not invoke this method directly!
 	 * @param g the graphics context
 	 */
-	public void drawComponent(PGraphicsOpenGL g){ 	}
+	public void drawComponent(PGraphics g){ 	}
 	
 	
 	/**
@@ -1738,7 +1738,7 @@ public class MTComponent implements IMTComponent3D, IMTInputEventListener, IGest
 	 * 
 	 * @param g the g
 	 */
-	public void postDraw(PGraphicsOpenGL g) {
+	public void postDraw(PGraphics g) {
 		if (clip != null){
 			clip.disableClip(g);
 		}
@@ -1754,7 +1754,7 @@ public class MTComponent implements IMTComponent3D, IMTInputEventListener, IGest
 	 * Called after drawing this component and its children.
 	 * @param g the graphics context
 	 */
-	public void postDrawChildren(PGraphicsOpenGL g) {
+	public void postDrawChildren(PGraphics g) {
 		if (this.isDepthBufferDisabled()){
 			Tools3D.restoreDepthBuffer(g);
 		}

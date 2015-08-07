@@ -34,7 +34,7 @@ import org.mt4j.util.math.Tools3D;
 import org.mt4j.util.math.Vertex;
 
 import processing.core.PApplet;
-import processing.opengl.PGraphicsOpenGL;
+import processing.core.PGraphics;
 
 /**
  * Key class used in the mt keyboard.
@@ -237,7 +237,7 @@ public class MTKey extends
 	/**
 	 * Overridden to also draw the key background (would be translucent else)
 	 */
-	public void drawComponent(PGraphicsOpenGL g) {
+	public void drawComponent(PGraphics g) {
 		if (this.isUseDirectGL()){
 			if (this.isUseDisplayList()){
 //				GL gl = Tools3D.beginGL(g);

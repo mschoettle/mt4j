@@ -324,8 +324,8 @@ public class MTKeyboard extends MTRoundRectangle implements IKeyListener {
 		keyInfos.add(new KeyInfo("I", "i", "I", new Vector3D(startX+8*advanceMent,lineY),  KeyInfo.NORMAL_KEY));
 		keyInfos.add(new KeyInfo("O", "o", "O", new Vector3D(startX+9*advanceMent,lineY),  KeyInfo.NORMAL_KEY));
 		keyInfos.add(new KeyInfo("P", "p", "P", new Vector3D(startX+10*advanceMent,lineY), KeyInfo.NORMAL_KEY));
-		//Ü
-		keyInfos.add(new KeyInfo("111", "ü", "Ü", new Vector3D(startX+11*advanceMent,lineY), KeyInfo.NORMAL_KEY));
+		//ï¿½
+		keyInfos.add(new KeyInfo("111", "ï¿½", "ï¿½", new Vector3D(startX+11*advanceMent,lineY), KeyInfo.NORMAL_KEY));
 		
 		keyInfos.add(new KeyInfo("+", "+", "+", new Vector3D(startX+12*advanceMent,lineY), KeyInfo.KEY_ONLY_VISIBLE_WHEN_SHIFT_NOTPRESSED));
 		keyInfos.add(new KeyInfo("*", "*", "*", new Vector3D(startX+12*advanceMent,lineY), KeyInfo.KEY_ONLY_VISIBLE_WHEN_SHIFT_PRESSED));
@@ -341,10 +341,10 @@ public class MTKeyboard extends MTRoundRectangle implements IKeyListener {
 		keyInfos.add(new KeyInfo("J", "j", "J", new Vector3D(startX+6*advanceMent,lineY),  KeyInfo.NORMAL_KEY));
 		keyInfos.add(new KeyInfo("K", "k", "K", new Vector3D(startX+7*advanceMent,lineY),  KeyInfo.NORMAL_KEY));
 		keyInfos.add(new KeyInfo("L", "l", "L", new Vector3D(startX+8*advanceMent,lineY),  KeyInfo.NORMAL_KEY));
-		//Ö
-		keyInfos.add(new KeyInfo("1111", "ö", "Ö", new Vector3D(startX+9*advanceMent,lineY),  KeyInfo.NORMAL_KEY));
-		//Ä
-        keyInfos.add(new KeyInfo("11", "ä", "Ä", new Vector3D(startX+10*advanceMent,lineY),  KeyInfo.NORMAL_KEY));
+		//ï¿½
+		keyInfos.add(new KeyInfo("1111", "ï¿½", "ï¿½", new Vector3D(startX+9*advanceMent,lineY),  KeyInfo.NORMAL_KEY));
+		//ï¿½
+        keyInfos.add(new KeyInfo("11", "ï¿½", "ï¿½", new Vector3D(startX+10*advanceMent,lineY),  KeyInfo.NORMAL_KEY));
 		
 		////////////////////
 		lineY = 161;
@@ -806,9 +806,9 @@ public class MTKeyboard extends MTRoundRectangle implements IKeyListener {
 		try {
 			IMTApplication app = (IMTApplication) getRenderer();
 //			if (hardwareInput) {
-//				app.registerKeyEvent(this);
+//				app.registerMethod("keyEvent", this);
 //			}else{
-//				app.unregisterKeyEvent(this);
+//				app.unregisterMethod("keyEvent", this);
 //			}
 			if (hardwareInput) {
 				app.addKeyListener(this);
@@ -851,11 +851,11 @@ public class MTKeyboard extends MTRoundRectangle implements IKeyListener {
 
 
 
-	public void keyEvent(KeyEvent e){
-		if (this.isEnabled()){
-			if (e.getID()!= KeyEvent.KEY_PRESSED) return;
+	public void keyEvent(processing.event.KeyEvent e) {
+		if (this.isEnabled()) {
+			if (e.getAction()!= processing.event.KeyEvent.PRESS) return;
 
-			String keyCharString = String.valueOf(e.getKeyChar());
+			String keyCharString = String.valueOf(e.getKey());
 			//System.out.println("Key input: " + keyCode);
 			ITextInputListener[] listeners = this.getTextInputListeners();
             for (ITextInputListener textInputListener : listeners) {
@@ -886,7 +886,7 @@ public class MTKeyboard extends MTRoundRectangle implements IKeyListener {
 		if (this.isHardwareInputEnabled()){
 			try {
 				((IMTApplication) getRenderer()).removeKeyListener(this);
-				getRenderer().unregisterKeyEvent(this);
+				getRenderer().unregisterMethod("keyEvent", this);
 			} catch (Exception e) {
 				System.err.println(e.getMessage());
 			}

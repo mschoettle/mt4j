@@ -19,7 +19,7 @@ package org.mt4j.util.font;
 
 import javax.media.opengl.GL2;
 
-import processing.opengl.PGraphicsOpenGL;
+import processing.core.PGraphics;
 
 /**
  * The Interface IFontCharacter.
@@ -32,7 +32,7 @@ public interface IFontCharacter {
 	 * 
 	 * @param g the graphics
 	 */
-	public void drawComponent(PGraphicsOpenGL g);
+	public void drawComponent(PGraphics g);
 
 	/**
 	 * Draw component.

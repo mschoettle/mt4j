@@ -25,7 +25,6 @@ import java.nio.IntBuffer;
 import javax.media.opengl.GL2;
 
 import processing.core.PApplet;
-import processing.opengl.PGraphicsOpenGL;
 
 /**
  * The Class ToolsLight.

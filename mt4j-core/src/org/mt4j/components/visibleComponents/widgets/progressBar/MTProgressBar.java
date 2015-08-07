@@ -35,7 +35,7 @@ import org.mt4j.util.math.Vector3D;
 
 import processing.core.PApplet;
 import processing.core.PFont;
-import processing.opengl.PGraphicsOpenGL;
+import processing.core.PGraphics;
 
 /**
  * The Class MTProgressBar.
@@ -206,7 +206,7 @@ public class MTProgressBar extends MTRoundRectangle {
 
 
 	@Override
-	public void drawComponent(PGraphicsOpenGL g) {
+	public void drawComponent(PGraphics g) {
 		if (progressInfo == null){
 			return;
 		}

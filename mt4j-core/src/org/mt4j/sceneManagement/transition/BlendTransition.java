@@ -27,7 +27,7 @@ import org.mt4j.util.animation.IAnimation;
 import org.mt4j.util.animation.IAnimationListener;
 import org.mt4j.util.animation.ani.AniAnimation;
 
-import processing.opengl.PGraphicsOpenGL;
+import processing.core.PGraphics;
 
 
 /**
@@ -118,7 +118,7 @@ public class BlendTransition extends AbstractTransition {
 	 * @see org.mt4j.sceneManagement.AbstractScene#drawAndUpdate(processing.core.PGraphics, long)
 	 */
 	@Override
-	public void drawAndUpdate(PGraphicsOpenGL graphics, long timeDelta) {
+	public void drawAndUpdate(PGraphics graphics, long timeDelta) {
 		this.nextScene.drawAndUpdate(graphics, timeDelta);
 //		this.clear(graphics)
 		super.drawAndUpdate(graphics, timeDelta);

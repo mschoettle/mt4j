@@ -31,7 +31,7 @@ import org.mt4j.util.math.Vector3D;
 import org.mt4j.util.opengl.GLStencilUtil;
 
 import processing.core.PApplet;
-import processing.opengl.PGraphicsOpenGL;
+import processing.core.PGraphics;
 
 
 /**
@@ -119,7 +119,7 @@ public class Clip {
 	 * 
 	 * @param g the g
 	 */
-	public void enableClip(PGraphicsOpenGL g){
+	public void enableClip(PGraphics g){
 		GLStencilUtil.getInstance().beginDrawClipShape(gl);
 		this.clipShape.drawComponent(g);
 		GLStencilUtil.getInstance().beginDrawClipped(gl);
@@ -130,7 +130,7 @@ public class Clip {
 	 * 
 	 * @param g the g
 	 */
-	public void disableClip(PGraphicsOpenGL g){
+	public void disableClip(PGraphics g){
 		GLStencilUtil.getInstance().endClipping(g, gl, clipShape);
 	}
 	

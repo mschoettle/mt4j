@@ -17,7 +17,6 @@ import org.mt4j.util.opengl.GLTexture.WRAP_MODE;
 import processing.core.PApplet;
 import processing.core.PGraphics;
 import processing.core.PImage;
-import processing.opengl.PGraphicsOpenGL;
 
 public class AngelCodeFontCharacter extends MTRectangle implements IFontCharacter, ITextureFontCharacter {
 	private short x;
@@ -180,7 +179,7 @@ public class AngelCodeFontCharacter extends MTRectangle implements IFontCharacte
 	
 
 	@Override
-	public void drawComponent(PGraphicsOpenGL g) {
+	public void drawComponent(PGraphics g) {
 		//TODO if opengl mode -> set up gl drawing like in IFont beginBatch render, 
 		//because in drawPureGL we dont set up everything needed if we only want to draw this single character
 		super.drawComponent(g);

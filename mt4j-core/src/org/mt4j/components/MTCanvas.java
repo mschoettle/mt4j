@@ -33,7 +33,7 @@ import org.mt4j.util.camera.Icamera;
 import org.mt4j.util.math.Matrix;
 
 import processing.core.PApplet;
-import processing.opengl.PGraphicsOpenGL;
+import processing.core.PGraphics;
 
 /**
  * MTCanvas is the root node of the component hierarchy of a MT4j scene.
@@ -294,7 +294,7 @@ public class MTCanvas extends MTComponent implements IHitTestInfoProvider{
 	 * 
 	 * @param updateTime the time passed since the last update (in ms)
 	 */
-	public void drawAndUpdateCanvas(PGraphicsOpenGL graphics, long updateTime){
+	public void drawAndUpdateCanvas(PGraphics graphics, long updateTime){
 		this.culledObjects = 0;
 		
 		//FIXME THIS IS A HACK! WE SHOULD REPLACE CLUSTERS WITH NORMAL COMPONENTS INSTEAD!
@@ -316,7 +316,7 @@ public class MTCanvas extends MTComponent implements IHitTestInfoProvider{
 	 * @param updateTime the update time
 	 * @param graphics the renderer
 	 */
-	private void drawUpdateRecursive(MTComponent currentcomp, long updateTime, PGraphicsOpenGL graphics){
+	private void drawUpdateRecursive(MTComponent currentcomp, long updateTime, PGraphics graphics){
 		if (currentcomp.isVisible()){
 			//Update current component
 			currentcomp.updateComponent(updateTime);

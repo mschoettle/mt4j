@@ -19,8 +19,6 @@ package org.mt4j.components.visibleComponents.shapes.mesh;
 
 import java.nio.Buffer;
 import java.nio.FloatBuffer;
-import java.nio.IntBuffer;
-import java.nio.ShortBuffer;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,7 +28,6 @@ import org.mt4j.components.bounds.BoundingSphere;
 import org.mt4j.components.bounds.IBoundingShape;
 import org.mt4j.components.visibleComponents.shapes.AbstractShape;
 import org.mt4j.components.visibleComponents.shapes.GeometryInfo;
-import org.mt4j.util.PlatformUtil;
 import org.mt4j.util.MT4jSettings;
 import org.mt4j.util.MTColor;
 import org.mt4j.util.math.BezierVertex;
@@ -43,7 +40,7 @@ import org.mt4j.util.math.Vertex;
 import org.mt4j.util.opengl.GLTexture;
 
 import processing.core.PApplet;
-import processing.opengl.PGraphicsOpenGL;
+import processing.core.PGraphics;
 
 /**
  * A mesh class for drawing triangle meshes.
@@ -477,10 +474,10 @@ public class MTTriangleMesh extends AbstractShape{
 	
 	
 	/* (non-Javadoc)
-	 * @see org.mt4j.components.visibleComponents.AbstractVisibleComponent#drawComponent(processing.core.PGraphicsOpenGL)
+	 * @see org.mt4j.components.visibleComponents.AbstractVisibleComponent#drawComponent(processing.core.PGraphics)
 	 */
 	@Override
-	public void drawComponent(PGraphicsOpenGL g) {
+	public void drawComponent(PGraphics g) {
 		PApplet pa = this.getRenderer();
 		
 		if (this.isUseDirectGL()){
@@ -585,7 +582,7 @@ public class MTTriangleMesh extends AbstractShape{
 	 * @param drawMode the draw mode
 	 * @param useTexture the use texture
 	 */
-	protected void drawWithProcessing(PGraphicsOpenGL g, Vertex[] vertices, int drawMode, boolean useTexture){
+	protected void drawWithProcessing(PGraphics g, Vertex[] vertices, int drawMode, boolean useTexture){
 		g.beginShape(drawMode); 
 		if (this.getTexture() != null && this.isTextureEnabled() && useTexture){
 			g.texture(this.getTexture());
@@ -612,7 +609,7 @@ public class MTTriangleMesh extends AbstractShape{
 	 * @param v the v
 	 * @param useTexture the use texture
 	 */
-	private void drawP5Vertex(PGraphicsOpenGL g, Vertex v, boolean useTexture){
+	private void drawP5Vertex(PGraphics g, Vertex v, boolean useTexture){
 		if (this.isTextureEnabled() && useTexture){
 			g.vertex(v.x, v.y, v.z, v.getTexCoordU(), v.getTexCoordV());
 		}else{

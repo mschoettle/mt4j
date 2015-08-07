@@ -42,7 +42,7 @@ import org.mt4j.util.math.Vector3D;
 import org.mt4j.util.math.Vertex;
 
 import processing.core.PApplet;
-import processing.opengl.PGraphicsOpenGL;
+import processing.core.PGraphics;
 
 /**
  * The Class MTTextArea. This widget allows to display text with a specified font.
@@ -355,7 +355,7 @@ public class MTTextArea extends MTRectangle implements ITextInputListener, Compa
 	
 	
 	@Override
-	public void preDraw(PGraphicsOpenGL graphics) {
+	public void preDraw(PGraphics graphics) {
 		super.preDraw(graphics);
 		
 		//Hack for drawing anti aliased stroke outline over the clipped area
@@ -393,7 +393,7 @@ public class MTTextArea extends MTRectangle implements ITextInputListener, Compa
 	
 	
 	@Override
-	public void drawComponent(PGraphicsOpenGL g) {
+	public void drawComponent(PGraphics g) {
 		super.drawComponent(g);
 		
 		//FIXME snapping wont be useful if textarea is created at non-integer value!? and if Camera isnt default camera
@@ -614,7 +614,7 @@ public class MTTextArea extends MTRectangle implements ITextInputListener, Compa
 	private boolean noStrokeSettingSaved;
 	
 	@Override
-	public void postDraw(PGraphicsOpenGL graphics) {
+	public void postDraw(PGraphics graphics) {
 		super.postDraw(graphics);
 		//Hack for drawing anti aliased stroke outline over the clipped area
 		if (this.mode == MODE_WRAP && this.getClip()!= null && !noStrokeSettingSaved){
@@ -1257,7 +1257,7 @@ public class MTTextArea extends MTRectangle implements ITextInputListener, Compa
 	 * @author Christopher Ruff
 	 */
 	protected class ArtificalLineBreak implements IFontCharacter{
-		public void drawComponent(PGraphicsOpenGL g) {}
+		public void drawComponent(PGraphics g) {}
 		public void drawComponent(GL2 gl) {	}
 		public void destroy() {	}
 		public int getHorizontalDist() {

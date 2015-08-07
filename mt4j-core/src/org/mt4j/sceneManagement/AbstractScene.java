@@ -36,7 +36,7 @@ import org.mt4j.util.logging.ILogger;
 import org.mt4j.util.logging.MTLoggerFactory;
 import org.mt4j.util.math.Tools3D;
 
-import processing.opengl.PGraphicsOpenGL;
+import processing.core.PGraphics;
 
 
 /**
@@ -152,7 +152,7 @@ public abstract class AbstractScene implements Iscene {
 	/* (non-Javadoc)
 	 * @see org.mt4j.sceneManagement.Iscene#drawAndUpdate(processing.core.PGraphics, long)
 	 */
-	public void drawAndUpdate(PGraphicsOpenGL graphics, long timeDelta){
+	public void drawAndUpdate(PGraphics graphics, long timeDelta){
 		//Process preDrawActions
 		synchronized (preDrawActions) {
 			for (Iterator<IPreDrawAction> iter = preDrawActions.iterator(); iter.hasNext();) {
@@ -175,7 +175,7 @@ public abstract class AbstractScene implements Iscene {
 	
 	
 
-	protected void clear(PGraphicsOpenGL graphics){
+	protected void clear(PGraphics graphics){
 		if (MT4jSettings.getInstance().isOpenGlMode() && !PlatformUtil.isAndroid()){
 //			GL gl = Tools3D.getGL(mtApplication);
 			GL2 gl = Tools3D.getGL(mtApplication);

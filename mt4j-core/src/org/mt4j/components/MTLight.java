@@ -20,12 +20,10 @@ package org.mt4j.components;
 import javax.media.opengl.GL2;
 import javax.media.opengl.glu.GLU;
 
-import org.mt4j.util.PlatformUtil;
 import org.mt4j.util.math.ToolsLight;
 import org.mt4j.util.math.Vector3D;
 
 import processing.core.PApplet;
-import processing.opengl.PGraphicsOpenGL;
 
 /**
  * The Class MTLight. Abstracts the opengl lightning.
