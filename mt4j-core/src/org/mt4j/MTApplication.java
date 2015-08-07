@@ -344,9 +344,11 @@ public abstract class MTApplication extends AbstractMTApplication {
 		logger.info("OpenGL Version: " + version);
         int major = Integer.parseInt("" + version.charAt(0));
         int minor = Integer.parseInt("" + version.charAt(2));
-        
-        this.gl11Supported = false;
-        this.gl20Supported = false;
+
+		this.gl20Supported = true;
+		this.gl11Supported = true;
+		this.gl11PlusSupported = true;
+      
 //        if (major >= 2) {
 ////                JoglGL20 jogl20 = new JoglGL20(((PGraphicsOpenGL)g).gl);
 //        		JoglGL20Plus jogl20 = new JoglGL20Plus(gl);
