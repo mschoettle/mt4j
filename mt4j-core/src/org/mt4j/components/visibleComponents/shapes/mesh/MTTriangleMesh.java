@@ -484,11 +484,9 @@ public class MTTriangleMesh extends AbstractShape{
 		PApplet pa = this.getRenderer();
 		
 		if (this.isUseDirectGL()){
-//			GL gl = Tools3D.beginGL(g);
-            GL2 gl = Tools3D.getGL(g);
+            GL2 gl = Tools3D.beginGLAndGetGL(g);
 			this.drawComponent(gl);
-//			Tools3D.endGL(g);
-//			PlatformUtil.endGL();
+			Tools3D.endGL(g);
 		}else{ //Draw with pure proccessing...
 			pa.strokeWeight(this.getStrokeWeight());
 

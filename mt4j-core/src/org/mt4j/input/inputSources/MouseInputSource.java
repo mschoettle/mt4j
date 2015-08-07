@@ -88,8 +88,6 @@ public class MouseInputSource extends AbstractInputSource {
      */
     public void mouseEvent(processing.event.MouseEvent event) {
 //		System.out.println(event.getButton());
-        
-        
 
 //		/*
         switch (event.getAction()) {
@@ -158,16 +156,12 @@ public class MouseInputSource extends AbstractInputSource {
         }
     }
 
-    // argh... processing coordinates differ from the original AWT??
-    private int convertY(MouseEvent e) {       
-        return MT4jSettings.getInstance().getWindowHeight() - e.getY();
-    }
-
     /* (non-Javadoc)
       * @see java.awt.event.MouseMotionListener#mouseDragged(java.awt.event.MouseEvent)
       */
     public void mouseDragged(MouseEvent e) {
         //System.err.println("mouse dragged");
+        System.out.println(e.getX() + ", " + e.getY());
         try {
             InputCursor m = ActiveCursorPool.getInstance().getActiveCursorByID(lastUsedMouseID);
             if (m != null) {

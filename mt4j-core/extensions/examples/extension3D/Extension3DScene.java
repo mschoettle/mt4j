@@ -254,9 +254,7 @@ public class Extension3DScene extends AbstractScene {
 	public void drawAndUpdate(PGraphicsOpenGL g, long timeDelta) {
         super.drawAndUpdate(g, timeDelta);
         g.pushMatrix();
-//        Tools3D.beginGL(mtApp);
-//        GL gl = Tools3D.getGL(mtApp);
-        GL2 gl = Tools3D.getGL(g);
+//        GL2 gl = Tools3D.beginGLAndGetGL(g);
         if(drawAction!=null)
         {
         	for(Rotate3DAction act:drawAction)
@@ -268,8 +266,7 @@ public class Extension3DScene extends AbstractScene {
         	}
         }
         
-//        Tools3D.endGL(mtApp);
-//        PlatformUtil.endGL();
+//        Tools3D.endGL(g);
         g.popMatrix();
     }
 	

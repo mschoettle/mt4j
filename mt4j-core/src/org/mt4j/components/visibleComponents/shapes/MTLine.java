@@ -204,8 +204,7 @@ public class MTLine extends MTCSSStylableShape{
 	public void drawComponent(PGraphicsOpenGL g) {
 		if (MT4jSettings.getInstance().isOpenGlMode()   
 		    && this.isUseDirectGL()){
-//				GL gl = Tools3D.beginGL(g);
-				GL2 gl = Tools3D.getGL(g);
+				GL2 gl = Tools3D.beginGLAndGetGL(g);
 			
 				//Draw with PURE opengl
 				if (this.isUseDisplayList()){
@@ -217,8 +216,7 @@ public class MTLine extends MTCSSStylableShape{
 					//Use Vertex Arrays or VBOs
 					this.drawPureGl(gl);
 				}
-//				Tools3D.endGL(g);
-//				PlatformUtil.endGL();
+				Tools3D.endGL(g);
 		}else{
 			//Draw with processing
 			MTColor strokeColor = this.getStrokeColor();

@@ -250,11 +250,9 @@ public class MTStencilPolygon extends MTPolygon {
 	@Override
 	public void drawComponent(PGraphicsOpenGL g) {
 		if (isUseDirectGL()){
-//			GL gl=((PGraphicsOpenGL)this.getRenderer().g).beginGL();
-			GL2 gl = Tools3D.getGL(g);
+			GL2 gl = Tools3D.beginGLAndGetGL(g);
 			drawComponent(gl);
-//			((PGraphicsOpenGL)this.getRenderer().g).endGL();
-//			PlatformUtil.endGL();
+			Tools3D.endGL(g);
 		}
 	}
 	
