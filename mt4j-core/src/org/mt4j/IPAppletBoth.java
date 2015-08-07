@@ -8,8 +8,6 @@ import java.io.PrintWriter;
 
 import javax.media.opengl.GL2;
 
-import org.mt4j.util.opengl.GLCommon;
-
 import processing.core.PApplet;
 import processing.core.PFont;
 import processing.core.PGraphics;

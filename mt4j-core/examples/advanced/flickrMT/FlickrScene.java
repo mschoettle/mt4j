@@ -248,20 +248,20 @@ public class FlickrScene extends AbstractScene {
 	
 	
 	public void onEnter() {
-		getMTApplication().registerKeyEvent(this);
+		getMTApplication().registerMethod("keyEvent", this);
 	}
 	
 	public void onLeave() {	
-		getMTApplication().unregisterKeyEvent(this);
+		getMTApplication().unregisterMethod("keyEvent", this);
 	}
 	
 	/**
 	 * 
 	 * @param e
 	 */
-	public void keyEvent(KeyEvent e){
-		int evtID = e.getID();
-		if (evtID != KeyEvent.KEY_PRESSED)
+	public void keyEvent(processing.event.KeyEvent e){
+		int evtID = e.getAction();
+		if (evtID != processing.event.KeyEvent.PRESS)
 			return;
 		switch (e.getKeyCode()){
 		case KeyEvent.VK_BACK_SPACE:

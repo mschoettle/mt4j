@@ -20,7 +20,6 @@ package org.mt4j.util.opengl;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.media.opengl.GL;
 import javax.media.opengl.GL2;
 import javax.media.opengl.glu.GLU;
 import javax.media.opengl.glu.GLUtessellator;
@@ -58,7 +57,7 @@ public class GLuTesselator extends GLUtessellatorCallbackAdapter{
        /** The last color. */
        private double[] lastColor;
        
-       //TODO Triangle meshes zurückggeben!?
+       //TODO Triangle meshes zurï¿½ckggeben!?
       // when you register a GLU_TESS_EDGE_FLAG (or GLU_TESS_EDGE_FLAG_DATA) callback, the 
       // GLU library converts all triangle strips and triangle fans to simple triangle lists.
        

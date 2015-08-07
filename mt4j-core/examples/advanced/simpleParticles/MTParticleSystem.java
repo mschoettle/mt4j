@@ -6,7 +6,6 @@ import org.mt4j.components.visibleComponents.AbstractVisibleComponent;
 import processing.core.PApplet;
 import processing.core.PGraphics;
 import processing.core.PVector;
-import processing.opengl.PGraphicsOpenGL;
 
 public class MTParticleSystem extends AbstractVisibleComponent {
 
@@ -51,7 +50,7 @@ public class MTParticleSystem extends AbstractVisibleComponent {
 	}
 	
 	@Override
-	public void drawComponent(PGraphicsOpenGL g) {
+	public void drawComponent(PGraphics g) {
 		ps.run(g);
 	}
 	

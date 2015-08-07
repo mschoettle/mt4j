@@ -2,7 +2,6 @@ package advanced.models3D;
 
 import java.awt.event.KeyEvent;
 
-import javax.media.opengl.GL;
 import javax.media.opengl.GL2;
 
 import org.mt4j.AbstractMTApplication;
@@ -24,7 +23,6 @@ import org.mt4j.input.inputProcessors.componentProcessors.scaleProcessor.ScalePr
 import org.mt4j.input.inputProcessors.componentProcessors.zoomProcessor.ZoomProcessor;
 import org.mt4j.input.inputProcessors.globalProcessors.CursorTracer;
 import org.mt4j.sceneManagement.AbstractScene;
-import org.mt4j.util.PlatformUtil;
 import org.mt4j.util.MT4jSettings;
 import org.mt4j.util.MTColor;
 import org.mt4j.util.math.Tools3D;
@@ -173,17 +171,17 @@ public class Models3DScene extends AbstractScene {
 	
 	
 	public void onEnter() {
-		getMTApplication().registerKeyEvent(this);
+		getMTApplication().registerMethod("keyEvent", this);
 	}
 	
 	public void onLeave() {	
-		getMTApplication().unregisterKeyEvent(this);
+		getMTApplication().unregisterMethod("keyEvent", this);
 	}
 	
-	public void keyEvent(KeyEvent e){
+	public void keyEvent(processing.event.KeyEvent e){
 		//System.out.println(e.getKeyCode());
-		int evtID = e.getID();
-		if (evtID != KeyEvent.KEY_PRESSED)
+		int evtID = e.getAction();
+		if (evtID != processing.event.KeyEvent.PRESS)
 			return;
 		switch (e.getKeyCode()){
 		case KeyEvent.VK_F:

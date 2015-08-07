@@ -3,7 +3,6 @@ package org.mt4j.input.inputProcessors.componentProcessors.flickProcessor;
 import org.mt4j.components.interfaces.IMTComponent3D;
 import org.mt4j.input.inputProcessors.IInputProcessor;
 import org.mt4j.input.inputProcessors.MTGestureEvent;
-import org.mt4j.util.math.Vector3D;
 
 /**
  * The Class FlickEvent.

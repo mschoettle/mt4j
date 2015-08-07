@@ -22,7 +22,6 @@ import org.mt4j.AbstractMTApplication;
 import org.mt4j.input.inputData.ActiveCursorPool;
 import org.mt4j.input.inputData.InputCursor;
 import org.mt4j.input.inputData.MTFingerInputEvt;
-import org.mt4j.util.MT4jSettings;
 
 import processing.event.MouseEvent;
 

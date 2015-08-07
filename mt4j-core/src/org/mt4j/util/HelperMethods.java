@@ -18,9 +18,9 @@
 package org.mt4j.util;
 
 
-import org.mt4j.util.math.Matrix;
-
 import javax.media.opengl.GL2;
+
+import org.mt4j.util.math.Matrix;
 
 import processing.core.PApplet;
 
@@ -185,9 +185,9 @@ public class HelperMethods {
 //    }
     
     /*
-    //Methoden müssten in basecomponent
+    //Methoden mï¿½ssten in basecomponent
      * 
-    //Jede comp müsste das implementieren, wird vorm rendern abgefragt
+    //Jede comp mï¿½sste das implementieren, wird vorm rendern abgefragt
     public boolean isUseOpenGL(){
     	return true/false;
     }
@@ -240,8 +240,8 @@ public class HelperMethods {
 //    }
     
 
-    //TODO überall nur noch getgel statt cast schrott
-    //überall anstatt beginGL();
+    //TODO ï¿½berall nur noch getgel statt cast schrott
+    //ï¿½berall anstatt beginGL();
     /**
      * Gets the gL.
      * 

@@ -15,7 +15,6 @@ import org.mt4j.input.inputProcessors.componentProcessors.rotate3DProcessor.Clus
 import org.mt4j.input.inputProcessors.componentProcessors.rotate3DProcessor.Rotate3DProcessor;
 import org.mt4j.input.inputProcessors.componentProcessors.rotateProcessor.RotateProcessor;
 import org.mt4j.input.inputProcessors.componentProcessors.scaleProcessor.ScaleProcessor;
-import org.mt4j.input.inputProcessors.componentProcessors.tapProcessor.TapProcessor;
 import org.mt4jx.input.gestureAction.CreateDragHelperAction;
 import org.mt4jx.util.extension3D.collision.CollisionManager;
 

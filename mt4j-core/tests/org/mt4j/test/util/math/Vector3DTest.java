@@ -1,9 +1,9 @@
 package org.mt4j.test.util.math;
 
+import junit.framework.TestCase;
+
 import org.mt4j.util.math.ToolsMath;
 import org.mt4j.util.math.Vector3D;
-
-import junit.framework.TestCase;
 
 public class Vector3DTest extends TestCase {
 	

@@ -20,7 +20,6 @@ package org.mt4j.util;
 import java.util.ArrayList;
 import java.util.List;
 
-
 import org.mt4j.components.TransformSpace;
 import org.mt4j.components.bounds.BoundsZPlaneRectangle;
 import org.mt4j.components.bounds.IBoundingShape;

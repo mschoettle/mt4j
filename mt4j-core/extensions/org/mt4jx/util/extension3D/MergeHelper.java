@@ -3,15 +3,12 @@ package org.mt4jx.util.extension3D;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import org.mt4j.components.MTCanvas;
 import org.mt4j.components.MTComponent;
-import org.mt4j.components.StateChange;
 import org.mt4j.components.StateChangeEvent;
 import org.mt4j.components.StateChangeListener;
 import org.mt4j.components.TransformSpace;
 import org.mt4j.components.bounds.IBoundingShape;
 import org.mt4j.components.bounds.IBoundingShapeMergable;
-import org.mt4j.input.inputProcessors.componentProcessors.rotate3DProcessor.Cluster3DExt;
 
 public class MergeHelper implements StateChangeListener {
 

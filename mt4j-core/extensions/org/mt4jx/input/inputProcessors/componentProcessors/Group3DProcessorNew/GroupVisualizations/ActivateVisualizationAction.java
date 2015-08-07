@@ -5,7 +5,6 @@ import org.mt4j.input.inputProcessors.MTGestureEvent;
 import org.mt4j.input.inputProcessors.componentProcessors.dragProcessor.DragEvent;
 import org.mt4j.input.inputProcessors.componentProcessors.rotate3DProcessor.Cluster3DExt;
 import org.mt4j.input.inputProcessors.componentProcessors.rotate3DProcessor.IVisualizeMethodProvider;
-import org.mt4j.input.inputProcessors.componentProcessors.tapProcessor.TapEvent;
 
 public class ActivateVisualizationAction implements IGestureEventListener {
 

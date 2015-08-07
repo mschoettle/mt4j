@@ -320,6 +320,7 @@ public class AirHockeyScene extends AbstractScene {
 		public Paddle(PApplet applet, Vector3D centerPoint, float radius,
 				World world, float density, float friction, float restitution, float worldScale) {
 			super(applet, centerPoint, radius, world, density, friction, restitution, worldScale);
+			System.out.println(centerPoint);
 		} 
 		@Override
 		protected void bodyDefB4CreationCallback(BodyDef def) {
@@ -564,16 +565,16 @@ public class AirHockeyScene extends AbstractScene {
 	
 
 	public void onEnter() {
-		getMTApplication().registerKeyEvent(this);
+		getMTApplication().registerMethod("keyEvent", this);
 	}
 	
 	public void onLeave() {	
-		getMTApplication().unregisterKeyEvent(this);
+		getMTApplication().unregisterMethod("keyEvent", this);
 	}
 	
-	public void keyEvent(KeyEvent e){
-		int evtID = e.getID();
-		if (evtID != KeyEvent.KEY_PRESSED)
+	public void keyEvent(processing.event.KeyEvent e){
+		int evtID = e.getAction();
+		if (evtID != processing.event.KeyEvent.PRESS)
 			return;
 		switch (e.getKeyCode()){
 		case KeyEvent.VK_SPACE:

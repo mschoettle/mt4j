@@ -7,7 +7,6 @@ import org.mt4j.util.math.Tools3D;
 import org.mt4j.util.opengl.IGLU;
 import org.mt4j.util.opengl.JoglGLU;
 
-import processing.core.PConstants;
 import processing.core.PGraphics;
 import processing.core.PMatrix3D;
 import processing.opengl.PGraphicsOpenGL;

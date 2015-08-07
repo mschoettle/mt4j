@@ -17,7 +17,6 @@
  ***********************************************************************/
 package org.mt4j.components.interfaces;
 
-import org.mt4j.input.inputProcessors.componentProcessors.tapProcessor.TapEvent;
 
 /**
  * The Interface IclickableButton.

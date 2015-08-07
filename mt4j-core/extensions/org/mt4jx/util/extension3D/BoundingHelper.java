@@ -6,9 +6,6 @@ import java.util.List;
 
 import org.mt4j.AbstractMTApplication;
 import org.mt4j.components.MTComponent;
-import org.mt4j.components.StateChangeEvent;
-import org.mt4j.components.StateChangeListener;
-import org.mt4j.components.TransformSpace;
 import org.mt4j.components.bounds.BoundingSphere;
 import org.mt4j.components.bounds.IBoundingShape;
 import org.mt4j.components.visibleComponents.shapes.AbstractShape;

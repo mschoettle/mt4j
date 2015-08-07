@@ -22,9 +22,9 @@ import java.nio.FloatBuffer;
 import javax.media.opengl.GL2;
 import javax.media.opengl.glu.GLU;
 
-import com.jogamp.common.nio.Buffers;
-
 import processing.core.PApplet;
+
+import com.jogamp.common.nio.Buffers;
 
 /**
  * Methods to build VBOs and get their binding names	(Ids).

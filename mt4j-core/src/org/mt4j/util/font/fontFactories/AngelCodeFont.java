@@ -1,7 +1,6 @@
 package org.mt4j.util.font.fontFactories;
 
 import java.util.HashMap;
-import java.util.List;
 
 import javax.media.opengl.GL2;
 

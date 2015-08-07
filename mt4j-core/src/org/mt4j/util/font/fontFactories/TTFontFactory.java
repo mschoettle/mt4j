@@ -35,7 +35,6 @@ import org.mt4j.util.MTColor;
 import org.mt4j.util.UnitTranslator;
 import org.mt4j.util.font.IFont;
 import org.mt4j.util.font.VectorFont;
-import org.mt4j.util.font.fontFactories.IFontFactory;
 import org.mt4j.util.logging.ILogger;
 import org.mt4j.util.logging.MTLoggerFactory;
 import org.mt4j.util.math.Vector3D;
@@ -58,7 +57,7 @@ public class TTFontFactory implements IFontFactory{
 //		logger.setLevel(ILogger.DEBUG);
 	}
 	
-	public static String defaultCharacters = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZÁÀÉÈÍÌÓÒabcdefghijklmnopqrstuvwxyzáàéèíìóò<>|,;.:-_#'+*!\"§$%&/()=?´{[]}\\@";
+	public static String defaultCharacters = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½abcdefghijklmnopqrstuvwxyzï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½<>|,;.:-_#'+*!\"ï¿½$%&/()=?ï¿½{[]}\\@";
 	
 //	//Register the factory
 //	static{

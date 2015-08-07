@@ -24,7 +24,6 @@ import org.mt4j.util.opengl.GluTrianglulator;
 import processing.core.PApplet;
 import processing.core.PGraphics;
 import processing.core.PImage;
-import processing.opengl.PGraphicsOpenGL;
 import advanced.physics.util.PhysicsHelper;
 
 public class PhysicsRectangle extends MTRectangle implements IPhysicsComponent{
@@ -399,7 +398,7 @@ public class PhysicsRectangle extends MTRectangle implements IPhysicsComponent{
 	
 	
 	//@Override
-	public void drawComponent(PGraphicsOpenGL g) {
+	public void drawComponent(PGraphics g) {
 		super.drawComponent(g);
 
 		if (drawBounds){

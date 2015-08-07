@@ -19,15 +19,13 @@ package org.mt4j.util.xml.svg;
 
 import java.io.File;
 
-//TODO IMPLEMENT!
-
-import org.mt4j.components.MTComponent;
-
-import processing.core.PApplet;
-
 import com.whirlycott.cache.Cache;
 import com.whirlycott.cache.CacheException;
 import com.whirlycott.cache.CacheManager;
+//TODO IMPLEMENT!
+import org.mt4j.components.MTComponent;
+
+import processing.core.PApplet;
 
 /**
  * The Class SVGCache.
@@ -70,7 +68,7 @@ public class SVGCache {
 	
 	
 	//TODO wenn in cache, ganze svg gruppenhierarchie clonen 
-	// und clon zurückgeben
+	// und clon zurï¿½ckgeben
 	/**
 	 * Load svg file.
 	 * 
@@ -101,7 +99,7 @@ public class SVGCache {
 				
 				returnComponent = svg;
 				
-				//TODO store copy? because sonst wird matrix etc verändert wenn damit gearbeitet wurde
+				//TODO store copy? because sonst wird matrix etc verï¿½ndert wenn damit gearbeitet wurde
 				cache.store(fileName, svg);
 			}else{
 				System.out.println("File doesent exist! aborting..." + fileName);
@@ -114,7 +112,7 @@ public class SVGCache {
 	}
 	
 
-	//TODO für alle componenten clone implementieren?
+	//TODO fï¿½r alle componenten clone implementieren?
 	/**
 	 * Copy svg.
 	 * 

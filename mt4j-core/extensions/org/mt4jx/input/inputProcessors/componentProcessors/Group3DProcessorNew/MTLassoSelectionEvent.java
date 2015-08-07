@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import org.mt4j.components.MTComponent;
 import org.mt4j.components.visibleComponents.shapes.MTPolygon;
-import org.mt4j.input.inputProcessors.componentProcessors.lassoProcessor.ILassoable;
 import org.mt4j.input.inputProcessors.componentProcessors.rotate3DProcessor.Cluster3DExt;
 
 public class MTLassoSelectionEvent extends MTSelectionEvent {

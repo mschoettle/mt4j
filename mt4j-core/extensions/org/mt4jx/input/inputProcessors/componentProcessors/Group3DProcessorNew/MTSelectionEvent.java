@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import org.mt4j.components.MTComponent;
 import org.mt4j.input.MTEvent;
-import org.mt4j.input.inputProcessors.componentProcessors.lassoProcessor.ILassoable;
 
 public class MTSelectionEvent extends MTEvent {
 

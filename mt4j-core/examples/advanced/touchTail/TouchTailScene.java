@@ -45,8 +45,8 @@ public class TouchTailScene extends AbstractScene {
 		this.registerGlobalInputProcessor(new CursorTracer(mtApp, this));
 	}
 
-	public void keyEvent(KeyEvent e){
-		if (e.getID() != KeyEvent.KEY_PRESSED)
+	public void keyEvent(processing.event.KeyEvent e){
+		if (e.getAction() != processing.event.KeyEvent.PRESS)
 			return;
 		switch (e.getKeyCode()){
 		case KeyEvent.VK_F:
@@ -64,11 +64,11 @@ public class TouchTailScene extends AbstractScene {
 	}
 	
 	public void onEnter() {
-		getMTApplication().registerKeyEvent(this);
+		getMTApplication().registerMethod("keyEvent", this);
 	}
 	
 	public void onLeave() {	
-		getMTApplication().unregisterKeyEvent(this);
+		getMTApplication().unregisterMethod("keyEvent", this);
 	}
 
 }

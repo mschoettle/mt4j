@@ -17,9 +17,9 @@
  ***********************************************************************/
 package org.mt4j.components.visibleComponents.shapes.mesh;
 
-import org.mt4j.util.math.ToolsMath;
 import org.mt4j.util.math.Ray;
 import org.mt4j.util.math.ToolsGeometry;
+import org.mt4j.util.math.ToolsMath;
 import org.mt4j.util.math.Vector3D;
 import org.mt4j.util.math.Vertex;
 

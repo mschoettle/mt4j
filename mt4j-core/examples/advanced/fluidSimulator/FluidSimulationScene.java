@@ -33,7 +33,6 @@ package advanced.fluidSimulator;
 import java.awt.event.KeyEvent;
 import java.nio.FloatBuffer;
 
-import javax.media.opengl.GL;
 import javax.media.opengl.GL2;
 
 import msafluid.MSAFluidSolver2D;
@@ -45,18 +44,16 @@ import org.mt4j.input.inputData.AbstractCursorInputEvt;
 import org.mt4j.input.inputData.InputCursor;
 import org.mt4j.input.inputData.MTInputEvent;
 import org.mt4j.sceneManagement.AbstractScene;
-import org.mt4j.util.PlatformUtil;
 import org.mt4j.util.MT4jSettings;
 import org.mt4j.util.math.Tools3D;
 import org.mt4j.util.math.Vector3D;
-
-import com.jogamp.common.nio.Buffers;
 
 import processing.core.PApplet;
 import processing.core.PConstants;
 import processing.core.PGraphics;
 import processing.core.PImage;
-import processing.opengl.PGraphicsOpenGL;
+
+import com.jogamp.common.nio.Buffers;
 
 public class FluidSimulationScene extends AbstractScene{
 	
@@ -145,7 +142,7 @@ public class FluidSimulationScene extends AbstractScene{
 			super(applet);
 		}
 		//@Override
-		public void drawComponent(PGraphicsOpenGL g) {
+		public void drawComponent(PGraphics g) {
 			super.drawComponent(g);
 			drawFluidImage();
 			
@@ -156,7 +153,7 @@ public class FluidSimulationScene extends AbstractScene{
 			//FIXME TEST
 //			PGraphicsOpenGL pgl = (PGraphicsOpenGL)g; 
 //			GL gl = pgl.gl;
-			GL2 gl = Tools3D.getGL(g);
+			GL2 gl = Tools3D.getGL();
 			gl.glDisableClientState(GL2.GL_VERTEX_ARRAY);
 			gl.glDisableClientState(GL2.GL_COLOR_ARRAY);
 			gl.glDisable(GL2.GL_LINE_SMOOTH);
@@ -166,7 +163,7 @@ public class FluidSimulationScene extends AbstractScene{
 	
 	
 	//@Override
-	public void drawAndUpdate(PGraphicsOpenGL graphics, long timeDelta) {
+	public void drawAndUpdate(PGraphics graphics, long timeDelta) {
 //		this.drawFluidImage();
 		super.drawAndUpdate(graphics, timeDelta);
 		
@@ -264,11 +261,11 @@ public class FluidSimulationScene extends AbstractScene{
 
 	
 	public void onEnter() {
-		getMTApplication().registerKeyEvent(this);
+		getMTApplication().registerMethod("keyEvent", this);
 	}
 	
 	public void onLeave() {	
-		getMTApplication().unregisterKeyEvent(this);
+		getMTApplication().unregisterMethod("keyEvent", this);
 		/*
 		mtApp.noSmooth();
 		mtApp.fill(255,255,255,255);
@@ -288,12 +285,12 @@ public class FluidSimulationScene extends AbstractScene{
 	 * 
 	 * @param e
 	 */
-	public void keyEvent(KeyEvent e){
-		int evtID = e.getID();
-		if (evtID != KeyEvent.KEY_PRESSED)
+	public void keyEvent(processing.event.KeyEvent e){
+		int evtID = e.getAction();
+		if (evtID != processing.event.KeyEvent.PRESS)
 			return;
 		switch (e.getKeyCode()){
-		case KeyEvent.VK_BACK_SPACE:
+		case KeyEvent.VK_SPACE:
 			app.popScene();
 			break;
 			default:

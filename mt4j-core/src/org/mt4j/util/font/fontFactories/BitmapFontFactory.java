@@ -22,7 +22,6 @@ import java.util.List;
 import org.mt4j.components.visibleComponents.font.BitmapFontCharacter;
 import org.mt4j.util.MTColor;
 import org.mt4j.util.font.IFont;
-import org.mt4j.util.font.fontFactories.IFontFactory;
 
 import processing.core.BitmapFontFactoryProxy;
 import processing.core.PApplet;

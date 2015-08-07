@@ -27,7 +27,6 @@ import javax.media.opengl.glu.GLU;
 import org.mt4j.AbstractMTApplication;
 import org.mt4j.components.visibleComponents.StyleInfo;
 import org.mt4j.util.MT4jSettings;
-import org.mt4j.util.PlatformUtil;
 import org.mt4j.util.math.ToolsBuffers;
 import org.mt4j.util.math.ToolsVBO;
 import org.mt4j.util.math.Vector3D;

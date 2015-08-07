@@ -12,7 +12,6 @@ import org.mt4j.input.inputProcessors.IGestureEventListener;
 import org.mt4j.input.inputProcessors.MTGestureEvent;
 import org.mt4j.input.inputProcessors.componentProcessors.dragProcessor.DragEvent;
 import org.mt4j.input.inputProcessors.componentProcessors.dragProcessor.MultipleDragProcessor;
-import org.mt4j.util.PlatformUtil;
 import org.mt4j.util.MT4jSettings;
 import org.mt4j.util.MTColor;
 import org.mt4j.util.math.Plane;
@@ -22,8 +21,8 @@ import org.mt4j.util.math.Vector3D;
 
 import processing.core.PApplet;
 import processing.core.PConstants;
+import processing.core.PGraphics;
 import processing.core.PImage;
-import processing.opengl.PGraphicsOpenGL;
 
 /**
  * The Class TouchTailComponent.
@@ -112,11 +111,11 @@ public class TouchTailComponent extends AbstractVisibleComponent {
 	}
 
 	@Override
-	public void drawComponent(PGraphicsOpenGL g) {
+	public void drawComponent(PGraphics g) {
 		//FIXME TEST
 		if (MT4jSettings.getInstance().isOpenGlMode()){
 //			GL gl = ((PGraphicsOpenGL)g).gl;
-			GL2 gl = Tools3D.getGL(g);
+			GL2 gl = Tools3D.getGL();
 			if (useTexture){
 //				gl.glBlendFunc(GL.GL_SRC_ALPHA, GL.GL_ONE_MINUS_SRC_ALPHA);
 //				gl.glBlendFunc(GL.GL_ONE, GL.GL_ONE);
@@ -148,7 +147,7 @@ public class TouchTailComponent extends AbstractVisibleComponent {
 	}
 	
 
-	private void renderGesture(PGraphicsOpenGL g, TailGesture gesture, int w, int h) {
+	private void renderGesture(PGraphics g, TailGesture gesture, int w, int h) {
 		if (gesture.exists) {
 			if (gesture.nPolys > 0) {
 				Polygon polygons[] = gesture.polygons;
