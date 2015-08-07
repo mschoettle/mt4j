@@ -28,8 +28,8 @@
 	<classpathentry kind="lib" path="lib/batik/batik-bridge.jar"/>
 	<classpathentry kind="lib" path="lib/tuio/tuio4j.jar"/>
 	<classpathentry kind="lib" path="lib/tuio/tuio4jinput.jar"/>
-	<classpathentry kind="lib" path="lib/whirlylib/org.apache.log4j_1.2.15.v201012070815.jar"/>
 	<classpathentry kind="lib" path="lib/whirlylib/whirlycache-1.0.1.jar"/>
+	<classpathentry kind="lib" path="lib/whirlylib/log4j-1.2.17.jar"/>
 	<classpathentry kind="lib" path="lib/jogl/gluegen-rt.jar"/>
 	<classpathentry kind="lib" path="extensions/lib/jbullet/jbullet.jar"/>
 	<classpathentry kind="lib" path="extensions/lib/jbullet/stack-alloc.jar"/>
