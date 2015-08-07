@@ -34,6 +34,7 @@ import java.awt.event.KeyEvent;
 import java.nio.FloatBuffer;
 
 import javax.media.opengl.GL;
+import javax.media.opengl.GL2;
 
 import msafluid.MSAFluidSolver2D;
 
@@ -46,15 +47,16 @@ import org.mt4j.input.inputData.MTInputEvent;
 import org.mt4j.sceneManagement.AbstractScene;
 import org.mt4j.util.PlatformUtil;
 import org.mt4j.util.MT4jSettings;
+import org.mt4j.util.math.Tools3D;
 import org.mt4j.util.math.Vector3D;
-import org.mt4j.util.opengl.GL10;
+
+import com.jogamp.common.nio.Buffers;
 
 import processing.core.PApplet;
 import processing.core.PConstants;
 import processing.core.PGraphics;
 import processing.core.PImage;
-
-import com.sun.opengl.util.BufferUtil;
+import processing.opengl.PGraphicsOpenGL;
 
 public class FluidSimulationScene extends AbstractScene{
 	
@@ -143,7 +145,7 @@ public class FluidSimulationScene extends AbstractScene{
 			super(applet);
 		}
 		//@Override
-		public void drawComponent(PGraphics g) {
+		public void drawComponent(PGraphicsOpenGL g) {
 			super.drawComponent(g);
 			drawFluidImage();
 			
@@ -154,17 +156,17 @@ public class FluidSimulationScene extends AbstractScene{
 			//FIXME TEST
 //			PGraphicsOpenGL pgl = (PGraphicsOpenGL)g; 
 //			GL gl = pgl.gl;
-			GL10 gl = PlatformUtil.getGL();
-			gl.glDisableClientState(GL.GL_VERTEX_ARRAY);
-			gl.glDisableClientState(GL.GL_COLOR_ARRAY);
-			gl.glDisable(GL.GL_LINE_SMOOTH);
+			GL2 gl = Tools3D.getGL(g);
+			gl.glDisableClientState(GL2.GL_VERTEX_ARRAY);
+			gl.glDisableClientState(GL2.GL_COLOR_ARRAY);
+			gl.glDisable(GL2.GL_LINE_SMOOTH);
 			gl.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
 		}
 	}
 	
 	
 	//@Override
-	public void drawAndUpdate(PGraphics graphics, long timeDelta) {
+	public void drawAndUpdate(PGraphicsOpenGL graphics, long timeDelta) {
 //		this.drawFluidImage();
 		super.drawAndUpdate(graphics, timeDelta);
 		
@@ -395,7 +397,7 @@ public class FluidSimulationScene extends AbstractScene{
 	   }
 
 
-	   public void drawOldSchool(GL gl) {
+	   public void drawOldSchool(GL2 gl) {
 	       gl.glColor3f(alpha, alpha, alpha);
 	       gl.glVertex2f(x-vx, y-vy);
 	       gl.glVertex2f(x, y);
@@ -438,25 +440,25 @@ public class FluidSimulationScene extends AbstractScene{
 			
 			curIndex = 0;
 
-			posArray = BufferUtil.newFloatBuffer(maxParticles * 2 * 2);// 2 coordinates per point, 2 points per particle (current and previous)
-			colArray = BufferUtil.newFloatBuffer(maxParticles * 3 * 2);
+			posArray = Buffers.newDirectFloatBuffer(maxParticles * 2 * 2);// 2 coordinates per point, 2 points per particle (current and previous)
+			colArray = Buffers.newDirectFloatBuffer(maxParticles * 3 * 2);
 		}
 
 
 		public void updateAndDraw(){
 //			PGraphicsOpenGL pgl = (PGraphicsOpenGL)p.g;         // processings opengl graphics object
 //			GL gl = pgl.beginGL();                // JOGL's GL object
-			GL10 gl = PlatformUtil.beginGL();
+			GL2 gl = Tools3D.beginGLAndGetGL(p);
 
-			gl.glEnable( GL.GL_BLEND );             // enable blending
+			gl.glEnable( GL2.GL_BLEND );             // enable blending
 			
 			/*
 			if(!drawFluid) 
 				fadeToColor(p, gl, 0, 0, 0, 0.05f);
 			*/
 
-			gl.glBlendFunc(GL.GL_ONE, GL.GL_ONE);  // additive blending (ignore alpha)
-			gl.glEnable(GL.GL_LINE_SMOOTH);        // make points round
+			gl.glBlendFunc(GL2.GL_ONE, GL2.GL_ONE);  // additive blending (ignore alpha)
+			gl.glEnable(GL2.GL_LINE_SMOOTH);        // make points round
 			gl.glLineWidth(1);
 
 
@@ -467,13 +469,13 @@ public class FluidSimulationScene extends AbstractScene{
 						particles[i].updateVertexArrays(i, posArray, colArray);
 					}
 				}    
-				gl.glEnableClientState(GL.GL_VERTEX_ARRAY);
-				gl.glVertexPointer(2, GL.GL_FLOAT, 0, posArray);
+				gl.glEnableClientState(GL2.GL_VERTEX_ARRAY);
+				gl.glVertexPointer(2, GL2.GL_FLOAT, 0, posArray);
 
-				gl.glEnableClientState(GL.GL_COLOR_ARRAY);
-				gl.glColorPointer(3, GL.GL_FLOAT, 0, colArray);
+				gl.glEnableClientState(GL2.GL_COLOR_ARRAY);
+				gl.glColorPointer(3, GL2.GL_FLOAT, 0, colArray);
 
-				gl.glDrawArrays(GL.GL_LINES, 0, maxParticles * 2);
+				gl.glDrawArrays(GL2.GL_LINES, 0, maxParticles * 2);
 			} 
 			else {
 				/*
@@ -490,9 +492,9 @@ public class FluidSimulationScene extends AbstractScene{
 
 //			gl.glDisable(GL.GL_BLEND);
 			//Reset blendfunction
-			gl.glBlendFunc(GL.GL_SRC_ALPHA, GL.GL_ONE_MINUS_SRC_ALPHA);
+			gl.glBlendFunc(GL2.GL_SRC_ALPHA, GL2.GL_ONE_MINUS_SRC_ALPHA);
 //			pgl.endGL();
-			PlatformUtil.endGL();
+			Tools3D.endGL(p);
 		}
 
 		/*

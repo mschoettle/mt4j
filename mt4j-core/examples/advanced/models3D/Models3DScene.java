@@ -3,6 +3,7 @@ package advanced.models3D;
 import java.awt.event.KeyEvent;
 
 import javax.media.opengl.GL;
+import javax.media.opengl.GL2;
 
 import org.mt4j.AbstractMTApplication;
 import org.mt4j.components.MTComponent;
@@ -26,6 +27,7 @@ import org.mt4j.sceneManagement.AbstractScene;
 import org.mt4j.util.PlatformUtil;
 import org.mt4j.util.MT4jSettings;
 import org.mt4j.util.MTColor;
+import org.mt4j.util.math.Tools3D;
 import org.mt4j.util.math.Vector3D;
 import org.mt4j.util.modelImporter.ModelImporterFactory;
 import org.mt4j.util.opengl.GLMaterial;
@@ -58,10 +60,10 @@ public class Models3DScene extends AbstractScene {
 		//Init light settings
 		MTLight.enableLightningAndAmbient(mtApplication, 150, 150, 150, 255);
 		//Create a light source //I think GL_LIGHT0 is used by processing!
-		MTLight light = new MTLight(mtApplication, GL.GL_LIGHT3, new Vector3D(0,-300,0));
+		MTLight light = new MTLight(mtApplication, GL2.GL_LIGHT3, new Vector3D(0,-300,0));
 		
 		//Set up a material to react to the light
-		GLMaterial material = new GLMaterial(PlatformUtil.getGL());
+		GLMaterial material = new GLMaterial(Tools3D.getGL());
 		material.setAmbient(new float[]{ .5f, .5f, .5f, 1f });
 		material.setDiffuse(new float[]{ .8f, .8f, .8f, 1f } );
 		material.setEmission(new float[]{ .0f, .0f, .0f, 1f });

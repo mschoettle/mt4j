@@ -20,6 +20,7 @@ package advanced.space3D;
 import java.awt.event.KeyEvent;
 
 import javax.media.opengl.GL;
+import javax.media.opengl.GL2;
 
 import org.mt4j.AbstractMTApplication;
 import org.mt4j.components.MTComponent;
@@ -46,6 +47,7 @@ import org.mt4j.util.animation.Animation;
 import org.mt4j.util.animation.AnimationEvent;
 import org.mt4j.util.animation.IAnimationListener;
 import org.mt4j.util.animation.MultiPurposeInterpolator;
+import org.mt4j.util.math.Tools3D;
 import org.mt4j.util.math.Vector3D;
 import org.mt4j.util.opengl.GLMaterial;
 import org.mt4j.util.opengl.GLTexture;
@@ -92,10 +94,10 @@ public class Space3DScene extends AbstractScene {
 		MTLight.enableLightningAndAmbient(pa, 150, 150, 150, 255);
 		//Create a light source //I think GL_LIGHT0 is used by processing!
 //		MTLight light = new MTLight(pa, GL.GL_LIGHT3, new Vector3D(0,0,0));
-		MTLight light = new MTLight(pa, GL.GL_LIGHT3, new Vector3D(pa.width/5f,-pa.height/10f,0));
+		MTLight light = new MTLight(pa, GL2.GL_LIGHT3, new Vector3D(pa.width/5f,-pa.height/10f,0));
 		
 		//Set up a material to react to the light
-		GLMaterial material = new GLMaterial(PlatformUtil.getGL());
+		GLMaterial material = new GLMaterial(Tools3D.getGL(mtApplication));
 		material.setAmbient(new float[]{ .1f, .1f, .1f, 1f });
 		material.setDiffuse(new float[]{ 1.0f, 1.0f, 1.0f, 1f } );
 		material.setEmission(new float[]{ .0f, .0f, .0f, 1f });

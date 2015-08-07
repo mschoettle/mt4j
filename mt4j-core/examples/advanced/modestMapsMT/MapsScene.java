@@ -31,6 +31,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 
+import javax.media.opengl.GL2;
+
 import org.mt4j.AbstractMTApplication;
 import org.mt4j.components.MTComponent;
 import org.mt4j.components.TransformSpace;
@@ -73,8 +75,8 @@ import org.mt4j.util.camera.MTCamera;
 import org.mt4j.util.font.FontManager;
 import org.mt4j.util.font.IFont;
 import org.mt4j.util.math.Matrix;
+import org.mt4j.util.math.Tools3D;
 import org.mt4j.util.math.Vector3D;
-import org.mt4j.util.opengl.GL11;
 
 import processing.core.PImage;
 import advanced.flickrMT.FlickrLoader;
@@ -479,7 +481,7 @@ public class MapsScene extends AbstractScene implements MouseWheelListener, Mous
 //		PGraphicsOpenGL pgl = ((PGraphicsOpenGL)p.g);
 //		GL gl = pgl.beginGL();
 //		GL gl = pgl.gl;
-		GL11 gl = PlatformUtil.getGL11();
+		GL2 gl = Tools3D.beginGLAndGetGL(p);
 		
 		gl.glPushMatrix();
 		gl.glScalef(1, -1, 1);
@@ -487,9 +489,9 @@ public class MapsScene extends AbstractScene implements MouseWheelListener, Mous
 		gl.glScalef((float)map.sc, (float)map.sc, 1);
 		gl.glTranslatef((float)map.tx, (float)map.ty, 0);
 //		gl.glGetDoublev(GL.GL_MODELVIEW_MATRIX, model);
-		gl.glGetFloatv(GL11.GL_MODELVIEW_MATRIX, model);
+		gl.glGetFloatv(GL2.GL_MODELVIEW_MATRIX, model);
 		gl.glPopMatrix();
-//		pgl.endGL();
+		Tools3D.endGL(p);
 		
 		try {
 			mgl.set(new float[]{

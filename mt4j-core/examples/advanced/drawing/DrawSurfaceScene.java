@@ -144,7 +144,7 @@ public class DrawSurfaceScene extends AbstractScene {
 									AbstractShape brushToDraw = drawShape;
 
 									//Draw brush
-									brushToDraw.drawComponent(mtApp.g);
+									brushToDraw.drawComponent(mtApp.graphicsOpenGL());
 
 									mtApp.popMatrix();
 								}

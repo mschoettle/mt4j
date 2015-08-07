@@ -5,6 +5,7 @@ import java.io.File;
 import java.util.HashMap;
 
 import javax.media.opengl.GL;
+import javax.media.opengl.GL2;
 
 import org.mt4j.components.visibleComponents.AbstractVisibleComponent;
 import org.mt4j.input.inputProcessors.IGestureEventListener;
@@ -16,13 +17,13 @@ import org.mt4j.util.MT4jSettings;
 import org.mt4j.util.MTColor;
 import org.mt4j.util.math.Plane;
 import org.mt4j.util.math.Ray;
+import org.mt4j.util.math.Tools3D;
 import org.mt4j.util.math.Vector3D;
-import org.mt4j.util.opengl.GL10;
 
 import processing.core.PApplet;
 import processing.core.PConstants;
-import processing.core.PGraphics;
 import processing.core.PImage;
+import processing.opengl.PGraphicsOpenGL;
 
 /**
  * The Class TouchTailComponent.
@@ -111,11 +112,11 @@ public class TouchTailComponent extends AbstractVisibleComponent {
 	}
 
 	@Override
-	public void drawComponent(PGraphics g) {
+	public void drawComponent(PGraphicsOpenGL g) {
 		//FIXME TEST
 		if (MT4jSettings.getInstance().isOpenGlMode()){
 //			GL gl = ((PGraphicsOpenGL)g).gl;
-			GL10 gl = PlatformUtil.getGL();
+			GL2 gl = Tools3D.getGL(g);
 			if (useTexture){
 //				gl.glBlendFunc(GL.GL_SRC_ALPHA, GL.GL_ONE_MINUS_SRC_ALPHA);
 //				gl.glBlendFunc(GL.GL_ONE, GL.GL_ONE);
@@ -147,7 +148,7 @@ public class TouchTailComponent extends AbstractVisibleComponent {
 	}
 	
 
-	private void renderGesture(PGraphics g, TailGesture gesture, int w, int h) {
+	private void renderGesture(PGraphicsOpenGL g, TailGesture gesture, int w, int h) {
 		if (gesture.exists) {
 			if (gesture.nPolys > 0) {
 				Polygon polygons[] = gesture.polygons;

@@ -47,6 +47,7 @@ import org.mt4j.input.inputProcessors.componentProcessors.dragProcessor.DragEven
 import org.mt4j.input.inputProcessors.componentProcessors.dragProcessor.DragProcessor;
 import org.mt4j.input.inputProcessors.componentProcessors.dragProcessor.MultipleDragProcessor;
 import org.mt4j.util.PlatformUtil;
+import org.mt4j.util.math.Tools3D;
 import org.mt4j.util.math.Vector3D;
 import org.mt4j.util.math.Vertex;
 import org.mt4j.util.opengl.GLMaterial;
@@ -301,7 +302,7 @@ public class PhysicsHelper {
 	
 	public static GLMaterial createDefaultGLMaterial(PApplet app){
 		//Set up a material
-		GLMaterial material = new GLMaterial(PlatformUtil.getGL());
+		GLMaterial material = new GLMaterial(Tools3D.getGL());
 		material.setAmbient(new float[]{ .2f, .2f, .2f, 1f });
 		material.setDiffuse(new float[]{ .8f, .8f, .8f, 1f } );
 		material.setEmission(new float[]{ .0f, .0f, .0f, 1f });

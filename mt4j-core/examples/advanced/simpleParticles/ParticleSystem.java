@@ -3,13 +3,15 @@ package advanced.simpleParticles;
 import java.util.ArrayList;
 
 import javax.media.opengl.GL;
+import javax.media.opengl.GL2;
 
 import org.mt4j.util.PlatformUtil;
-import org.mt4j.util.opengl.GL10;
+import org.mt4j.util.math.Tools3D;
 
 import processing.core.PApplet;
 import processing.core.PGraphics;
 import processing.core.PVector;
+import processing.opengl.PGraphicsOpenGL;
 
 // A class to describe a group of Particles
 // An ArrayList is used to manage the list of Particles 
@@ -29,9 +31,9 @@ public class ParticleSystem {
 		}
 	}
 
-	public void run(PGraphics g) {
+	public void run(PGraphicsOpenGL g) {
 //		GL gl = Tools3D.getGL(g);
-		GL10 gl = PlatformUtil.getGL();
+		GL2 gl = Tools3D.getGL(g);
 		gl.glDisable(GL.GL_DEPTH_TEST);
 //		gl.glDepthMask(false);//depth testing - makes depth buffer read-only
 //		gl.glBlendFunc(GL.GL_SRC_ALPHA,GL.GL_ONE);//define blending as alpha blending
