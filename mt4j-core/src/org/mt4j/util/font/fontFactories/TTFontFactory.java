@@ -57,7 +57,7 @@ public class TTFontFactory implements IFontFactory{
 //		logger.setLevel(ILogger.DEBUG);
 	}
 	
-	public static String defaultCharacters = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ��������abcdefghijklmnopqrstuvwxyz��������<>|,;.:-_#'+*!\"�$%&/()=?�{[]}\\@";
+	public static String defaultCharacters = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZÄÖÜabcdefghijklmnopqrstuvwxyzäöü<>|,;.:-_#'+*!\"§$%&/()=?´{[]}\\@";
 	
 //	//Register the factory
 //	static{

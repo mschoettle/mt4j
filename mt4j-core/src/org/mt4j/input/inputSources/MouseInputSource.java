@@ -22,6 +22,7 @@ import org.mt4j.AbstractMTApplication;
 import org.mt4j.input.inputData.ActiveCursorPool;
 import org.mt4j.input.inputData.InputCursor;
 import org.mt4j.input.inputData.MTFingerInputEvt;
+import org.mt4j.input.inputData.MTMouseInputEvt;
 
 import processing.event.MouseEvent;
 
@@ -143,7 +144,7 @@ public class MouseInputSource extends AbstractInputSource {
             mouseBusy = true;
 
             InputCursor m = new InputCursor();
-            MTFingerInputEvt touchEvt = new MTFingerInputEvt(this, e.getX(), e.getY(), MTFingerInputEvt.INPUT_STARTED, m);
+            MTMouseInputEvt touchEvt = new MTMouseInputEvt(this, e.getModifiers(), e.getX(), e.getY(), MTFingerInputEvt.INPUT_STARTED, m);
 
             lastUsedMouseID = m.getId();
             ActiveCursorPool.getInstance().putActiveCursor(lastUsedMouseID, m);
@@ -163,7 +164,7 @@ public class MouseInputSource extends AbstractInputSource {
         try {
             InputCursor m = ActiveCursorPool.getInstance().getActiveCursorByID(lastUsedMouseID);
             if (m != null) {
-                MTFingerInputEvt te = new MTFingerInputEvt(this, e.getX(), e.getY(), MTFingerInputEvt.INPUT_UPDATED, m);
+                MTMouseInputEvt te = new MTMouseInputEvt(this, e.getModifiers(), e.getX(), e.getY(), MTFingerInputEvt.INPUT_UPDATED, m);
 //				System.out.println("MouseSource Finger UPDATE, Motion ID: " + m.getId());
                 this.enqueueInputEvent(te);
             }
@@ -180,7 +181,7 @@ public class MouseInputSource extends AbstractInputSource {
         //System.err.println("mouse released");
         if (e.getButton() == mousePressedButton) {
             InputCursor m = ActiveCursorPool.getInstance().getActiveCursorByID(lastUsedMouseID);
-            MTFingerInputEvt te = new MTFingerInputEvt(this, e.getX(), e.getY(), MTFingerInputEvt.INPUT_ENDED, m);
+            MTMouseInputEvt te = new MTMouseInputEvt(this, e.getModifiers(), e.getX(), e.getY(), MTFingerInputEvt.INPUT_ENDED, m);
 
             //System.out.println("MouseSource Finger UP, Motion ID: " + m.getId());
             this.enqueueInputEvent(te);
@@ -188,6 +189,10 @@ public class MouseInputSource extends AbstractInputSource {
             ActiveCursorPool.getInstance().removeCursor((lastUsedMouseID));
             mouseBusy = false;
         }
+    }
+
+    public void mouseWheeled(MouseEvent event) {
+        
     }
 
 
