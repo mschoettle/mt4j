@@ -8,6 +8,7 @@ org.mt4j.components.css.style
 org.mt4j.components.css.util
 org.mt4j.components.interfaces
 org.mt4j.components.visibleComponents
+org.mt4j.components.visibleComponents.font
 org.mt4j.components.visibleComponents.shapes
 org.mt4j.components.visibleComponents.shapes.mesh
 org.mt4j.components.visibleComponents.widgets
@@ -42,6 +43,12 @@ org.mt4j.util.camera
 org.mt4j.util.font
 org.mt4j.util.font.fontFactories
 org.mt4j.util.logging
+org.mt4j.util.manyMouse
 org.mt4j.util.math
 org.mt4j.util.modelImporter
+org.mt4j.util.modelImporter.file3ds
+org.mt4j.util.modelImporter.fileObj
 org.mt4j.util.opengl
+org.mt4j.util.xml
+org.mt4j.util.xml.svg
+processing.core
