@@ -50,7 +50,7 @@ public class BitmapFontFactoryProxy implements IFontFactory {
 		logger.setLevel(ILogger.OFF);
 	}
 	
-	public static String defaultCharacters = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZÁÀÉÈÍÌÓÒabcdefghijklmnopqrstuvwxyzáàéèíìóò<>|,;.:-_#'+*!\"§$%&/()=?´{[]}\\@";
+	public static String defaultCharacters = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZÃƒÂƒÃ‚Â„ÃƒÂƒÃ‚Â–ÃƒÂƒÃ‚ÂœabcdefghijklmnopqrstuvwxyzÃƒÂƒÃ¢Â‚Â¬ÃƒÂƒÃ‚Â¶ÃƒÂƒÃ…Â’<>|,;.:-_#'+*!\"ÃƒÂ‚Ã‚Â§$%&/()=?ÃƒÂ‚Ã…Å“{[]}\\@";
 	
 //	static{
 //		FontManager.getInstance().registerFontFactory("", new BitmapFontFactory());
