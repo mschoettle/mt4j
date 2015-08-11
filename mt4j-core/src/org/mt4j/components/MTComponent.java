@@ -1336,10 +1336,25 @@ public class MTComponent implements IMTComponent3D, IMTInputEventListener, IGest
 //			this.setLocalInverseMatrixInternal(this.getLocalInverseMatrix().multLocal(ms[1]));
 			this.setLocalInverseMatrixInternal(this.getLocalInverseMatrix().translateMultLocal(ms[1]));
 			
-			fireStateChange(StateChange.TRANSLATED);
+			/**
+			 * Propagate state change in order for component and its children to be able to react to it.
+			 */
+			propagateStateChange(StateChange.TRANSLATED);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+	
+	/**
+	 * Propagates the given state change to the components listeners and also informs the component's children.
+	 *  
+	 * @param stateChange the {@link StateChange} to propagate
+	 */
+	private void propagateStateChange(StateChange stateChange) {
+	    fireStateChange(stateChange);
+	    for (MTComponent child : childComponents) {
+	        child.propagateStateChange(stateChange);
+	    }
 	}
 	
 	
