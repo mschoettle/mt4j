@@ -6,7 +6,7 @@
     <property name="doc.dir" location="${workspace.dir}/mt4j-core/doc"/>
 	<property name="jar.file" location="${build.dir}/mt4j.jar"/>
     
-    <target name="create_run_jar" depends="javadoc">    	
+    <target name="create_run_jar">    	
     	<!-- create jar task -->
         <echo message="Creating jar file ..."/>
         <jar destfile="${jar.file}" filesetmanifest="mergewithoutmain">
