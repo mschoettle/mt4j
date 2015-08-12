@@ -19,7 +19,6 @@ package org.mt4j.sceneManagement.transition;
 
 import org.mt4j.AbstractMTApplication;
 import org.mt4j.components.visibleComponents.shapes.MTRectangle;
-import org.mt4j.components.visibleComponents.widgets.MTSceneTexture;
 import org.mt4j.sceneManagement.Iscene;
 import org.mt4j.util.MTColor;
 import org.mt4j.util.animation.AnimationEvent;
@@ -46,12 +45,6 @@ public class SlideTransition extends AbstractTransition {
 	
 	/** The next scene. */
 	private Iscene nextScene;
-	
-	/** The last scene window. */
-	private MTSceneTexture lastSceneWindow;
-	
-	/** The next scene window. */
-	private MTSceneTexture nextSceneWindow;
 	
 	/** The anim. */
 	private IAnimation anim;
@@ -143,38 +136,29 @@ public class SlideTransition extends AbstractTransition {
 		
 		app.invokeLater(new Runnable() {
 			public void run() {
-				lastSceneWindow = new MTSceneTexture(app,0, 0, lastScene);
-				nextSceneWindow = new MTSceneTexture(app,0, 0, nextScene);
-
 				lastSceneRectangle = new MTRectangle(app,0, 0, app.width, app.height);
-				lastSceneRectangle.setGeometryInfo(lastSceneWindow.getGeometryInfo());
-				lastSceneRectangle.setTexture(lastSceneWindow.getTexture());
-				lastSceneRectangle.setStrokeColor(new MTColor(0,0,0,255));
+				lastSceneRectangle.setTexture(app.g.get());
+				lastSceneRectangle.setStrokeColor(MTColor.BLACK);
 
 				nextSceneRectangle = new MTRectangle(app,0, 0, app.width, app.height);
-				nextSceneRectangle.setGeometryInfo(nextSceneWindow.getGeometryInfo());
-				nextSceneRectangle.setTexture(nextSceneWindow.getTexture());
-				nextSceneRectangle.setStrokeColor(new MTColor(0,0,0,255));
+				nextScene.drawAndUpdate(app.g, 0);
+				nextSceneRectangle.setTexture(app.g.get());
+				nextSceneRectangle.setStrokeColor(MTColor.BLACK);
 
 				getCanvas().addChild(lastSceneRectangle);
 				getCanvas().addChild(nextSceneRectangle);
 				
-				if (slideLeft)
+				if (slideLeft) {
 					nextSceneRectangle.translateGlobal(new Vector3D(app.width,0,0));
-				else
+				} else {
 					nextSceneRectangle.translateGlobal(new Vector3D(-app.width,0,0));
+				}
 				
 				nextSceneRectangle.setVisible(true);
-
-				//Draw scenes into texture once!
-				lastSceneWindow.drawComponent(app.graphicsOpenGL());
-				nextSceneWindow.drawComponent(app.graphicsOpenGL());
 				
 				anim.start();
 			}
 		});
-		
-		//TODO wihtout FBO copyPixels
 	}
 	
 	
@@ -184,8 +168,6 @@ public class SlideTransition extends AbstractTransition {
 		this.lastScene = null;
 		this.nextScene = null;
 		
-		this.lastSceneWindow.destroy();
-		this.nextSceneWindow.destroy();
 		lastSceneRectangle.destroy();
 		nextSceneRectangle.destroy();
 	}
