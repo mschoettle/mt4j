@@ -17,7 +17,6 @@
  ***********************************************************************/
 package org.mt4j.input.inputSources;
 
-
 import org.mt4j.AbstractMTApplication;
 import org.mt4j.input.inputData.ActiveCursorPool;
 import org.mt4j.input.inputData.InputCursor;
@@ -42,7 +41,7 @@ public class MouseInputSource extends AbstractInputSource {
      * The Constant JAVA_MODE.
      */
     public final static int JAVA_MODE = 1;
-//	private int mode;
+    // private int mode;
     /**
      * The last used mouse id.
      */
@@ -53,13 +52,13 @@ public class MouseInputSource extends AbstractInputSource {
      */
     private boolean mouseBusy;
 
-    //private Stack lastUsedMouseIDs;
+    // private Stack lastUsedMouseIDs;
     /**
      * The mouse pressed button.
      */
     private int mousePressedButton;
 
-    //make singleton
+    // make singleton
 
     /**
      * Instantiates a new mouse input source.
@@ -68,15 +67,15 @@ public class MouseInputSource extends AbstractInputSource {
      */
     public MouseInputSource(AbstractMTApplication pa) {
         super(pa);
-//		this.mode = mode;
+        // this.mode = mode;
 
-//		if (this.mode == MouseInputSource.OPENGL_MODE){
-//			pa.registerMouseEvent(this);
-//		}
+        // if (this.mode == MouseInputSource.OPENGL_MODE){
+        // pa.registerMouseEvent(this);
+        // }
 
-//		if (ConstantsAndSettings.getInstance().isOpenGlMode()){
+        // if (ConstantsAndSettings.getInstance().isOpenGlMode()){
         pa.registerMethod("mouseEvent", this);
-//		}
+        // }
 
         mouseBusy = false;
     }
@@ -87,9 +86,9 @@ public class MouseInputSource extends AbstractInputSource {
      * @param event the event
      */
     public void mouseEvent(processing.event.MouseEvent event) {
-//		System.out.println(event.getButton());
+        // System.out.println(event.getButton());
 
-//		/*
+        // /*
         switch (event.getAction()) {
             case MouseEvent.PRESS:
                 this.mousePressed(event);
@@ -107,65 +106,75 @@ public class MouseInputSource extends AbstractInputSource {
                 this.mouseMoved(event);
                 break;
         }
-//		*/
+        // */
     }
 
-    /* (non-Javadoc)
-      * @see java.awt.event.MouseMotionListener#mouseMoved(java.awt.event.MouseEvent)
-      */
+    /*
+     * (non-Javadoc)
+     * @see java.awt.event.MouseMotionListener#mouseMoved(java.awt.event.MouseEvent)
+     */
     public void mouseMoved(MouseEvent e) {
 
     }
 
-    /* (non-Javadoc)
-      * @see java.awt.event.MouseListener#mouseClicked(java.awt.event.MouseEvent)
-      */
+    /*
+     * (non-Javadoc)
+     * @see java.awt.event.MouseListener#mouseClicked(java.awt.event.MouseEvent)
+     */
     public void mouseClicked(MouseEvent e) {
     }
 
-    /* (non-Javadoc)
-      * @see java.awt.event.MouseListener#mouseEntered(java.awt.event.MouseEvent)
-      */
+    /*
+     * (non-Javadoc)
+     * @see java.awt.event.MouseListener#mouseEntered(java.awt.event.MouseEvent)
+     */
     public void mouseEntered(MouseEvent e) {
     }
 
-    /* (non-Javadoc)
-      * @see java.awt.event.MouseListener#mouseExited(java.awt.event.MouseEvent)
-      */
+    /*
+     * (non-Javadoc)
+     * @see java.awt.event.MouseListener#mouseExited(java.awt.event.MouseEvent)
+     */
     public void mouseExited(MouseEvent e) {
     }
 
-    /* (non-Javadoc)
-      * @see java.awt.event.MouseListener#mousePressed(java.awt.event.MouseEvent)
-      */
+    /*
+     * (non-Javadoc)
+     * @see java.awt.event.MouseListener#mousePressed(java.awt.event.MouseEvent)
+     */
     public void mousePressed(MouseEvent e) {
         if (!mouseBusy) {
             mousePressedButton = e.getButton();
             mouseBusy = true;
 
             InputCursor m = new InputCursor();
-            MTMouseInputEvt touchEvt = new MTMouseInputEvt(this, e.getModifiers(), e.getX(), e.getY(), MTFingerInputEvt.INPUT_STARTED, m);
+            MTMouseInputEvt touchEvt =
+                    new MTMouseInputEvt(this, e.getModifiers(), e.getX(), e.getY(), MTFingerInputEvt.INPUT_STARTED, m,
+                            e.getButton());
 
             lastUsedMouseID = m.getId();
             ActiveCursorPool.getInstance().putActiveCursor(lastUsedMouseID, m);
-//			
-//			System.out.println("MouseSource Finger DOWN, Motion ID: " + m.getId());
-            //FIRE
+            //
+            // System.out.println("MouseSource Finger DOWN, Motion ID: " + m.getId());
+            // FIRE
             this.enqueueInputEvent(touchEvt);
 
         }
     }
 
-    /* (non-Javadoc)
-      * @see java.awt.event.MouseMotionListener#mouseDragged(java.awt.event.MouseEvent)
-      */
+    /*
+     * (non-Javadoc)
+     * @see java.awt.event.MouseMotionListener#mouseDragged(java.awt.event.MouseEvent)
+     */
     public void mouseDragged(MouseEvent e) {
-        //System.err.println("mouse dragged");
+        // System.err.println("mouse dragged");
         try {
             InputCursor m = ActiveCursorPool.getInstance().getActiveCursorByID(lastUsedMouseID);
             if (m != null) {
-                MTMouseInputEvt te = new MTMouseInputEvt(this, e.getModifiers(), e.getX(), e.getY(), MTFingerInputEvt.INPUT_UPDATED, m);
-//				System.out.println("MouseSource Finger UPDATE, Motion ID: " + m.getId());
+                MTMouseInputEvt te =
+                        new MTMouseInputEvt(this, e.getModifiers(), e.getX(), e.getY(), MTFingerInputEvt.INPUT_UPDATED,
+                                m, e.getButton());
+                // System.out.println("MouseSource Finger UPDATE, Motion ID: " + m.getId());
                 this.enqueueInputEvent(te);
             }
         } catch (Exception err) {
@@ -173,17 +182,19 @@ public class MouseInputSource extends AbstractInputSource {
         }
     }
 
-
-    /* (non-Javadoc)
-      * @see java.awt.event.MouseListener#mouseReleased(java.awt.event.MouseEvent)
-      */
+    /*
+     * (non-Javadoc)
+     * @see java.awt.event.MouseListener#mouseReleased(java.awt.event.MouseEvent)
+     */
     public void mouseReleased(MouseEvent e) {
-        //System.err.println("mouse released");
+        // System.err.println("mouse released");
         if (e.getButton() == mousePressedButton) {
             InputCursor m = ActiveCursorPool.getInstance().getActiveCursorByID(lastUsedMouseID);
-            MTMouseInputEvt te = new MTMouseInputEvt(this, e.getModifiers(), e.getX(), e.getY(), MTFingerInputEvt.INPUT_ENDED, m);
+            MTMouseInputEvt te =
+                    new MTMouseInputEvt(this, e.getModifiers(), e.getX(), e.getY(), MTFingerInputEvt.INPUT_ENDED, m,
+                            e.getButton());
 
-            //System.out.println("MouseSource Finger UP, Motion ID: " + m.getId());
+            // System.out.println("MouseSource Finger UP, Motion ID: " + m.getId());
             this.enqueueInputEvent(te);
 
             ActiveCursorPool.getInstance().removeCursor((lastUsedMouseID));
@@ -192,13 +203,12 @@ public class MouseInputSource extends AbstractInputSource {
     }
 
     public void mouseWheeled(MouseEvent event) {
-        
+
     }
 
-
-//	@Override
-//	public boolean firesEventType(Class<? extends MTInputEvent> evtClass){
-//		return (evtClass == MTFingerInputEvt.class);
-//	}
+    // @Override
+    // public boolean firesEventType(Class<? extends MTInputEvent> evtClass){
+    // return (evtClass == MTFingerInputEvt.class);
+    // }
 
 }
