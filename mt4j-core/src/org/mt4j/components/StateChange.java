@@ -19,34 +19,38 @@ package org.mt4j.components;
 
 /**
  * The Enum StateChange.
+ * 
  * @author Christopher Ruff
  */
 public enum StateChange {
-	
-	/**  COMPONENT destroyed. */
-	COMPONENT_DESTROYED,
-	
-	/**  REMOVED from parent. */
-	REMOVED_FROM_PARENT,
-	
-	/**  ADDED to parent. */
-	ADDED_TO_PARENT,
-	
-	/**  CHILD added. */
-	CHILD_ADDED,
-	
-	/** Component was translated. */
-	TRANSLATED,
-	
-	/*
-	//TODO add TRANSFORMED? global matrix changed? local matrix changed? scaled? rotated? translated * 
- * - boundsChanged (local transforms + setVertices/geometry)
- * - translated, rotated, scaled (or only localTransformChanged/boundsChanged?)
- * - parentRelativeBoundsChanged   Y>y>> 
- * - globalTransformChanged
- * - parentTransformsChanged
- * - 
- */
-	;
+
+    /** COMPONENT destroyed. */
+    COMPONENT_DESTROYED,
+
+    /** REMOVED from parent. */
+    REMOVED_FROM_PARENT,
+
+    /** ADDED to parent. */
+    ADDED_TO_PARENT,
+
+    /** CHILD added. */
+    CHILD_ADDED,
+
+    /** Component was translated. */
+    TRANSLATED,
+
+    /** Component was resized */
+    RESIZED
+
+    /*
+     * //TODO add TRANSFORMED? global matrix changed? local matrix changed? scaled? rotated? translated *
+     * - boundsChanged (local transforms + setVertices/geometry)
+     * - translated, rotated, scaled (or only localTransformChanged/boundsChanged?)
+     * - parentRelativeBoundsChanged Y>y>>
+     * - globalTransformChanged
+     * - parentTransformsChanged
+     * -
+     */
+    ;
 
 }
