@@ -1,7 +1,7 @@
 MT4j - Multitouch for Java
 ============
 
-This is an updated version of the original [MT4j](http://www.mt4j.org) based on the last official release v0.98. The biggest difference is that it now works with [Processing](https://processing.org/) 2.x and hence, [JOGL](http://jogamp.org/jogl/www/) 2 (based on the work of the [UltraCom project](https://github.com/lodsb/UltraCom/tree/proc2), thanks for that!). We share this here so that anyone facing the same problem can use of it.
+This is an updated version of the original [MT4j](http://www.mt4j.org) based on the last official release v0.98. The biggest difference is that it now works with [Processing](https://processing.org/) 2.x and hence, [JOGL](http://jogamp.org/jogl/www/) 2 (based on the work of the [UltraCom project](https://github.com/lodsb/UltraCom/tree/proc2), thanks for that!). We share this here so that anyone facing the same problem can make use of it.
 
 The following is the list of changes, which the commit history should easily reflect as well:
 
@@ -11,6 +11,7 @@ The following is the list of changes, which the commit history should easily ref
 - added PositionAnchor literal UPPER_RIGHT to MTRectangle
 - added italic font (Arial)
 - some logging was turned off
+- some bug fixes to avoid memory leaks
 - fixed InputCursor to never remove the first event (to be able to retrieve the real starting point)
 - added StateChange literal TRANSLATED, which is fired by MTComponent on translate and propagated to all children (which do the same)
 - added StateChange literal RESIZED, which is not used within MT4j right now
