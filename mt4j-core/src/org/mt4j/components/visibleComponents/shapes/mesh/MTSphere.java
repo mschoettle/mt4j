@@ -33,7 +33,6 @@ package org.mt4j.components.visibleComponents.shapes.mesh;
 
 
 import java.nio.FloatBuffer;
-import java.nio.IntBuffer;
 import java.nio.ShortBuffer;
 
 import org.mt4j.components.bounds.BoundingSphere;
@@ -41,8 +40,8 @@ import org.mt4j.components.bounds.IBoundingShape;
 import org.mt4j.components.visibleComponents.shapes.AbstractShape;
 import org.mt4j.components.visibleComponents.shapes.GeometryInfo;
 import org.mt4j.util.math.Tools3D;
-import org.mt4j.util.math.ToolsMath;
 import org.mt4j.util.math.ToolsBuffers;
+import org.mt4j.util.math.ToolsMath;
 import org.mt4j.util.math.Vector3D;
 import org.mt4j.util.math.Vertex;
 import org.mt4j.util.opengl.GLTexture;

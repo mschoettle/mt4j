@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project default="create_run_jar" name="Create Runnable Jar for Project mt4j-desktop">
+    <!-- set properties for directories -->
+    <property name="workspace.dir" location="${basedir}/.."/>
+    <property name="build.dir" location="${basedir}"/>
+    <property name="doc.dir" location="${workspace.dir}/mt4j-core/doc"/>
+	<property name="jar.file" location="${build.dir}/mt4j.jar"/>
+    
+    <target name="create_run_jar">    	
+    	<!-- create jar task -->
+        <echo message="Creating jar file ..."/>
+        <jar destfile="${jar.file}" filesetmanifest="mergewithoutmain">
+            <manifest>
+                <attribute name="Main-Class" value="basic.mtGestures.StartMTGestures"/>
+                <attribute name="Class-Path" value="."/>
+            </manifest>
+            <fileset excludes="advanced/**,basic/**,examples/**,example/**" dir="${workspace.dir}/mt4j-core/bin"/>
+            <zipfileset excludes="META-INF/*.SF" src="${workspace.dir}/mt4j-core/lib/ani.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="${workspace.dir}/mt4j-core/lib/batik-css.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="${workspace.dir}/mt4j-core/lib/xml-apis-ext.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="${workspace.dir}/mt4j-core/lib/batik/batik-dom.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="${workspace.dir}/mt4j-core/lib/batik/batik-ext.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="${workspace.dir}/mt4j-core/lib/batik/batik-extension.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="${workspace.dir}/mt4j-core/lib/batik/batik-gvt.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="${workspace.dir}/mt4j-core/lib/batik/batik-parser.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="${workspace.dir}/mt4j-core/lib/batik/batik-script.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="${workspace.dir}/mt4j-core/lib/batik/batik-svg-dom.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="${workspace.dir}/mt4j-core/lib/batik/batik-svggen.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="${workspace.dir}/mt4j-core/lib/batik/batik-transcoder.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="${workspace.dir}/mt4j-core/lib/batik/batik-util.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="${workspace.dir}/mt4j-core/lib/batik/batik-xml.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="${workspace.dir}/mt4j-core/lib/core.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="${workspace.dir}/mt4j-core/lib/GlulogicMT.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="${workspace.dir}/mt4j-core/lib/mri.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="${workspace.dir}/mt4j-core/lib/muito_blobtracking.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="${workspace.dir}/mt4j-core/lib/batik/batik-anim.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="${workspace.dir}/mt4j-core/lib/batik/batik-awt-util.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="${workspace.dir}/mt4j-core/lib/batik/batik-bridge.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="${workspace.dir}/mt4j-core/lib/tuio/tuio4j.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="${workspace.dir}/mt4j-core/lib/tuio/tuio4jinput.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="${workspace.dir}/mt4j-core/lib/whirlylib/whirlycache-1.0.1.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="${workspace.dir}/mt4j-core/lib/whirlylib/log4j-1.2.17.jar"/>
+            <!-- JOGL needs to be included by the project using MT4j. -->
+            <!--
+            <zipfileset excludes="META-INF/*.SF" src="${workspace.dir}/mt4j-core/lib/jogl/gluegen-rt.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="${workspace.dir}/mt4j-core/lib/jogl/jogl-all.jar"/>
+            -->
+            <!-- Extensions and advanced examples -->
+            <!--
+            <zipfileset excludes="META-INF/*.SF" src="${workspace.dir}/mt4j-core/lib/junit-4.8.2.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="${workspace.dir}/mt4j-core/extensions/lib/jbullet/jbullet.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="${workspace.dir}/mt4j-core/extensions/lib/jbullet/stack-alloc.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="${workspace.dir}/mt4j-core/extensions/lib/jbullet/vecmath.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="${workspace.dir}/mt4j-core/examples/advanced/flickrMT/lib/flickrj.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="${workspace.dir}/mt4j-core/examples/advanced/physics/lib/jbox2d.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="${workspace.dir}/mt4j-core/examples/advanced/fluidSimulator/lib/MSAFluid.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="${workspace.dir}/mt4j-core/examples/advanced/modestMapsMT/lib/modestMaps.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="${workspace.dir}/mt4j-core/examples/advanced/water/lib/waterScene.jar"/>
+            -->
+        </jar>
+        
+        <!-- Zip up the javadoc and source. -->
+        <zip destfile="mt4j.doc.zip" basedir="${doc.dir}"/>
+        <zip destfile="mt4j.src.zip" basedir="${workspace.dir}/mt4j-core/src/"/>
+    </target>
+    <target name="javadoc">
+        <javadoc 
+            access="protected" 
+            author="true" 
+            classpath="${workspace.dir}/mt4j-core/lib/*:${workspace.dir}/mt4j-core/lib/jogl/*" 
+            destdir="${doc.dir}" 
+            doctitle="MT4j API Reference" 
+            nodeprecated="false" 
+            nodeprecatedlist="false" 
+            noindex="false" 
+            nonavbar="false" 
+            notree="false"  
+            sourcepath="src" 
+            splitindex="true" 
+            use="true" 
+            version="true"/>
+    </target>
+</project>

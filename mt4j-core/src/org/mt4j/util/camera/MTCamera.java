@@ -18,8 +18,8 @@
 package org.mt4j.util.camera;
 
 
-import org.mt4j.util.PlatformUtil;
 import org.mt4j.util.MT4jSettings;
+import org.mt4j.util.PlatformUtil;
 import org.mt4j.util.math.Matrix;
 import org.mt4j.util.math.Vector3D;
 

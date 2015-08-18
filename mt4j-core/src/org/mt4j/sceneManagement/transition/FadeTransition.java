@@ -29,6 +29,7 @@ import org.mt4j.util.animation.MultiPurposeInterpolator;
 
 import processing.core.PGraphics;
 
+
 /**
  * The Class FadeTransition.
  * 

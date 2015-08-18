@@ -21,16 +21,16 @@ import java.nio.Buffer;
 import java.nio.FloatBuffer;
 import java.nio.ShortBuffer;
 
+import javax.media.opengl.GL2;
+import javax.media.opengl.glu.GLU;
+
 import org.mt4j.AbstractMTApplication;
 import org.mt4j.components.visibleComponents.StyleInfo;
 import org.mt4j.util.MT4jSettings;
-import org.mt4j.util.PlatformUtil;
 import org.mt4j.util.math.ToolsBuffers;
 import org.mt4j.util.math.ToolsVBO;
 import org.mt4j.util.math.Vector3D;
 import org.mt4j.util.math.Vertex;
-import org.mt4j.util.opengl.GL11;
-import org.mt4j.util.opengl.GL11Plus;
 
 import processing.core.PApplet;
 
@@ -714,7 +714,7 @@ public class GeometryInfo {
 	public void deleteAllVBOs(){
 		if (MT4jSettings.getInstance().isOpenGlMode()){
 			//			GL gl = Tools3D.getGL(r);
-			GL11 gl = PlatformUtil.getGL11();
+			GL2 gl = GLU.getCurrentGL().getGL2();
 			if (gl != null){
 				if (this.getVBOVerticesName() != -1){
 					gl.glDeleteBuffers(1, new int[]{this.getVBOVerticesName()},0);
@@ -823,7 +823,7 @@ public class GeometryInfo {
 
 		//Create a new empty displaylist
 //		GL gl = Tools3D.getGL(getRenderer());
-		GL11Plus gl = PlatformUtil.getGL11Plus();
+		GL2 gl = GLU.getCurrentGL().getGL2();
 		int listIDFill = gl.glGenLists(1);
 		if (listIDFill == 0){
 			System.err.println("Failed to create fill display list");
@@ -843,7 +843,7 @@ public class GeometryInfo {
 		
 		if (genFillList){
 			//Start recording display list
-			gl.glNewList(listIDFill, GL11Plus.GL_COMPILE);
+			gl.glNewList(listIDFill, GL2.GL_COMPILE);
 			shape.setNoFill(false);
 			shape.setNoStroke(true);
 			shape.drawPureGl(gl);
@@ -856,7 +856,7 @@ public class GeometryInfo {
 		
 		if (genStrokeList){
 		//Start recording display list
-		gl.glNewList(listIDOutline, GL11Plus.GL_COMPILE);
+		gl.glNewList(listIDOutline, GL2.GL_COMPILE);
 		shape.setNoFill(true);
 		shape.setNoStroke(false);
 		shape.drawPureGl(gl);
@@ -881,11 +881,11 @@ public class GeometryInfo {
 	public void deleteDisplayLists(){
 		if (MT4jSettings.getInstance().isOpenGlMode()){
 //			GL gl = Tools3D.getGL(this.r);
-			GL11Plus gl11Plus = PlatformUtil.getGL11Plus();
-			if (gl11Plus != null) {
+			GL2 gl = GLU.getCurrentGL().getGL2();
+			if (gl != null) {
 				for (int id : this.displayListIDs){
 					if (id != -1){
-						gl11Plus.glDeleteLists(id, 1);
+						gl.glDeleteLists(id, 1);
 					}
 				}
 			}

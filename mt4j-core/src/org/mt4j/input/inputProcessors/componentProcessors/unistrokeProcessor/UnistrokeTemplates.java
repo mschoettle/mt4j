@@ -20,7 +20,6 @@ package org.mt4j.input.inputProcessors.componentProcessors.unistrokeProcessor;
 import java.util.Arrays;
 import java.util.List;
 
-
 import org.mt4j.input.inputProcessors.componentProcessors.unistrokeProcessor.UnistrokeUtils.Direction;
 import org.mt4j.input.inputProcessors.componentProcessors.unistrokeProcessor.UnistrokeUtils.UnistrokeGesture;
 import org.mt4j.util.math.Vector3D;

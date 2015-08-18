@@ -21,9 +21,11 @@ import java.nio.IntBuffer;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.media.opengl.GL2;
+
 import org.mt4j.AbstractMTApplication;
-import org.mt4j.util.PlatformUtil;
 import org.mt4j.util.MT4jSettings;
+import org.mt4j.util.PlatformUtil;
 import org.mt4j.util.logging.ILogger;
 import org.mt4j.util.logging.MTLoggerFactory;
 import org.mt4j.util.math.Tools3D;
@@ -52,7 +54,7 @@ public class GLFBO {
 	}
 	
 //	private GL gl;
-	private GL20 gl;
+	private GL2 gl;
 	
 //	private int[] fboID;
 	private int fboID;
@@ -100,10 +102,10 @@ public class GLFBO {
 		super();
 		this.pa = pa;
 //		this.gl = ((PGraphicsOpenGL)pa.g).gl;
-		this.gl = PlatformUtil.getGL20();
-		if (this.gl == null){
-			this.gl = PlatformUtil.getGL11Plus();
-		}
+		this.gl = Tools3D.getGL();
+//		if (this.gl == null){
+//			this.gl = PlatformUtil.getGL2();
+//		}
 		if (this.gl == null){
 			System.err.println("Error initializing GLFBO - no GL 2.0 compatible OpenGL implementation available!");
 		}
@@ -134,32 +136,32 @@ public class GLFBO {
 		IntBuffer buffer = ToolsBuffers.createIntBuffer(1);
 		gl.glGenFramebuffers(1, buffer);
 		this.fboID = buffer.get(0);
-		gl.glBindFramebuffer(GL20.GL_FRAMEBUFFER, fboID);
+		gl.glBindFramebuffer(GL2.GL_FRAMEBUFFER, fboID);
 		
 		//Create depth buffer
 		IntBuffer buffer2 = ToolsBuffers.createIntBuffer(1);
 		gl.glGenRenderbuffers(1, buffer2);
 		this.depthRBID = buffer2.get(0);
-		gl.glBindRenderbuffer(GL20.GL_RENDERBUFFER, depthRBID);
+		gl.glBindRenderbuffer(GL2.GL_RENDERBUFFER, depthRBID);
 		
 		if (this.isStencilBufferAttached() && PlatformUtil.isDesktop()){
 			//THIS CREATES A FBO WITH A STENCIL BUFFER! HAS TO BE SUPPORTED ON THE PLATFORM!
-			gl.glRenderbufferStorage(GL20.GL_RENDERBUFFER, GL11Plus.GL_DEPTH24_STENCIL8_EXT, this.width, this.height);
+			gl.glRenderbufferStorage(GL2.GL_RENDERBUFFER, GL2.GL_DEPTH24_STENCIL8, this.width, this.height);
 //			gl.glRenderbufferStorageEXT(GL.GL_RENDERBUFFER_EXT, GL.GL_DEPTH24_STENCIL8_EXT, this.width, this.height);
 		}else{
 			//Creates a fbo with a depth but without a stencil buffer
-			gl.glRenderbufferStorage(GL20.GL_RENDERBUFFER, GL20.GL_DEPTH_COMPONENT, this.width, this.height); //orginal	
+			gl.glRenderbufferStorage(GL2.GL_RENDERBUFFER, GL2.GL_DEPTH_COMPONENT, this.width, this.height); //orginal	
 		}
 		
 		//Attach depth buffer to FBO
-		gl.glFramebufferRenderbuffer(GL20.GL_FRAMEBUFFER, GL20.GL_DEPTH_ATTACHMENT, GL20.GL_RENDERBUFFER, depthRBID);
+		gl.glFramebufferRenderbuffer(GL2.GL_FRAMEBUFFER, GL2.GL_DEPTH_ATTACHMENT, GL2.GL_RENDERBUFFER, depthRBID);
 		
 		if (this.isStencilBufferAttached() && PlatformUtil.isDesktop()){
 			//Attach stencil buffer to FBO - HAS TO BE SUPPORTED ON THE PLATFORM!
-			gl.glFramebufferRenderbuffer(GL20.GL_FRAMEBUFFER, GL20.GL_STENCIL_ATTACHMENT, GL20.GL_RENDERBUFFER, depthRBID);			
+			gl.glFramebufferRenderbuffer(GL2.GL_FRAMEBUFFER, GL2.GL_STENCIL_ATTACHMENT, GL2.GL_RENDERBUFFER, depthRBID);			
 		}
 		
-		gl.glBindFramebuffer(GL20.GL_FRAMEBUFFER, 0);
+		gl.glBindFramebuffer(GL2.GL_FRAMEBUFFER, 0);
 	}
 	
 	
@@ -245,8 +247,8 @@ public class GLFBO {
 
 		//Attach texture to FBO
 		gl.glFramebufferTexture2D(
-				GL20.GL_FRAMEBUFFER, 
-				GL20.GL_COLOR_ATTACHMENT0,
+				GL2.GL_FRAMEBUFFER, 
+				GL2.GL_COLOR_ATTACHMENT0,
 				tex.getTextureTarget(), tex.getTextureID(), 0);
 
 		gl.glBindTexture(tex.getTextureTarget(), 0);
@@ -272,17 +274,17 @@ public class GLFBO {
 		*/
 //		/*
 		//F�r MIIPMAPPING
-//		gl.glTexParameteri(tex.getTextureTarget(), GL20.GL_GENERATE_MIPMAP, GL20.GL_TRUE); // automatic mipmap
-		gl.glTexParameterf(tex.getTextureTarget(), GL20.GL_TEXTURE_WRAP_S, GL20.GL_CLAMP_TO_EDGE);
-		gl.glTexParameterf(tex.getTextureTarget(), GL20.GL_TEXTURE_WRAP_T, GL20.GL_CLAMP_TO_EDGE);
-		gl.glTexParameteri(tex.getTextureTarget(), GL20.GL_TEXTURE_MAG_FILTER, GL20.GL_LINEAR);
-		gl.glTexParameteri(tex.getTextureTarget(), GL20.GL_TEXTURE_MIN_FILTER, GL20.GL_LINEAR);
+//		gl.glTexParameteri(tex.getTextureTarget(), GL2.GL_GENERATE_MIPMAP, GL2.GL_TRUE); // automatic mipmap
+		gl.glTexParameterf(tex.getTextureTarget(), GL2.GL_TEXTURE_WRAP_S, GL2.GL_CLAMP_TO_EDGE);
+		gl.glTexParameterf(tex.getTextureTarget(), GL2.GL_TEXTURE_WRAP_T, GL2.GL_CLAMP_TO_EDGE);
+		gl.glTexParameteri(tex.getTextureTarget(), GL2.GL_TEXTURE_MAG_FILTER, GL2.GL_LINEAR);
+		gl.glTexParameteri(tex.getTextureTarget(), GL2.GL_TEXTURE_MIN_FILTER, GL2.GL_LINEAR);
 		gl.glGenerateMipmap(tex.getTextureTarget());
 //		 */
 		//Attach texture to FBO
 		gl.glFramebufferTexture2D(
-				GL20.GL_FRAMEBUFFER, 
-				GL20.GL_COLOR_ATTACHMENT0,
+				GL2.GL_FRAMEBUFFER, 
+				GL2.GL_COLOR_ATTACHMENT0,
 				tex.getTextureTarget(), tex.getTextureID(), 0);
 		
 		gl.glBindTexture(tex.getTextureTarget(), 0);
@@ -326,17 +328,17 @@ public class GLFBO {
 		this.bind();
 		if (clearColorBuffer){
 			gl.glClearColor(r, g, b, a);
-			gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+			gl.glClear(GL2.GL_COLOR_BUFFER_BIT);
 		}
 		if (clearDepthBuffer){
-			gl.glClear(GL20.GL_DEPTH_BUFFER_BIT);
+			gl.glClear(GL2.GL_DEPTH_BUFFER_BIT);
 		}
 		this.unBind();
 	}
 	
 	
 	protected void bind(){
-		gl.glBindFramebuffer(GL20.GL_FRAMEBUFFER, fboID);
+		gl.glBindFramebuffer(GL2.GL_FRAMEBUFFER, fboID);
 		//gl.glBindRenderbufferEXT(GL.GL_RENDERBUFFER_EXT, depthRBID);
 	}
 	
@@ -363,9 +365,9 @@ public class GLFBO {
         setReadBuffer(GL.GL_NONE);
 		*/
 		
-		if (gl instanceof GL11Plus) {
-			GL11Plus gl11Plus = (GL11Plus) gl;
-			gl11Plus.glPushAttrib(GL11Plus.GL_VIEWPORT_BIT);
+		if (gl instanceof GL2) {
+			GL2 GL2 = (GL2) gl;
+			GL2.glPushAttrib(GL2.GL_VIEWPORT_BIT);
 		}
 		
 //		gl.glDrawBuffer(GL.GL_NONE);
@@ -386,9 +388,9 @@ public class GLFBO {
 	 */
 	public void stopRenderToTexture(){
 //		gl.glPopAttrib();
-		if (gl instanceof GL11Plus) {
-			GL11Plus gl11Plus = (GL11Plus) gl;
-			gl11Plus.glPopAttrib();
+		if (gl instanceof GL2) {
+			GL2 GL2 = (GL2) gl;
+			GL2.glPopAttrib();
 		}else{
 //			gl.glViewport(0, 0, pa.width, pa.height); //Restore viewport to max
 			gl.glViewport(0, 0, MT4jSettings.getInstance().getWindowWidth(), MT4jSettings.getInstance().getWindowHeight()); //Restore viewport to max
@@ -402,7 +404,7 @@ public class GLFBO {
 	
 	protected void unBind() {
 		//gl.glBindRenderbufferEXT(GL.GL_RENDERBUFFER_EXT, 0);
-		gl.glBindFramebuffer(GL11Plus.GL_FRAMEBUFFER_EXT, 0);
+		gl.glBindFramebuffer(GL2.GL_FRAMEBUFFER, 0);
 	}
 	
 	
@@ -512,31 +514,31 @@ public class GLFBO {
 	 gl.glFramebufferRenderbufferEXT(GL.GL_FRAMEBUFFER_EXT, GL.GL_STENCIL_ATTACHMENT_EXT, GL.GL_RENDERBUFFER_EXT, depthStencilBuffer[0]);
 	 */
 
-	public void checkFBOComplete(GL20 gl, int fboID) {
-		final int framebuffer = gl.glCheckFramebufferStatus(GL20.GL_FRAMEBUFFER);
+	public void checkFBOComplete(GL2 gl, int fboID) {
+		final int framebuffer = gl.glCheckFramebufferStatus(GL2.GL_FRAMEBUFFER);
 		switch (framebuffer) {
-		case GL20.GL_FRAMEBUFFER_COMPLETE:
+		case GL2.GL_FRAMEBUFFER_COMPLETE:
 			logger.debug("FRAMEBUFFER STATUS COMPLETE!");
 			break;
-		case GL20.GL_FRAMEBUFFER_INCOMPLETE_ATTACHMENT:
+		case GL2.GL_FRAMEBUFFER_INCOMPLETE_ATTACHMENT:
 			doError(", has caused a GL_FRAMEBUFFER_INCOMPLETE_ATTACHMENT exception", fboID);
 			break;
-		case GL20.GL_FRAMEBUFFER_INCOMPLETE_MISSING_ATTACHMENT:
+		case GL2.GL_FRAMEBUFFER_INCOMPLETE_MISSING_ATTACHMENT:
 			doError(", has caused a GL_FRAMEBUFFER_INCOMPLETE_MISSING_ATTACHMENT exception", fboID);
 			break;
-		case GL20.GL_FRAMEBUFFER_INCOMPLETE_DIMENSIONS:
+		case GL2.GL_FRAMEBUFFER_INCOMPLETE_DIMENSIONS:
 			doError(", has caused a GL_FRAMEBUFFER_INCOMPLETE_DIMENSIONS exception", fboID);
 			break;
-		case GL11Plus.GL_FRAMEBUFFER_INCOMPLETE_DRAW_BUFFER_EXT:
+		case GL2.GL_FRAMEBUFFER_INCOMPLETE_DRAW_BUFFER:
 			doError(", has caused a GL_FRAMEBUFFER_INCOMPLETE_DRAW_BUFFER_EXT exception", fboID);
 			break;
-		case GL11Plus.GL_FRAMEBUFFER_INCOMPLETE_FORMATS_EXT:
+		case GL2.GL_FRAMEBUFFER_INCOMPLETE_FORMATS:
 			doError(", has caused a GL_FRAMEBUFFER_INCOMPLETE_FORMATS_EXT exception", fboID);
 			break;
-		case GL11Plus.GL_FRAMEBUFFER_INCOMPLETE_READ_BUFFER_EXT:
+		case GL2.GL_FRAMEBUFFER_INCOMPLETE_READ_BUFFER:
 			doError(", has caused a GL_FRAMEBUFFER_INCOMPLETE_READ_BUFFER_EXT exception", fboID);
 			break;
-		case GL20.GL_FRAMEBUFFER_UNSUPPORTED:
+		case GL2.GL_FRAMEBUFFER_UNSUPPORTED:
 			doError(", has caused a GL_FRAMEBUFFER_UNSUPPORTED_EXT exception", fboID);
 			break;
 		default:

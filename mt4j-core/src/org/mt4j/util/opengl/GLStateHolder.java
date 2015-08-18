@@ -17,7 +17,6 @@
  ***********************************************************************/
 package org.mt4j.util.opengl;
 
-import java.util.WeakHashMap;
 
 
 //import java.util.WeakHashMap;

@@ -1,13 +1,8 @@
 package org.mt4j.util;
 
-import org.mt4j.util.opengl.GL10;
-import org.mt4j.util.opengl.GL11;
-import org.mt4j.util.opengl.GL11Plus;
-import org.mt4j.util.opengl.GL20;
 import org.mt4j.util.opengl.IGLU;
 
 import processing.core.PGraphics;
-import processing.core.PMatrix;
 import processing.core.PMatrix3D;
 
 public interface IPlatformUtil {
@@ -30,19 +25,7 @@ public PGraphics getPGraphics();
 	
 	public float getCameraFar();
 	
-	public GL10 getGL();
-
-	public GL10 beginGL();
-    
-    public void endGL();
-
-	public GL11 getGL11();
-
-	public GL20 getGL20();
-	
 	public int getPlatform();
-
-	public GL11Plus getGL11Plus();
 
 	public IGLU getGLU();
 

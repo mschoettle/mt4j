@@ -13,13 +13,14 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.StringTokenizer;
 
-import org.mt4j.util.PlatformUtil;
+import javax.media.opengl.GL2;
+
 import org.mt4j.util.MT4jSettings;
 import org.mt4j.util.MTColor;
 import org.mt4j.util.font.IFont;
 import org.mt4j.util.logging.ILogger;
 import org.mt4j.util.logging.MTLoggerFactory;
-import org.mt4j.util.opengl.GL10;
+import org.mt4j.util.math.Tools3D;
 import org.mt4j.util.opengl.GLTexture;
 import org.mt4j.util.opengl.GLTexture.EXPANSION_FILTER;
 import org.mt4j.util.opengl.GLTexture.SHRINKAGE_FILTER;
@@ -53,7 +54,7 @@ public class AngelCodeFontFactory implements IFontFactory {
 //		/** The renderer to use for all GL operations */
 //		private static SGL GL = Renderer.get();
 	
-		private GL10 GL;
+		private GL2 GL;
 
 		/**
 		 * The line cache size, this is how many lines we can render before starting
@@ -257,8 +258,8 @@ public class AngelCodeFontFactory implements IFontFactory {
 		 */
 		private void parseFnt(InputStream fntFile) throws Exception {
 			if (displayListCaching) {
-				if (PlatformUtil.getGL11Plus() != null) {
-					baseDisplayListID = PlatformUtil.getGL11Plus().glGenLists(DISPLAY_LIST_CACHE_SIZE);
+				if (Tools3D.getGL() != null) {
+					baseDisplayListID = Tools3D.getGL().glGenLists(DISPLAY_LIST_CACHE_SIZE);
 				}
 				if (baseDisplayListID == 0) 
 					displayListCaching = false;
@@ -839,7 +840,7 @@ public class AngelCodeFontFactory implements IFontFactory {
 	
 		public IFont createFont(PApplet app, String fontName, int fontSize,	MTColor fillColor, MTColor strokeColor, boolean antiAliased, int hieroPadding) {
 			if (MT4jSettings.getInstance().isOpenGlMode())
-				this.GL = PlatformUtil.getGL();
+				this.GL = Tools3D.getGL();
 
 //			String imageFileName = getFontNameWithoutSuffix(fontName);
 //			String fontFamily = new String(getFontNameWithoutSuffix(fontName));

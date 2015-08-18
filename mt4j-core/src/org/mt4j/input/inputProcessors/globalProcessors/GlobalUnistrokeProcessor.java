@@ -3,7 +3,6 @@ package org.mt4j.input.inputProcessors.globalProcessors;
 import java.util.HashMap;
 import java.util.Map;
 
-
 import org.mt4j.components.MTCanvas;
 import org.mt4j.input.inputData.AbstractCursorInputEvt;
 import org.mt4j.input.inputData.InputCursor;
@@ -13,8 +12,8 @@ import org.mt4j.input.inputProcessors.componentProcessors.unistrokeProcessor.Uni
 import org.mt4j.input.inputProcessors.componentProcessors.unistrokeProcessor.UnistrokeEvent;
 import org.mt4j.input.inputProcessors.componentProcessors.unistrokeProcessor.UnistrokeUtils;
 import org.mt4j.input.inputProcessors.componentProcessors.unistrokeProcessor.UnistrokeUtils.Direction;
-import org.mt4j.input.inputProcessors.componentProcessors.unistrokeProcessor.UnistrokeUtils.UnistrokeGesture;
 import org.mt4j.input.inputProcessors.componentProcessors.unistrokeProcessor.UnistrokeUtils.Recognizer;
+import org.mt4j.input.inputProcessors.componentProcessors.unistrokeProcessor.UnistrokeUtils.UnistrokeGesture;
 import org.mt4j.util.math.Vector3D;
 
 import processing.core.PApplet;

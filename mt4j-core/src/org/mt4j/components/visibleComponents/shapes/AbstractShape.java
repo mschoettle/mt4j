@@ -17,6 +17,8 @@
  ***********************************************************************/
 package org.mt4j.components.visibleComponents.shapes;
 
+import javax.media.opengl.GL2;
+
 import org.mt4j.AbstractMTApplication;
 import org.mt4j.components.MTComponent;
 import org.mt4j.components.TransformSpace;
@@ -45,7 +47,6 @@ import org.mt4j.util.math.Matrix;
 import org.mt4j.util.math.Ray;
 import org.mt4j.util.math.Vector3D;
 import org.mt4j.util.math.Vertex;
-import org.mt4j.util.opengl.GL10;
 import org.mt4j.util.opengl.GLTexture;
 import org.mt4j.util.opengl.GLTexture.EXPANSION_FILTER;
 import org.mt4j.util.opengl.GLTexture.SHRINKAGE_FILTER;
@@ -146,7 +147,7 @@ public abstract class AbstractShape extends AbstractVisibleComponent implements 
 		this.useVBOs 			= false;
 		this.useDisplayList 	= false;
 		this.textureMode = PConstants.NORMAL;
-		this.setFillDrawMode(GL10.GL_TRIANGLE_FAN);
+		this.setFillDrawMode(GL2.GL_TRIANGLE_FAN);
 //		this.boundsGlobalVerticesDirty = true;
 		this.boundsAutoCompute = true;
 		
@@ -393,7 +394,7 @@ public abstract class AbstractShape extends AbstractVisibleComponent implements 
 		this.globalVerticesDirty = true;
 	}
 	
-	abstract protected void drawPureGl(GL10 gl);
+	abstract protected void drawPureGl(GL2 gl);
 	
 	/**
 	 * Gets the geometry info. The geometryinfo contains the 

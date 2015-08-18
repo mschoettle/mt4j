@@ -34,7 +34,6 @@ import org.mt4j.util.math.Matrix;
 
 import processing.core.PApplet;
 import processing.core.PGraphics;
-import processing.core.PMatrix3D;
 
 /**
  * MTCanvas is the root node of the component hierarchy of a MT4j scene.

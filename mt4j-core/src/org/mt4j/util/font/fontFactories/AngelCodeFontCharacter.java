@@ -2,16 +2,16 @@ package org.mt4j.util.font.fontFactories;
 
 import java.nio.FloatBuffer;
 
+import javax.media.opengl.GL2;
+
 import org.mt4j.components.visibleComponents.shapes.MTRectangle;
 import org.mt4j.util.MT4jSettings;
 import org.mt4j.util.font.IFontCharacter;
 import org.mt4j.util.font.ITextureFontCharacter;
 import org.mt4j.util.math.Vertex;
-import org.mt4j.util.opengl.GL10;
 import org.mt4j.util.opengl.GLTexture;
 import org.mt4j.util.opengl.GLTexture.EXPANSION_FILTER;
 import org.mt4j.util.opengl.GLTexture.SHRINKAGE_FILTER;
-import org.mt4j.util.opengl.GLTexture.WRAP_MODE;
 
 import processing.core.PApplet;
 import processing.core.PGraphics;
@@ -185,27 +185,27 @@ public class AngelCodeFontCharacter extends MTRectangle implements IFontCharacte
 	}
 
 	@Override
-	public void drawComponent(GL10 gl) {
+	public void drawComponent(GL2 gl) {
 		if (MT4jSettings.getInstance().isOpenGlMode()){
 			drawPureGl(gl);
 		}
 	}
 	
 	@Override
-	protected void drawPureGl(GL10 gl){
+	protected void drawPureGl(GL2 gl){
 		if (!this.isNoFill()){
 			FloatBuffer tbuff 			= this.getGeometryInfo().getTexBuff(); 
 			FloatBuffer vertBuff 		= this.getGeometryInfo().getVertBuff();
 			
-			gl.glVertexPointer(3, GL10.GL_FLOAT, 0, vertBuff);
+			gl.glVertexPointer(3, GL2.GL_FLOAT, 0, vertBuff);
 			
-			gl.glTexCoordPointer(2, GL10.GL_FLOAT, 0, tbuff);
+			gl.glTexCoordPointer(2, GL2.GL_FLOAT, 0, tbuff);
 
 			gl.glDrawArrays(this.getFillDrawMode(), 0, vertBuff.capacity()/3);
 		}
 		
-//		gl.glBindTexture(GL10.GL_TEXTURE_2D, 0);
-//		gl.glDrawArrays(GL10.GL_TRIANGLE_FAN, 0, this.getGeometryInfo().getVertBuff().capacity()/3);
+//		gl.glBindTexture(GL2.GL_TEXTURE_2D, 0);
+//		gl.glDrawArrays(GL2.GL_TRIANGLE_FAN, 0, this.getGeometryInfo().getVertBuff().capacity()/3);
 	}
 
 	@Override

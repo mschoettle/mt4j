@@ -1,18 +1,16 @@
 package org.mt4j;
 
+import javax.media.opengl.GL2;
+
 import org.mt4j.components.css.util.CSSStyleManager;
 import org.mt4j.input.IKeyListener;
 import org.mt4j.input.InputManager;
 import org.mt4j.sceneManagement.IPreDrawAction;
 import org.mt4j.sceneManagement.ISceneChangeListener;
 import org.mt4j.sceneManagement.Iscene;
-import org.mt4j.util.opengl.GL10;
-import org.mt4j.util.opengl.GL11;
-import org.mt4j.util.opengl.GL11Plus;
-import org.mt4j.util.opengl.GL20;
 import org.mt4j.util.opengl.GLCommon;
 
-public interface IMTApplication extends IPAppletBoth{
+public interface IMTApplication {
 	
 
 
@@ -210,24 +208,9 @@ public interface IMTApplication extends IPAppletBoth{
     /**
      * @return a {@link GLCommon} instance
      */
-    public GLCommon getGLCommon ();
+    public GL2 getGL2 ();
 
-    /**
-     * @return the {@link GL10} instance or null if not supported
-     */
-    public GL10 getGL10 ();
-
-    /**
-     * @return the {@link GL11} instance or null if not supported
-     */
-    public GL11 getGL11 ();
-    
-    /**
-     * @return the {@link GL20} instance or null if not supported
-     */
-    public GL20 getGL20 ();
-    
-    public GLCommon beginGL() ;
+    public GL2 beginGL() ;
     
     public void endGL();
     
@@ -237,7 +220,5 @@ public interface IMTApplication extends IPAppletBoth{
 	public void removeKeyListener(IKeyListener listener);
 	
 	public IKeyListener[] getKeyListener();
-
-	public GL11Plus getGL11Plus();
 
 }

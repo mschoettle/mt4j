@@ -40,11 +40,11 @@ import org.mt4j.components.visibleComponents.shapes.AbstractShape;
 import org.mt4j.components.visibleComponents.shapes.mesh.MTTriangleMesh;
 import org.mt4j.components.visibleComponents.shapes.mesh.Triangle;
 import org.mt4j.util.camera.IFrustum;
+import org.mt4j.util.math.Matrix;
 import org.mt4j.util.math.Quaternion;
+import org.mt4j.util.math.Ray;
 import org.mt4j.util.math.ToolsBuffers;
 import org.mt4j.util.math.ToolsMath;
-import org.mt4j.util.math.Matrix;
-import org.mt4j.util.math.Ray;
 import org.mt4j.util.math.Vector3D;
 
 import processing.core.PGraphics;

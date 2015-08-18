@@ -1,9 +1,5 @@
 package org.mt4j.util;
 
-import org.mt4j.util.opengl.GL10;
-import org.mt4j.util.opengl.GL11;
-import org.mt4j.util.opengl.GL11Plus;
-import org.mt4j.util.opengl.GL20;
 import org.mt4j.util.opengl.IGLU;
 
 import processing.core.PGraphics;
@@ -46,26 +42,6 @@ public class PlatformUtil {
 		return graphicsUtil.getCameraFar();
 	}
 	
-	public static GL10 getGL(){
-		return graphicsUtil.getGL();
-	}
-	
-	public static GL11 getGL11(){
-		return graphicsUtil.getGL11();
-	}
-	
-	public static GL20 getGL20(){
-		return graphicsUtil.getGL20();
-	}
-
-	public static GL10 beginGL() {
-		return graphicsUtil.beginGL();
-	}
-
-	public static void endGL() {
-		graphicsUtil.endGL();
-	}
-	
 	public static void setGraphicsUtilProvider(IPlatformUtil graphicsUtilitiy){
 		graphicsUtil = graphicsUtilitiy;
 	}
@@ -83,10 +59,6 @@ public class PlatformUtil {
 	}
 
 		
-	public static GL11Plus getGL11Plus() {
-		return graphicsUtil.getGL11Plus();
-	}
-	
 	public static IGLU getGLU(){
 		return graphicsUtil.getGLU();
 	}

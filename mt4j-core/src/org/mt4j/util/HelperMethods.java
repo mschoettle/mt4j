@@ -18,8 +18,9 @@
 package org.mt4j.util;
 
 
+import javax.media.opengl.GL2;
+
 import org.mt4j.util.math.Matrix;
-import org.mt4j.util.opengl.GL10;
 
 import processing.core.PApplet;
 
@@ -153,7 +154,7 @@ public class HelperMethods {
     public static int RENDERER_STATE = PROCESSING_MATRIX_MODE;
     
     /** The gl. */
-    private static GL10 gl;
+    private static GL2 gl;
     
     /** The ctm. */
     private static float[] ctm = new float[16];
@@ -166,27 +167,27 @@ public class HelperMethods {
      * 
      * @return the gL
      */
-    public static GL10 beginGL(PApplet pa){
-    	switch (RENDERER_STATE) {
-		case PROCESSING_MATRIX_MODE:
-			RENDERER_STATE = OPENGL_MATRIX_MODE;
-//			gl = Tools3D.beginGL(pa);
-			gl = PlatformUtil.beginGL();
-			return gl;
-		case OPENGL_MATRIX_MODE:
-//			return ((PGraphicsOpenGL)pa.g).gl;
-			return getGL();
-		default:
-			break;
-		}
-//    	return Tools3D.beginGL(pa);
-    	return PlatformUtil.beginGL();
-    }
+//    public static GL10 beginGL(PApplet pa){
+//    	switch (RENDERER_STATE) {
+//		case PROCESSING_MATRIX_MODE:
+//			RENDERER_STATE = OPENGL_MATRIX_MODE;
+////			gl = Tools3D.beginGL(pa);
+//			gl = PlatformUtil.beginGL();
+//			return gl;
+//		case OPENGL_MATRIX_MODE:
+////			return ((PGraphicsOpenGL)pa.g).gl;
+//			return getGL();
+//		default:
+//			break;
+//		}
+////    	return Tools3D.beginGL(pa);
+//    	return PlatformUtil.beginGL();
+//    }
     
     /*
-    //Methoden müssten in basecomponent
+    //Methoden mï¿½ssten in basecomponent
      * 
-    //Jede comp müsste das implementieren, wird vorm rendern abgefragt
+    //Jede comp mï¿½sste das implementieren, wird vorm rendern abgefragt
     public boolean isUseOpenGL(){
     	return true/false;
     }
@@ -224,29 +225,29 @@ public class HelperMethods {
      * 
      * @param pa the pa
      */
-    public static void endGL(PApplet pa){
-    	switch (RENDERER_STATE) {
-		case PROCESSING_MATRIX_MODE:
-	    	break;
-		case OPENGL_MATRIX_MODE:
-			RENDERER_STATE = PROCESSING_MATRIX_MODE;
-//			Tools3D.endGL(pa);
-			PlatformUtil.endGL();
-			break;
-		default:
-			break;
-		}
-    }
+//    public static void endGL(PApplet pa){
+//    	switch (RENDERER_STATE) {
+//		case PROCESSING_MATRIX_MODE:
+//	    	break;
+//		case OPENGL_MATRIX_MODE:
+//			RENDERER_STATE = PROCESSING_MATRIX_MODE;
+////			Tools3D.endGL(pa);
+//			PlatformUtil.endGL();
+//			break;
+//		default:
+//			break;
+//		}
+//    }
     
 
-    //TODO überall nur noch getgel statt cast schrott
-    //überall anstatt beginGL();
+    //TODO ï¿½berall nur noch getgel statt cast schrott
+    //ï¿½berall anstatt beginGL();
     /**
      * Gets the gL.
      * 
      * @return the gL
      */
-    public static GL10 getGL(){
+    public static GL2 getGL(){
     	return gl;
     }
     
@@ -269,7 +270,7 @@ public class HelperMethods {
 			);
 	    	break;
 		case OPENGL_MATRIX_MODE:
-			GL10 gl = getGL();
+			GL2 gl = getGL();
 			ctm[0] = m.m00;
 		    ctm[1] = m.m10;
 		    ctm[2] = m.m20;

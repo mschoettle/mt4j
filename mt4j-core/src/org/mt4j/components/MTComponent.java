@@ -22,6 +22,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.media.opengl.GL2;
+import javax.media.opengl.glu.GLU;
+
 import org.mt4j.components.PickResult.PickEntry;
 import org.mt4j.components.bounds.IBoundingShape;
 import org.mt4j.components.clipping.Clip;
@@ -47,7 +50,6 @@ import org.mt4j.util.math.Matrix;
 import org.mt4j.util.math.Ray;
 import org.mt4j.util.math.Tools3D;
 import org.mt4j.util.math.Vector3D;
-import org.mt4j.util.opengl.GL10;
 
 import processing.core.PApplet;
 import processing.core.PGraphics;
@@ -1704,8 +1706,8 @@ public class MTComponent implements IMTComponent3D, IMTInputEventListener, IGest
 		g.pushMatrix();
 
 		if (light != null){
-			GL10 gl = PlatformUtil.getGL();
-			gl.glEnable(GL10.GL_LIGHTING); //this is expensive
+			GL2 gl = GLU.getCurrentGL().getGL2();
+			gl.glEnable(GL2.GL_LIGHTING); //this is expensive
 			light.enable();
 		}
 
@@ -1766,8 +1768,8 @@ public class MTComponent implements IMTComponent3D, IMTInputEventListener, IGest
 		//FIXME TRIAL
 		if (light != null){
 			light.disable();
-			GL10 gl = PlatformUtil.getGL();
-			gl.glDisable(GL10.GL_LIGHTING);
+			GL2 gl = GLU.getCurrentGL().getGL2();
+			gl.glDisable(GL2.GL_LIGHTING);
 		}
 	}
 	

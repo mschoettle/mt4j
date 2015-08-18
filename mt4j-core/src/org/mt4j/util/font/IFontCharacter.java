@@ -17,7 +17,7 @@
  ***********************************************************************/
 package org.mt4j.util.font;
 
-import org.mt4j.util.opengl.GL10;
+import javax.media.opengl.GL2;
 
 import processing.core.PGraphics;
 
@@ -39,7 +39,7 @@ public interface IFontCharacter {
 	 * 
 	 * @param gl the gl
 	 */
-	public void drawComponent(GL10 gl);
+	public void drawComponent(GL2 gl);
 	
 	/**
 	 * Gets the unicode.
