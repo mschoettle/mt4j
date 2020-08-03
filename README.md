@@ -35,6 +35,9 @@ Because there are probably more people out there facing the same problem, we are
 
 This sections explains how to configure eclipse to actually build this library for further reuse:
 
+
+### Project configurations
+
  * Clone this repo
  * Make sure eclipse uses JDK 1.8 as runtime and compiler compliance:
    * Right-click on project -> properties -> Java Build Path -> Libraries -> Remove JDK13, add JDK 1.8 (```brew cask install adoptopenjdk8```)
@@ -42,4 +45,25 @@ This sections explains how to configure eclipse to actually build this library f
  * Clean and build: Project -> Clean...
  * Make sure the tests pass:
    * mt4j-core -> examples -> basic.helloworld -> Right-click: StartHelloWorld -> Run as... -> Java application
+
+### Build a JAR
+
+ * Right click on ```build.xml``` -> Run As... -> Ant Build  
+Alternatively: ```cd mt4j-core; ant create_run_jar```
+ * This generates a new file, for further use as MT4J-library: **mt4j-core/mt4j.jar**
+
+ > *Note:* Unfortunately the ant build requires the compiled classes in a ```bin```subfolder (Created by eclipse: ```clean & build```). So you can not avoid eclipse.
+
+### Mavenize it
+
+ * To build a local maven artifact, based on this jar:  
+```mvn install:install-file -Dfile=mt4j.jar -DgroupId=friend.of.mcgillsel -DartifactId=mt4j -Dversion=mspatch-1.0 -Dpackaging=jar -DcreateChecksum=true```
+ * From here on you can simply refer to mt4j in your maven projects, using the following snippet:  
+```xml
+<dependency>
+	<groupId>friend.of.mcgillsel</groupId>
+	<artifactId>mt4j</artifactId>
+	<version>mspatch-1.0</version>
+</dependency>
+```
 
