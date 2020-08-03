@@ -30,3 +30,16 @@ The following is the list of changes, which the commit history should easily ref
 We are working on the [TouchCORE](http://touchcore.cs.mcgill.ca) (formerly TouchRAM) project in the [Software Engineering Laboratory](http://www.cs.mcgill.ca/~joerg/SEL/SEL_Home.html) at [McGill University](http://www.mcgill.ca). When we started developing our application, MT4j v0.98 was freshly released. Unfortunately, it was never updated since, which lead us to making some adjustments our own (besides extending some of MT4j's components in our project). We always had the problem of running it with Java 7 and higher on OSX, because of JOGL 1.x only working with the JRE provided by Apple. We worked with this constraint for a long time, but finally made the switch due to other constraints, thanks to some helpful pointers we found in the [UltraCom project](https://github.com/lodsb/UltraCom/tree/proc2) (which unfortunately has many more modifications to MT4j).
 
 Because there are probably more people out there facing the same problem, we are sharing this updated version. Hope it helps! :)
+
+## How!
+
+This sections explains how to configure eclipse to actually build this library for further reuse:
+
+ * Clone this repo
+ * Make sure eclipse uses JDK 1.8 as runtime and compiler compliance:
+   * Right-click on project -> properties -> Java Build Path -> Libraries -> Remove JDK13, add JDK 1.8 (```brew cask install adoptopenjdk8```)
+   * Right-click on project -> properties -> Java Compiler -> Enable project specific settings, compiler compliance level = 1.8
+ * Clean and build: Project -> Clean...
+ * Make sure the tests pass:
+   * mt4j-core -> examples -> basic.helloworld -> Right-click: StartHelloWorld -> Run as... -> Java application
+
